@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 class Server {
 
@@ -9,6 +10,10 @@ class Server {
 
     private static BufferedReader keyboardReader;
 
+    // Define socket and serverSocket to be used in completablefuture
+    private static Socket socket;
+    private static ServerSocket serverSocket;
+
     public static void main(String args[]) throws Exception {
         threads = new ArrayList<ServerThread>();
 
@@ -16,25 +21,73 @@ class Server {
         keyboardReader = new BufferedReader(new InputStreamReader(System.in));
 
         // Create server Socket
-        ServerSocket serverSocket = new ServerSocket(PORT);
+        serverSocket = new ServerSocket(PORT);
 
-        Socket socket = null;
+        socket = null;
 
-        while (true) {
+        CompletableFuture asyncSocket = CompletableFuture.runAsync(() -> {
             try {
                 socket = serverSocket.accept();
+
+                // new thread for a client
+                threads.add(new ServerThread(socket));
+                threads.get(threads.size() - 1).start();
             } catch (IOException e) {
-                System.out.println("I/O error: " + e);
+                e.printStackTrace();
             }
-            // new thread for a client
-            threads.add(new ServerThread(socket));
-            threads.get(threads.size() - 1).start();
+        });
 
-            // Get input
-            String input = keyboardReader.readLine();
+        CompletableFuture asyncInput = CompletableFuture.runAsync(() -> {
+            try {
+                // Get input
+                String input = keyboardReader.readLine();
+                System.out.println("Input: " + input);
 
-            if (input != null) {
-                processInput(input);
+                if (input != null && input.length() > 0) {
+                    processInput(input);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        while (true) {
+
+            // If async function is done, start again
+            if (asyncSocket.isDone()) {
+                // Check sockets asyncronously
+                asyncSocket = CompletableFuture.runAsync(() -> {
+                    try {
+                        socket = serverSocket.accept();
+
+                        // new thread for a client
+                        threads.add(new ServerThread(socket));
+                        threads.get(threads.size() - 1).start();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+            }
+
+            // Start async funtion if not already doing so
+            if (asyncInput.isDone()) {
+
+                // Check input asyncronously
+                asyncInput = CompletableFuture.runAsync(() -> {
+                    try {
+                        // Get input
+                        String input = keyboardReader.readLine();
+
+                        if (input != null && input.length() > 0) {
+                            processInput(input);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
             }
         }
 
@@ -51,7 +104,7 @@ class Server {
                 tellAll(temp);
                 return;
             } else {
-                System.out.println("ERROR: INVALID COMMAND");
+                error("Invalid Command");
             }
         }
     }
@@ -60,5 +113,10 @@ class Server {
         for (ServerThread t : threads) {
             t.pushMessage(message);
         }
+    }
+
+    private static void error(String errorMessage) {
+        System.out.print("\u001B[31m" + "ERROR: ");
+        System.out.println(errorMessage + "\u001B[39m");
     }
 }

@@ -37,7 +37,7 @@ public class ServerThread extends Thread {
         while (true) {
 
             String in;
-            String out;
+            String out = null;
 
             // repeat as long as the client
             // does not send a null string
@@ -53,7 +53,8 @@ public class ServerThread extends Thread {
 
                     // Send keyboard out
                     // out = keyboardReader.readLine();
-                    out = message;
+                    if (message != null)
+                        out = message;
 
                     // send to client
                     printStream.println(out);
@@ -93,7 +94,7 @@ public class ServerThread extends Thread {
         // return false;
         // }
 
-        // this.message = message;
+        this.message = message;
         return true;
     }
 }
