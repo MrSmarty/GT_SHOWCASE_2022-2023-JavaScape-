@@ -1,8 +1,16 @@
 import java.net.*;
+import java.util.concurrent.CompletableFuture;
 import java.io.*;
 
 public class Client {
     private static final int PORT = 19;
+
+    // Strings to contain input and output
+    static String out;
+    static String in;
+
+    // True if while loop should be running
+    static boolean run = true;
 
     public static void main(String args[]) throws Exception {
 
@@ -17,28 +25,81 @@ public class Client {
 
         // to read data from the keyboard
         BufferedReader keyboardReader = new BufferedReader(new InputStreamReader(System.in));
-        String out;
-        String in;
+
+        // region Async Initializers
+
+        // Start asynchronous function to handle keyboard input
+        CompletableFuture<Void> asyncInput = CompletableFuture.runAsync(() -> {
+            try {
+                out = keyboardReader.readLine();
+
+                // send to the server
+                if (out != null)
+                    dataOut.writeBytes(socket.getInetAddress().getHostName() + ": " + out + "\n");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        // Start asynchronous function to handle printing server message
+        CompletableFuture<Void> asyncPrint = CompletableFuture.runAsync(() -> {
+            try {
+
+                // Recieve from server
+                in = bufferedIn.readLine();
+
+                if (in != null)
+                    System.out.println("[SERVER]: " + in);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        // endregion
 
         // repeat as long as quit
         // is not typed at client
-        boolean run = true;
         while (run) {
 
-            out = keyboardReader.readLine();
+            if (asyncInput.isDone()) {
+                // Start asynchronous fucntion to handle keyboard input
+                asyncInput = CompletableFuture.runAsync(() -> {
+                    try {
+                        out = keyboardReader.readLine();
 
-            // send to the server
-            if (out != null)
-                dataOut.writeBytes(socket.getInetAddress().getHostName() + ": " + out + "\n");
+                        // send to the server
+                        if (out != null)
+                            dataOut.writeBytes(socket.getInetAddress().getHostName() + ": " + out + "\n");
 
-            // receive from the server
-            in = bufferedIn.readLine();
+                        if (out.equalsIgnoreCase("quit"))
+                            run = false;
+                        out = null;
 
-            System.out.println("[SERVER]: " + in);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-            if (out.equalsIgnoreCase("quit"))
-                run = false;
-            out = null;
+                });
+            }
+
+            if (asyncPrint.isDone()) {
+                asyncPrint = CompletableFuture.runAsync(() -> {
+                    try {
+
+                        // Recieve from server
+                        in = bufferedIn.readLine();
+
+                        if (in != null)
+                            System.out.println("[SERVER]: " + in);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
         }
 
         // close connection.

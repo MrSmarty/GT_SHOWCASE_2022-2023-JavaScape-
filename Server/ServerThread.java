@@ -50,6 +50,9 @@ public class ServerThread extends Thread {
                     // give us the data coming in and print if not null
                     in = clientReader.readLine();
                     System.out.println(in);
+                    if (in.contains("quit")) {
+                        run = false;
+                    }
 
                     // Send keyboard out
                     // out = keyboardReader.readLine();
