@@ -25,7 +25,7 @@ class Server {
 
         socket = null;
 
-        CompletableFuture asyncSocket = CompletableFuture.runAsync(() -> {
+        CompletableFuture<Void> asyncSocket = CompletableFuture.runAsync(() -> {
             try {
                 socket = serverSocket.accept();
 
@@ -37,7 +37,7 @@ class Server {
             }
         });
 
-        CompletableFuture asyncInput = CompletableFuture.runAsync(() -> {
+        CompletableFuture<Void> asyncInput = CompletableFuture.runAsync(() -> {
             try {
                 // Get input
                 String input = keyboardReader.readLine();
