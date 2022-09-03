@@ -1,0 +1,1 @@
+1. Failure is OK. I spend two hours trying and failing when figuring out how to make the things Asynchronous only to find that the solution was 5 lines of code.

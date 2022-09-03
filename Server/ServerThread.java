@@ -1,17 +1,27 @@
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.CompletableFuture;
 
 public class ServerThread extends Thread {
     protected Socket socket;
+    protected Server server;
 
     private PrintStream printStream;
     private BufferedReader clientReader;
     private BufferedReader keyboardReader;
 
-    private String message = null;
+    CompletableFuture<Void> asyncPrint;
 
-    public ServerThread(Socket clientSocket) {
+    private String message = null;
+    private String in = null;
+    private String out = null;
+
+    // Determines if while loop is running
+    private boolean run = true;
+
+    public ServerThread(Socket clientSocket, Server server) {
         this.socket = clientSocket;
+        this.server = server;
     }
 
     public void run() {
@@ -30,74 +40,115 @@ public class ServerThread extends Thread {
             // keyboardReader = new BufferedReader(new InputStreamReader(System.in));
 
         } catch (IOException e) {
+            e.printStackTrace();
             return;
         }
 
-        // server executes continuously
-        while (true) {
-
-            String in;
-            String out = null;
-
-            // repeat as long as the client
-            // does not send a null string
-
-            // read from client
+        // Initialize async functions
+        asyncPrint = CompletableFuture.runAsync(() -> {
             try {
-                boolean run = true;
-                while (run) {
-
-                    // give us the data coming in and print if not null
-                    in = clientReader.readLine();
+                // give us the data coming in and print if not null
+                in = clientReader.readLine();
+                if (in != null)
                     System.out.println(in);
-                    if (in.contains("quit")) {
-                        run = false;
-                    }
 
-                    // Send keyboard out
-                    // out = keyboardReader.readLine();
-                    if (message != null)
-                        out = message;
+                if (in.contains("quit")) {
+                    run = false;
 
-                    // send to client
-                    printStream.println(out);
+                    server.cleanUp();
 
-                    // Reset value in and out
-                    in = null;
-                    out = null;
-                    message = null;
+                    // close connection
+                    printStream.close();
+                    clientReader.close();
+                    keyboardReader.close();
+                    socket.close();
                 }
-
-                // close connection
-                printStream.close();
-                clientReader.close();
-                keyboardReader.close();
-                socket.close();
             } catch (IOException e) {
+                e.printStackTrace();
                 return;
             }
+        });
 
-            // terminate application
-            System.exit(0);
+        // CompletableFuture<Void> asyncMessage = CompletableFuture.runAsync(() -> {
+        // // Send keyboard out
+        // // out = keyboardReader.readLine();
+        // if (message != null) {
+        // out = message;
 
-        } // end of while
+        // // send to client
+        // printStream.println(out);
+        // printStream.flush();
+        // System.out.println("Message Sent");
+        // }
+        // });
+
+        // repeat as long as the client
+        // does not send a null string
+
+        // read from client
+        while (run) {
+
+            if (asyncPrint.isDone()) {
+                asyncPrint = CompletableFuture.runAsync(() -> {
+                    try {
+                        // give us the data coming in and print if not null
+                        in = clientReader.readLine();
+                        System.out.println(in);
+                        if (in == "quit") {
+                            quit();
+                            return;
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    in = null;
+                });
+            }
+
+            // if (asyncMessage.isDone()) {
+            // asyncMessage = CompletableFuture.runAsync(() -> {
+            // Send keyboard out
+            // out = keyboardReader.readLine();
+            if (message != null && run != false) {
+                out = message;
+
+                // send to client
+                printStream.println(out);
+                printStream.flush();
+                System.out.println("Message Sent");
+
+                out = null;
+                message = null;
+            }
+
+            // });
+            // }
+
+        }
+
     }
 
     public boolean pushMessage(String message) {
-        // // Debug:
-        System.out.println("Pushing Message...");
-
-        // try {
-        // out.writeBytes("[SERVER]: " + message + "\n\r");
-        // out.flush();
-        // return true;
-        // } catch (Exception e) {
-        // System.out.println("ERROR:");
-        // e.printStackTrace();
-        // return false;
-        // }
-
         this.message = message;
         return true;
+    }
+
+    private void quit() {
+        run = false;
+
+        asyncPrint.cancel(true);
+
+        // close connection
+        printStream.close();
+
+        try {
+            clientReader.close();
+            keyboardReader.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

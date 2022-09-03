@@ -14,7 +14,7 @@ class Server {
     private static Socket socket;
     private static ServerSocket serverSocket;
 
-    public static void main(String args[]) throws Exception {
+    public void start() throws Exception {
         threads = new ArrayList<ServerThread>();
 
         // Get input from keyboard
@@ -30,7 +30,7 @@ class Server {
                 socket = serverSocket.accept();
 
                 // new thread for a client
-                threads.add(new ServerThread(socket));
+                threads.add(new ServerThread(socket, this));
                 threads.get(threads.size() - 1).start();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -60,7 +60,7 @@ class Server {
                         socket = serverSocket.accept();
 
                         // new thread for a client
-                        threads.add(new ServerThread(socket));
+                        threads.add(new ServerThread(socket, this));
                         threads.get(threads.size() - 1).start();
 
                     } catch (IOException e) {
@@ -85,6 +85,7 @@ class Server {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    System.out.println("Async Input Completed");
                 });
 
             }
@@ -92,7 +93,7 @@ class Server {
 
     }
 
-    private static void processInput(String input) {
+    private void processInput(String input) {
         if (input.charAt(0) == '/') {
             String[] args = input.substring(1).split(" ");
             if (args[0].equals("tellAll") && args.length > 1) {
@@ -108,14 +109,28 @@ class Server {
         }
     }
 
-    private static void tellAll(String message) {
+    private void tellAll(String message) {
         for (ServerThread t : threads) {
             t.pushMessage(message);
+            System.out.println("Pushing to Thread with ID: " + t.getId());
         }
     }
 
-    private static void error(String errorMessage) {
+    private void error(String errorMessage) {
         System.out.print("\u001B[31m" + "ERROR: ");
         System.out.println(errorMessage + "\u001B[39m");
     }
+
+    public void cleanUp() {
+        int c = 0;
+        System.out.println("Cleaning...");
+        for (ServerThread st : threads) {
+            if (!st.socket.isClosed()) {
+                threads.remove(st);
+                c++;
+            }
+        }
+        System.out.println("Clean Complete! Removed " + c + "thread(s)!");
+    }
+
 }
