@@ -46,41 +46,18 @@ public class ServerThread extends Thread {
 
         // Initialize async functions
         asyncPrint = CompletableFuture.runAsync(() -> {
-            try {
+            asyncPrint = CompletableFuture.runAsync(() -> {
                 // give us the data coming in and print if not null
-                in = clientReader.readLine();
-                if (in != null)
-                    System.out.println(in);
+                // input is "quit" or null then terminate the program
 
-                if (in.contains("quit")) {
-                    run = false;
-
-                    server.cleanUp();
-
-                    // close connection
-                    printStream.close();
-                    clientReader.close();
-                    keyboardReader.close();
-                    socket.close();
+                System.out.println(in);
+                if (in == "quit" || in == null) {
+                    quit();
+                    return;
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
+                in = null;
+            });
         });
-
-        // CompletableFuture<Void> asyncMessage = CompletableFuture.runAsync(() -> {
-        // // Send keyboard out
-        // // out = keyboardReader.readLine();
-        // if (message != null) {
-        // out = message;
-
-        // // send to client
-        // printStream.println(out);
-        // printStream.flush();
-        // System.out.println("Message Sent");
-        // }
-        // });
 
         // repeat as long as the client
         // does not send a null string
@@ -93,6 +70,9 @@ public class ServerThread extends Thread {
                     try {
                         // give us the data coming in and print if not null
                         in = clientReader.readLine();
+                        if (in == null)
+                            return;
+
                         System.out.println(in);
                         if (in == "quit") {
                             quit();
@@ -141,10 +121,10 @@ public class ServerThread extends Thread {
         asyncPrint.cancel(true);
 
         // close connection
-        printStream.close();
+        // TODO: printStream.close();
 
         try {
-            clientReader.close();
+            // TODO: clientReader.close();
             keyboardReader.close();
             socket.close();
         } catch (IOException e) {

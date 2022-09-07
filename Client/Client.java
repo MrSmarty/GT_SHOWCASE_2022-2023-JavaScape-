@@ -3,24 +3,24 @@ import java.util.concurrent.CompletableFuture;
 import java.io.*;
 
 public class Client {
-    private static final int PORT = 19;
+    private final int PORT = 19;
 
-    static Socket socket;
-    static DataOutputStream dataOut;
-    static BufferedReader bufferedIn;
-    static BufferedReader keyboardReader;
+    Socket socket;
+    DataOutputStream dataOut;
+    BufferedReader bufferedIn;
+    BufferedReader keyboardReader;
 
-    static CompletableFuture<Void> asyncInput;
-    static CompletableFuture<Void> asyncPrint;
+    CompletableFuture<Void> asyncInput;
+    CompletableFuture<Void> asyncPrint;
 
     // Strings to contain input and output
-    static String out;
-    static String in;
+    String out;
+    String in;
 
     // True if while loop should be running
-    static boolean run = true;
+    boolean run = true;
 
-    public static void main(String args[]) throws Exception {
+    public void start() throws Exception {
 
         // Create client socket
         socket = new Socket("localhost", PORT);
@@ -83,7 +83,7 @@ public class Client {
                         }
 
                         // send to the server
-                        if (out != null && !out.equals(""))
+                        if (out != null && !out.equals("") && run != false)
                             dataOut.writeBytes(socket.getInetAddress().getHostName() + ": " + out + "\n");
 
                         out = null;
@@ -115,7 +115,7 @@ public class Client {
 
     }
 
-    private static void quit() {
+    private void quit() {
         try {
             dataOut.writeBytes("quit");
         } catch (IOException e) {

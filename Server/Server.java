@@ -5,6 +5,8 @@ import java.util.concurrent.*;
 
 class Server {
 
+    Debug Debug = new Debug();
+
     private static final int PORT = 19;
     private static ArrayList<ServerThread> threads;
 
@@ -85,7 +87,7 @@ class Server {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Async Input Completed");
+                    Debug.log("Async Input Completed");
                 });
 
             }
@@ -94,15 +96,19 @@ class Server {
     }
 
     private void processInput(String input) {
+        cleanUp();
         if (input.charAt(0) == '/') {
             String[] args = input.substring(1).split(" ");
-            if (args[0].equals("tellAll") && args.length > 1) {
+
+            if (args[0].equals("tellAll") && args.length > 1) { // /tellAll
                 String temp = args[1];
                 for (int i = 2; i < args.length; i++) {
                     temp += " " + args[i];
                 }
                 tellAll(temp);
                 return;
+            } else if (args[0].equals("toggleDebug") && (args[1].equals("true") || args[1].equals("false"))) {
+                Debug.setMode(Boolean.parseBoolean(args[1]));
             } else {
                 error("Invalid Command");
             }
