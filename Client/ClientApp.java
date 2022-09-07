@@ -26,6 +26,8 @@ public class ClientApp {
         temp.setProperty("rememberMe", "false");
         temp.setProperty("username", "");
         temp.setProperty("password", "");
+        temp.setProperty("IP", "");
+        temp.setProperty("port", "");
 
         temp.store(tempOut, null);
 
