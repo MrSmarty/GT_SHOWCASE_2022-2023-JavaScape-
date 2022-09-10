@@ -3,7 +3,8 @@ import java.util.concurrent.CompletableFuture;
 import java.io.*;
 
 public class Client {
-    private final int PORT = 19;
+    private String ip;
+    private int port;
 
     Socket socket;
     DataOutputStream dataOut;
@@ -20,10 +21,15 @@ public class Client {
     // True if while loop should be running
     boolean run = true;
 
+    public Client(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
+    }
+
     public void start() throws Exception {
 
         // Create client socket
-        socket = new Socket("localhost", PORT);
+        socket = new Socket("localhost", 19);
 
         // to send data to the server
         dataOut = new DataOutputStream(socket.getOutputStream());
@@ -34,44 +40,14 @@ public class Client {
         // to read data from the keyboard
         keyboardReader = new BufferedReader(new InputStreamReader(System.in));
 
-        // region Async Initializers
-
-        // Start asynchronous function to handle keyboard input
-        asyncInput = CompletableFuture.runAsync(() -> {
-            try {
-                out = keyboardReader.readLine();
-
-                // send to the server
-                if (out != null)
-                    dataOut.writeBytes(socket.getInetAddress().getHostName() + ": " + out + "\n");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-
-        // Start asynchronous function to handle printing server message
-        asyncPrint = CompletableFuture.runAsync(() -> {
-            try {
-
-                // Recieve from server
-                in = bufferedIn.readLine();
-
-                if (in != null)
-                    System.out.println("[SERVER]: " + in);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        // endregion
+        dataOut.writeBytes("Connected");
+        dataOut.flush();
 
         // repeat as long as quit
         // is not typed at client
         while (run) {
 
-            if (asyncInput.isDone()) {
+            if (asyncInput == null || asyncInput.isDone()) {
                 // Start asynchronous fucntion to handle keyboard input
                 asyncInput = CompletableFuture.runAsync(() -> {
                     try {
@@ -95,7 +71,7 @@ public class Client {
                 });
             }
 
-            if (asyncPrint.isDone()) {
+            if (asyncPrint == null || asyncPrint.isDone()) {
                 asyncPrint = CompletableFuture.runAsync(() -> {
                     try {
 
@@ -137,6 +113,10 @@ public class Client {
             e.printStackTrace();
         }
         System.exit(0);
+    }
+
+    public void setMessage(String message) {
+
     }
 
 }

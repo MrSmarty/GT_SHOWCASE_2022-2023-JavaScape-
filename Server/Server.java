@@ -96,7 +96,6 @@ class Server {
     }
 
     private void processInput(String input) {
-        cleanUp();
         if (input.charAt(0) == '/') {
             String[] args = input.substring(1).split(" ");
 
@@ -116,6 +115,7 @@ class Server {
     }
 
     private void tellAll(String message) {
+        cleanUp();
         for (ServerThread t : threads) {
             t.pushMessage(message);
             System.out.println("Pushing to Thread with ID: " + t.getId());
@@ -131,12 +131,12 @@ class Server {
         int c = 0;
         System.out.println("Cleaning...");
         for (ServerThread st : threads) {
-            if (!st.socket.isClosed()) {
+            if (st.socket.isClosed()) {
                 threads.remove(st);
                 c++;
             }
         }
-        System.out.println("Clean Complete! Removed " + c + "thread(s)!");
+        System.out.println("Clean Complete! Removed " + c + " thread(s)!");
     }
 
 }

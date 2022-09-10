@@ -2,9 +2,16 @@ import java.io.*;
 import java.net.*;
 
 public class Reciever {
-    private final int PORT = 19;
+    private String ip;
+    private int port;
 
-    public static void main(String[] args) {
-
+    public Reciever(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
     }
+
+    public void start() {
+        
+    }
+
 }

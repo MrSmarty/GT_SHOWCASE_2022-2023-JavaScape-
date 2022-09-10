@@ -39,25 +39,10 @@ public class ServerThread extends Thread {
             // to read data from the keyboard
             // keyboardReader = new BufferedReader(new InputStreamReader(System.in));
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return;
         }
-
-        // Initialize async functions
-        asyncPrint = CompletableFuture.runAsync(() -> {
-            asyncPrint = CompletableFuture.runAsync(() -> {
-                // give us the data coming in and print if not null
-                // input is "quit" or null then terminate the program
-
-                System.out.println(in);
-                if (in == "quit" || in == null) {
-                    quit();
-                    return;
-                }
-                in = null;
-            });
-        });
 
         // repeat as long as the client
         // does not send a null string
@@ -65,7 +50,7 @@ public class ServerThread extends Thread {
         // read from client
         while (run) {
 
-            if (asyncPrint.isDone()) {
+            if (asyncPrint == null || asyncPrint.isDone()) {
                 asyncPrint = CompletableFuture.runAsync(() -> {
                     try {
                         // give us the data coming in and print if not null

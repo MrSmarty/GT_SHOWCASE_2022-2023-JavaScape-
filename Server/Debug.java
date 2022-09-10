@@ -1,6 +1,6 @@
 public class Debug {
 
-    boolean debugMode = true;
+    boolean debugMode = false;
 
     public void log(String log) {
         if (debugMode)
