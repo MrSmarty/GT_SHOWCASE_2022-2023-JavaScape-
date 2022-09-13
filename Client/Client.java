@@ -1,10 +1,16 @@
 import java.net.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.*;
+import java.util.concurrent.*;
 import java.io.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class Client {
     private String ip;
     private int port;
+
+    private LocalDateTime dateTime = LocalDateTime.now();
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("[mm/dd/yy | hh:mm:ss]: ");
 
     Socket socket;
     DataOutputStream dataOut;
@@ -29,7 +35,7 @@ public class Client {
     public void start() throws Exception {
 
         // Create client socket
-        socket = new Socket("localhost", 19);
+        socket = new Socket(ip, port);
 
         // to send data to the server
         dataOut = new DataOutputStream(socket.getOutputStream());
@@ -40,7 +46,8 @@ public class Client {
         // to read data from the keyboard
         keyboardReader = new BufferedReader(new InputStreamReader(System.in));
 
-        dataOut.writeBytes("Connected");
+        dataOut.writeBytes(
+                dateTime.format(dateFormatter) + socket.getInetAddress().getHostName() + ": Connected" + "\n");
         dataOut.flush();
 
         // repeat as long as quit
@@ -60,7 +67,8 @@ public class Client {
 
                         // send to the server
                         if (out != null && !out.equals("") && run != false)
-                            dataOut.writeBytes(socket.getInetAddress().getHostName() + ": " + out + "\n");
+                            dataOut.writeBytes(dateTime.format(dateFormatter) + socket.getInetAddress().getHostName()
+                                    + ": " + out + "\n");
 
                         out = null;
 
@@ -79,7 +87,7 @@ public class Client {
                         in = bufferedIn.readLine();
 
                         if (in != null)
-                            System.out.println("[SERVER]: " + in);
+                            System.out.println(in);
 
                     } catch (IOException e) {
                         e.printStackTrace();

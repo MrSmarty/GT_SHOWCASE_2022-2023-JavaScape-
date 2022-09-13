@@ -1,10 +1,15 @@
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.CompletableFuture;
+import java.time.*;
+import java.time.format.*;
 
 public class ServerThread extends Thread {
     protected Socket socket;
     protected Server server;
+
+    private LocalDateTime dateTime = LocalDateTime.now();
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("[mm/dd/yy | hh:mm:ss]: ");
 
     private PrintStream printStream;
     private BufferedReader clientReader;
@@ -96,7 +101,7 @@ public class ServerThread extends Thread {
     }
 
     public boolean pushMessage(String message) {
-        this.message = message;
+        this.message = dateTime.format(dateFormatter) + " [SERVER] " + message;
         return true;
     }
 
