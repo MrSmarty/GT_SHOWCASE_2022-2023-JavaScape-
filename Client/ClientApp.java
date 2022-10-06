@@ -2,8 +2,26 @@ import java.io.*;
 import java.util.*;
 
 public class ClientApp {
+    private static boolean useGUI = true;
+
+    private static Terminal t;
+    private static GUI gui;
 
     public static void main(String[] args) throws IOException {
+        if (args.length != 0) {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i].equalsIgnoreCase("-nogui") || args[i].equalsIgnoreCase("nogui")) {
+                    useGUI = false;
+                }
+            }
+        }
+
+        if (useGUI == true) {
+            gui = new GUI();
+            t = new Terminal(useGUI, gui);
+        } else {
+            t = new Terminal(useGUI);
+        }
 
         File configFile = new File("config.properties");
         if (!configFile.isFile()) {
@@ -17,9 +35,9 @@ public class ClientApp {
 
         p.load(configReader);
 
-        System.out.println("Conecting to ip: " + p.getProperty("IP") + " and port: " + p.getProperty("port"));
+        t.println("Conecting to ip: " + p.getProperty("IP") + " and port: " + p.getProperty("port"));
 
-        Client client = new Client(p.getProperty("IP"), Integer.parseInt(p.getProperty("port")));
+        Client client = new Client(p.getProperty("IP"), Integer.parseInt(p.getProperty("port")), useGUI);
         try {
             client.start();
         } catch (Exception e) {

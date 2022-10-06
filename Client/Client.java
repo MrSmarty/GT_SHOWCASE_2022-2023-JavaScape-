@@ -9,6 +9,9 @@ public class Client {
     private String ip;
     private int port;
 
+    private boolean useGui;
+    private GUI gui;
+
     private LocalDateTime dateTime = LocalDateTime.now();
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("[mm/dd/yy | hh:mm:ss]: ");
 
@@ -27,9 +30,10 @@ public class Client {
     // True if while loop should be running
     boolean run = true;
 
-    public Client(String ip, int port) {
+    public Client(String ip, int port, boolean gui) {
         this.ip = ip;
         this.port = port;
+        this.useGui = gui;
     }
 
     public void start() throws Exception {
