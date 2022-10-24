@@ -1,14 +1,25 @@
 package modules;
+
 import java.time.*;
 
 public class Display {
-    String pins;
+    int power;
+    int ground;
+    int[] dataPins;
 
-    public Display(String pins) {
-        this.pins = pins;
-    }
+    int width;
 
-    public Display(int pins) {
-        this.pins = Integer.toBinaryString(pins);
+    /**
+     * 
+     * @param power    index of the pin for power
+     * @param ground   index of the pin for ground
+     * @param dataPins the indexes (in order) of the four (4) pins to use for data
+     */
+    public Display(int power, int ground, int[] dataPins) {
+        this.power = power;
+        this.ground = ground;
+        this.dataPins = dataPins;
+
+        width = 16;
     }
 }

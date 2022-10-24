@@ -1,1 +1,6 @@
 1. Failure is OK. I spend two hours trying and failing when figuring out how to make the things Asynchronous only to find that the solution was 5 lines of code.
+2. 3D Printed Bracket:
+    - Measured and Designed in Fusion 360
+    - Was too small; Redesigned in Fusion 360
+    - Broke in the printer and was still too small; Redesigned again
+    - 

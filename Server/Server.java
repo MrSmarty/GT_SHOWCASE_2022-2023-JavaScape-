@@ -117,8 +117,10 @@ class Server {
     private void tellAll(String message) {
         cleanUp();
         for (ServerThread t : threads) {
-            t.pushMessage(message);
-            System.out.println("Pushing to Thread with ID: " + t.getId());
+            if (t.getType() == 0 || t.getType() == 1) {
+                t.pushMessage(message);
+                System.out.println("Pushing to Thread with ID: " + t.getId());
+            }
         }
     }
 

@@ -5,7 +5,7 @@ import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-public class Client {
+public class HeadlessClient {
     private String ip;
     private int port;
 
@@ -30,7 +30,7 @@ public class Client {
     // True if while loop should be running
     boolean run = true;
 
-    public Client(String ip, int port, boolean gui) {
+    public HeadlessClient(String ip, int port, boolean gui) {
         this.ip = ip;
         this.port = port;
         this.useGui = gui;
@@ -90,7 +90,10 @@ public class Client {
                         // Recieve from server
                         in = bufferedIn.readLine();
 
-                        if (in != null)
+                        if (in.equals("getType")) {
+                            dataOut.writeBytes("type 1\n");
+                            dataOut.flush();
+                        } else if (in != null)
                             System.out.println(in);
 
                     } catch (IOException e) {

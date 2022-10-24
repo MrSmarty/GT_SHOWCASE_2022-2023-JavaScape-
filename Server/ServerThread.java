@@ -12,7 +12,7 @@ public class ServerThread extends Thread {
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("[mm/dd/yy | hh:mm:ss]: ");
 
     private PrintStream printStream;
-    private BufferedReader clientReader;
+    private BufferedReader socketReader;
     private BufferedReader keyboardReader;
 
     CompletableFuture<Void> asyncPrint;
@@ -20,6 +20,12 @@ public class ServerThread extends Thread {
     private String message = null;
     private String in = null;
     private String out = null;
+
+    // -1 is null
+    // 0 is client
+    // 1 is headless client
+    // 2 is reciever
+    private int type = -1;
 
     // Determines if while loop is running
     private boolean run = true;
@@ -31,7 +37,7 @@ public class ServerThread extends Thread {
 
     public void run() {
         printStream = null;
-        clientReader = null;
+        socketReader = null;
         keyboardReader = null;
 
         try {
@@ -39,7 +45,7 @@ public class ServerThread extends Thread {
             printStream = new PrintStream(socket.getOutputStream());
 
             // to read data coming from the client
-            clientReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // to read data from the keyboard
             // keyboardReader = new BufferedReader(new InputStreamReader(System.in));
@@ -48,6 +54,8 @@ public class ServerThread extends Thread {
             e.printStackTrace();
             return;
         }
+
+        message = "getType";
 
         // repeat as long as the client
         // does not send a null string
@@ -59,14 +67,18 @@ public class ServerThread extends Thread {
                 asyncPrint = CompletableFuture.runAsync(() -> {
                     try {
                         // give us the data coming in and print if not null
-                        in = clientReader.readLine();
-                        if (in == null)
-                            return;
+                        in = socketReader.readLine();
+                        // if (in == null)
+                        // return;
 
                         System.out.println(in);
-                        if (in == "quit") {
+                        if (in.equals("quit")) {
                             quit();
                             return;
+                        } else if (in.substring(0, 4).equals("type")) {
+                            System.out.println("Got type");
+                            type = Integer.parseInt(in.substring(5));
+                            System.out.println("Type is now: " + type);
                         }
 
                     } catch (IOException e) {
@@ -87,7 +99,7 @@ public class ServerThread extends Thread {
                 // send to client
                 printStream.println(out);
                 printStream.flush();
-                System.out.println("Message Sent");
+                System.out.println("Message Sent:" + out);
 
                 out = null;
                 message = null;
@@ -120,5 +132,9 @@ public class ServerThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getType() {
+        return type;
     }
 }

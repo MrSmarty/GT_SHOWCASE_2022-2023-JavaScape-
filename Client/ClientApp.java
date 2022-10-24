@@ -37,7 +37,8 @@ public class ClientApp {
 
         t.println("Conecting to ip: " + p.getProperty("IP") + " and port: " + p.getProperty("port"));
 
-        Client client = new Client(p.getProperty("IP"), Integer.parseInt(p.getProperty("port")), useGUI);
+        HeadlessClient client = new HeadlessClient(p.getProperty("IP"), Integer.parseInt(p.getProperty("port")),
+                useGUI);
         try {
             client.start();
         } catch (Exception e) {
