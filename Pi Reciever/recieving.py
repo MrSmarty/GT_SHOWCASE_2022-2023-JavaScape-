@@ -30,7 +30,7 @@ async def printData():
         out = "type 2"
     elif data[:6] == "setPin":
         pin = int(data[7:9])
-        state = bool(data[10:14])
+        state = bool(data[10:15])
         if state == True:
             GPIO.output(pin, GPIO.HIGH)
         if state == False:
