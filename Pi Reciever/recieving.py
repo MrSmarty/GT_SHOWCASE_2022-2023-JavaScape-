@@ -21,7 +21,7 @@ printfunc = None
 
 async def printData():
     data = sock.recv(bufferSize).decode('utf-8')
-    data = data[:len(data)-1]
+    data = data[:len(data)]
     #formattedData = convertData(data)
     print(data)
     out = None
