@@ -35,7 +35,8 @@ async def printData():
             GPIO.output(pin, GPIO.HIGH)
         if state == False:
             GPIO.output(pin, GPIO.LOW)
-        print("Set pin # " + str(pin) + " to " + bool(state))
+        print("Set pin # " + str(pin) + " to " + str(state))
+
     elif data[:8] == "setupPin":
         pin = int(data[9:11])
         state = data[12:14]
