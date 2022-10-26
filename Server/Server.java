@@ -106,6 +106,13 @@ class Server {
                 }
                 tellAll(temp);
                 return;
+            } else if (args[0].equals("commandAll") && args.length > 1) { // /commandAll
+                String temp = args[1];
+                for (int i = 2; i < args.length; i++) {
+                    temp += " " + args[i];
+                }
+                commandAll(temp);
+                return;
             } else if (args[0].equals("toggleDebug") && (args[1].equals("true") || args[1].equals("false"))) {
                 Debug.setMode(Boolean.parseBoolean(args[1]));
             } else {
@@ -119,6 +126,16 @@ class Server {
         for (ServerThread t : threads) {
             if (t.getType() == 0 || t.getType() == 1) {
                 t.pushMessage(message);
+                System.out.println("Pushing to Thread with ID: " + t.getId());
+            }
+        }
+    }
+
+    private void commandAll(String command) {
+        cleanUp();
+        for (ServerThread t : threads) {
+            if (t.getType() == 2) {
+                t.pushMessage(command);
                 System.out.println("Pushing to Thread with ID: " + t.getId());
             }
         }

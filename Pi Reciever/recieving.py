@@ -4,7 +4,7 @@ import asyncio
 import RPi.GPIO as GPIO
 # remember to import gpio
 
-IP = "localhost"
+IP = "192.168.56.1"
 PORT = 19
 
 GPIO.setmode(GPIO.BCM)
