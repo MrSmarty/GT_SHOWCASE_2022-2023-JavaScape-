@@ -117,6 +117,11 @@ public class ServerThread extends Thread {
         return true;
     }
 
+    public boolean pushCommand(String command) {
+        this.message = command;
+        return true;
+    }
+
     private void quit() {
         run = false;
 

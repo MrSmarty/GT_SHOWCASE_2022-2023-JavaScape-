@@ -135,7 +135,7 @@ class Server {
         cleanUp();
         for (ServerThread t : threads) {
             if (t.getType() == 2) {
-                t.pushMessage(command);
+                t.pushCommand(command);
                 System.out.println("Pushing to Thread with ID: " + t.getId());
             }
         }
