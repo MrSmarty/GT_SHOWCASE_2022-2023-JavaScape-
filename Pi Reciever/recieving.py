@@ -43,7 +43,7 @@ async def printData():
             GPIO.setup(pin, GPIO.IN)
             print("Set pin # " + pin + " to in")
         if state == "ou":
-            GPIO.output(pin, GPIO.OUT)
+            GPIO.setup(pin, GPIO.OUT)
             print("Set pin # " + pin + " to out")
 
     if out != None:
