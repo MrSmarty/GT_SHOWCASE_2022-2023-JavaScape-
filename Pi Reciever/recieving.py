@@ -1,10 +1,13 @@
 import socket
 import time
 import asyncio
+import RPi.GPIO as GPIO
 # remember to import gpio
 
 IP = "localhost"
 PORT = 19
+
+GPIO.setmode(GPIO.BCM)
 
 bufferSize = 4096
 
@@ -28,6 +31,10 @@ async def printData():
     elif data[:6] == "setPin":
         pin = int(data[7:9])
         state = bool(data[10:14])
+        if state == True:
+            GPIO.output(pin, GPIO.HIGH)
+        if state == False:
+            GPIO.output(pin, GPIO.LOW)
         print("Set pin # " + pin + " to " + state)
 
     if out != None:
