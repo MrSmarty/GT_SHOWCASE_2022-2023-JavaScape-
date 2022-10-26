@@ -68,8 +68,8 @@ public class ServerThread extends Thread {
                     try {
                         // give us the data coming in and print if not null
                         in = socketReader.readLine();
-                        // if (in == null)
-                        // return;
+                        if (in == null)
+                            return;
 
                         System.out.println(in);
                         if (in.equals("quit")) {
