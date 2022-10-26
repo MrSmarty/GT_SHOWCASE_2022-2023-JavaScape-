@@ -53,7 +53,7 @@ async def printData():
         sock.sendall(bytes(out + "\n", 'utf-8'))
         print("sent " + out)
 
-    rintfunc = None
+    printfunc = None
 
 while run:
     if printfunc == None:
