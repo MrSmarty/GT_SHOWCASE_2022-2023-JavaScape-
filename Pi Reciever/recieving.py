@@ -21,7 +21,7 @@ else:
         settings = json.load(f)
     f.close()
 
-if IP == "" or PORT == "":
+if settings[IP] == "" or settings[PORT] == "":
     print("Please set the IP and PORT variables in the settings file")
     exit()
 
