@@ -8,7 +8,7 @@ from os.path import exists
 # IP = ""
 # PORT = 19
 
-settings = None
+global settings
 
 if not exists("settings.json"):
     dictionary = {"IP": "", "PORT": 19, "NAME": ""}
@@ -21,7 +21,7 @@ else:
         settings = json.load(f)
     f.close()
 
-if settings[IP] == "" or settings[PORT] == "":
+if settings["IP"] == "" or settings["PORT"] == "":
     print("Please set the IP and PORT variables in the settings file")
     exit()
 
@@ -32,7 +32,7 @@ bufferSize = 4096
 run = True
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((settings[IP], settings[PORT]))
+sock.connect((settings["IP"], settings["PORT"]))
 
 printfunc = None
 
