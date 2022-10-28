@@ -2,10 +2,28 @@ import socket
 import time
 import asyncio
 import RPi.GPIO as GPIO
-# remember to import gpio
+import json
+from os.path import exists
 
-IP = "107.217.165.178"
-PORT = 19
+# IP = ""
+# PORT = 19
+
+settings = None
+
+if not exists("settings.json"):
+    dictionary = {"IP": "", "PORT": 19, "NAME": ""}
+    with open("settings.json", "w") as f:
+        json.dump(dictionary, f)
+    f.close()
+    exit()
+else:
+    with open("settings.json", "r") as f:
+        settings = json.load(f)
+    f.close()
+
+if IP == "" or PORT == "":
+    print("Please set the IP and PORT variables in the settings file")
+    exit()
 
 GPIO.setmode(GPIO.BCM)
 
@@ -14,7 +32,7 @@ bufferSize = 4096
 run = True
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((IP, PORT))
+sock.connect((settings[IP], settings[PORT]))
 
 printfunc = None
 

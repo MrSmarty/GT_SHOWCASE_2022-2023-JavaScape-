@@ -1,10 +1,13 @@
 import socket
 import time
 import asyncio
+import RPi.GPIO as GPIO
 # remember to import gpio
 
-IP = "localhost"
+IP = "107.217.165.178"
 PORT = 19
+
+GPIO.setmode(GPIO.BCM)
 
 bufferSize = 4096
 
@@ -18,24 +21,32 @@ printfunc = None
 
 async def printData():
     data = sock.recv(bufferSize).decode('utf-8')
-    data = data[:len(data)-1]
+    data = data[:len(data)]
     #formattedData = convertData(data)
-    print(data)
     out = None
 
     if data == "getType":
         out = "type 2"
     elif data[:6] == "setPin":
         pin = int(data[7:9])
-        state = bool(data[10:14])
-        print("Set pin # " + pin + " to " + state)
+        state = data[10:14]
+        if state == "true":
+            GPIO.output(pin, GPIO.HIGH)
+        if state == "fals":
+            GPIO.output(pin, GPIO.LOW)
+
+    elif data[:8] == "setupPin":
+        pin = int(data[9:11])
+        state = data[12:14]
+        if state == "in":
+            GPIO.setup(pin, GPIO.IN)
+        if state == "ou":
+            GPIO.setup(pin, GPIO.OUT)
 
     if out != None:
-        print("sending")
         sock.sendall(bytes(out + "\n", 'utf-8'))
-        print("sent " + out)
 
-    rintfunc = None
+    printfunc = None
 
 while run:
     if printfunc == None:
