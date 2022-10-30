@@ -3,6 +3,7 @@ import time
 import asyncio
 import RPi.GPIO as GPIO
 import json
+import network
 from os.path import exists
 
 # IP = ""
@@ -11,7 +12,8 @@ from os.path import exists
 global settings
 
 if not exists("settings.json"):
-    dictionary = {"IP": "", "PORT": 19, "NAME": ""}
+    dictionary = {"Server": {"IP": "", "PORT": 19, "NAME": ""},
+                  "Network": {"Name": "", "Password": ""}}
     with open("settings.json", "w") as f:
         json.dump(dictionary, f)
     f.close()
