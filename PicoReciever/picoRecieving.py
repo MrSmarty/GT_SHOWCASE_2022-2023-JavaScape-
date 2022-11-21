@@ -1,53 +1,40 @@
 import socket
-import time
-import asyncio
-import RPi.GPIO as GPIO
-# remember to import gpio
+import machine
+import asyncio as aio
+
 
 IP = "107.217.165.178"
 PORT = 19
 
-GPIO.setmode(GPIO.BCM)
+BUFFSIZE = 4096
 
-bufferSize = 4096
-
-run = True
+RUN = True
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((IP, PORT))
 
-printfunc = None
+processFunc = None
+
+output = None
+
+async def processData():
+    data = sock.recv(BUFFSIZE).decode('utf-8')
+    data = data[:len(data)]
+    print(data)
+
+    args = data.split(" ")
+
+    if args[0] == "getType":
+        output = "type 2"
+    elif args[0] == "setPin":
+        machine.Pin(int(args[1]), machine.Pin.OUT, value=int(args[2]))
+    elif args[0] == "setupPin":
+        machine.Pin(int(args[1]), machine.Pin.IN if int(args[2]) == 0 else machine.Pin.OUT)
+    elif args[0] == "getPin":
+        output = machine.Pin(int(args[1])).value()
 
 
 async def printData():
-    data = sock.recv(bufferSize).decode('utf-8')
-    data = data[:len(data)]
-    #formattedData = convertData(data)
-    out = None
+    sock.sendall(bytes(output + "\n", 'utf-8'))
 
-    if data == "getType":
-        out = "type 2"
-    elif data[:6] == "setPin":
-        pin = int(data[7:9])
-        state = data[10:14]
-        if state == "true":
-            GPIO.output(pin, GPIO.HIGH)
-        if state == "fals":
-            GPIO.output(pin, GPIO.LOW)
-
-    elif data[:8] == "setupPin":
-        pin = int(data[9:11])
-        state = data[12:14]
-        if state == "in":
-            GPIO.setup(pin, GPIO.IN)
-        if state == "ou":
-            GPIO.setup(pin, GPIO.OUT)
-
-    if out != None:
-        sock.sendall(bytes(out + "\n", 'utf-8'))
-
-    printfunc = None
-
-while run:
-    if printfunc == None:
-        printfunc = asyncio.run(printData())
+#n = machine.Pin("LED", machine.Pin.OUT, value=1)

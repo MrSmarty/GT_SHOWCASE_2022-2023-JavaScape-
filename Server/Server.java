@@ -121,6 +121,11 @@ class Server {
         }
     }
 
+
+    /**
+     * Send command to all user clients
+     * @param message the message to send
+     */
     private void tellAll(String message) {
         cleanUp();
         for (ServerThread t : threads) {
@@ -131,6 +136,10 @@ class Server {
         }
     }
 
+
+    /**
+     * Send a command to every recieving client
+     */
     private void commandAll(String command) {
         cleanUp();
         for (ServerThread t : threads) {
@@ -141,11 +150,17 @@ class Server {
         }
     }
 
+    /**
+     * Print an error message to the console
+    */
     private void error(String errorMessage) {
         System.out.print("\u001B[31m" + "ERROR: ");
         System.out.println(errorMessage + "\u001B[39m");
     }
 
+    /**
+     * Clean the threads that no longer have a connection
+     */
     public void cleanUp() {
         int c = 0;
         System.out.println("Cleaning...");
