@@ -2,6 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
+import org.json.*;
 
 class Server {
 
@@ -124,7 +125,7 @@ class Server {
     private void tellAll(String message) {
         cleanUp();
         for (ServerThread t : threads) {
-            if (t.getType() == 0 || t.getType() == 1) {
+            if (t.getInfo() == 0 || t.getInfo() == 1) {
                 t.pushMessage(message);
                 System.out.println("Pushing to Thread with ID: " + t.getId());
             }
@@ -134,7 +135,7 @@ class Server {
     private void commandAll(String command) {
         cleanUp();
         for (ServerThread t : threads) {
-            if (t.getType() == 2) {
+            if (t.getInfo() == 2) {
                 t.pushCommand(command);
                 System.out.println("Pushing to Thread with ID: " + t.getId());
             }

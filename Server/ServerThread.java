@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.concurrent.CompletableFuture;
 import java.time.*;
 import java.time.format.*;
+import org.json.*;
 
 public class ServerThread extends Thread {
     protected Socket socket;
@@ -55,7 +56,7 @@ public class ServerThread extends Thread {
             return;
         }
 
-        message = "getType";
+        message = "getInfo";
 
         // repeat as long as the client
         // does not send a null string
@@ -139,7 +140,7 @@ public class ServerThread extends Thread {
         }
     }
 
-    public int getType() {
+    public int getInfo() {
         return type;
     }
 }
