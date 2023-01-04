@@ -86,13 +86,13 @@ if IP == "" or PORT == "":
         requestargs = request.split("&")
         print(requestargs)
         if (len(requestargs) == 5) and requestargs[0][3:] != "" and requestargs[1][5:] != "" and requestargs[2][5:] != "" and requestargs[3][9:] != "" and requestargs[4][3:] != "":
-            break;
+            response = "Thank You!"
+            conn.sendall(response)
+            conn.close()
+            site.close()
+            break
 
-    response = "Thank You!"
-    conn.sendall(response)
-    conn.close()
-    site.close()
-    sys.exit()
+    
 
 wirelessNet = network.WLAN(network.STA_IF)
 wirelessNet.active(True)
@@ -124,6 +124,9 @@ async def processData():
 
     elif args[0] == "setupPin":
         machine.Pin(int(args[1]), machine.Pin.IN if int(args[2]) == 0 else machine.Pin.OUT)
+
+    elif args[0] == "setPWM":
+        machine.PWM(int(args[1]), args[2], args[3], args[4])
     
     elif args[0] == "getPin":
         output = machine.Pin(int(args[1])).value()

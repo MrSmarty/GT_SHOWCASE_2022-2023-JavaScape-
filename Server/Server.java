@@ -7,8 +7,9 @@ import org.json.*;
 class Server {
 
     Debug Debug = new Debug();
+    CommandParser commandParser = new CommandParser();
 
-    private static final int PORT = 19;
+    private int PORT = 19;
     private static ArrayList<ServerThread> threads;
 
     private static BufferedReader keyboardReader;
@@ -16,6 +17,10 @@ class Server {
     // Define socket and serverSocket to be used in completablefuture
     private static Socket socket;
     private static ServerSocket serverSocket;
+
+    public Server(int PORT) {
+        this.PORT = PORT;
+    }
 
     public void start() throws Exception {
         threads = new ArrayList<ServerThread>();
@@ -122,9 +127,9 @@ class Server {
         }
     }
 
-
     /**
      * Send command to all user clients
+     * 
      * @param message the message to send
      */
     private void tellAll(String message) {
@@ -136,7 +141,6 @@ class Server {
             }
         }
     }
-
 
     /**
      * Send a command to every recieving client
@@ -153,7 +157,7 @@ class Server {
 
     /**
      * Print an error message to the console
-    */
+     */
     private void error(String errorMessage) {
         System.out.print("\u001B[31m" + "ERROR: ");
         System.out.println(errorMessage + "\u001B[39m");
