@@ -168,9 +168,12 @@ class Server {
                 Debug.setMode(Boolean.parseBoolean(args[1]));
             } else if (args[0].equals("createUser")) {
                 if (args.length == 3) {
-
+                    // TODO: Make sure to finish this. Also, add GSON to the stuff
+                    User newUser = new User(args[1], args[2]);
+                    dataHandler.addUser(newUser);
                 } else if (args.length == 4) {
-
+                    User newUser = new User(args[1], args[2], Integer.parseInt(args[3]));
+                    dataHandler.addUser(newUser);
                 }
             } else {
                 error("Invalid Command");
@@ -221,6 +224,7 @@ class Server {
     /**
      * Clean the threads that no longer have an active connection.
      * Needs to be run before any command that tries to connect using a socket
+     * 
      * @return The number of threads removed
      */
     public int cleanUp() {
