@@ -2,12 +2,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
-import org.json.*;
 
 class Server {
 
     Debug Debug = new Debug();
     CommandParser commandParser = new CommandParser();
+    DataHandler handler = new DataHandler();
 
     private int PORT = 19;
     private static ArrayList<ServerThread> threads;
