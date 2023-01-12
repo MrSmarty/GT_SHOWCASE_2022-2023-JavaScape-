@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import java.util.concurrent.*;
 import com.google.gson.*;
 
+/**
+ * This is the classfile for the Server object
+ */
 class Server {
     final Path dataHandlerPath = Paths.get("dataHandler.json");
 
@@ -26,10 +29,26 @@ class Server {
     private static Socket socket;
     private static ServerSocket serverSocket;
 
+    /**
+     * Initializes the server with port 19
+     */
+    public Server() {
+    }
+
+    /**
+     * Constructor for Server
+     * 
+     * @param PORT Initializes the server with a specified port number
+     */
     public Server(int PORT) {
         this.PORT = PORT;
     }
 
+    /**
+     * begin running the server
+     * 
+     * @throws Exception
+     */
     public void start() throws Exception {
 
         try {
@@ -122,6 +141,11 @@ class Server {
 
     }
 
+    /**
+     * Process the input from the command line
+     * 
+     * @param input The string of input to process
+     */
     private void processInput(String input) {
         if (input.charAt(0) == '/') {
             String[] args = input.substring(1).split(" ");
@@ -142,6 +166,12 @@ class Server {
                 return;
             } else if (args[0].equals("toggleDebug") && (args[1].equals("true") || args[1].equals("false"))) {
                 Debug.setMode(Boolean.parseBoolean(args[1]));
+            } else if (args[0].equals("createUser")) {
+                if (args.length == 3) {
+
+                } else if (args.length == 4) {
+
+                }
             } else {
                 error("Invalid Command");
             }
@@ -165,6 +195,8 @@ class Server {
 
     /**
      * Send a command to every recieving client
+     * 
+     * @param command The command to send
      */
     private void commandAll(String command) {
         cleanUp();
@@ -178,6 +210,8 @@ class Server {
 
     /**
      * Print an error message to the console
+     * 
+     * @param errorMessage The error message to print
      */
     private void error(String errorMessage) {
         System.out.print("\u001B[31m" + "ERROR: ");
@@ -185,9 +219,11 @@ class Server {
     }
 
     /**
-     * Clean the threads that no longer have a connection
+     * Clean the threads that no longer have an active connection.
+     * Needs to be run before any command that tries to connect using a socket
+     * @return The number of threads removed
      */
-    public void cleanUp() {
+    public int cleanUp() {
         int c = 0;
         System.out.println("Cleaning...");
         for (ServerThread st : threads) {
@@ -197,6 +233,7 @@ class Server {
             }
         }
         System.out.println("Clean Complete! Removed " + c + " thread(s)!");
+        return c;
     }
 
 }
