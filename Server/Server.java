@@ -1,13 +1,21 @@
 import java.io.*;
+import java.nio.file.*;
+import java.nio.charset.StandardCharsets;
 import java.net.*;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.concurrent.*;
+import com.google.gson.*;
 
 class Server {
+    final Path dataHandlerPath = Paths.get("dataHandler.json");
 
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     Debug Debug = new Debug();
     CommandParser commandParser = new CommandParser();
-    DataHandler handler = new DataHandler();
+
+    DataHandler dataHandler;
+    String dataHandlerJSON;
 
     private int PORT = 19;
     private static ArrayList<ServerThread> threads;
@@ -23,6 +31,19 @@ class Server {
     }
 
     public void start() throws Exception {
+
+        try {
+            dataHandlerJSON = Files.lines(dataHandlerPath, StandardCharsets.UTF_8)
+                    .collect(Collectors.joining("\n"));
+            if (dataHandlerJSON == null || dataHandlerJSON.equals("")) {
+                dataHandler = new DataHandler();
+                dataHandlerJSON = gson.toJson(dataHandler);
+            } else
+                dataHandler = gson.fromJson(dataHandlerJSON, DataHandler.class);
+        } catch (IOException e) {
+
+        }
+
         threads = new ArrayList<ServerThread>();
 
         // Get input from keyboard

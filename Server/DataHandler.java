@@ -1,12 +1,14 @@
-import org.json.*;
+import java.util.*;
 
 public class DataHandler {
-    public void createUser(String username, String password) {
-        JSONObject user = new JSONObject();
-        user.put("username", username);
-        user.put("password", password);
-        user.put("householdID", -1);
-        
-        
+    ArrayList<User> users = new ArrayList<User>();
+
+    public User findUser(String name) {
+        for (User u : users) {
+            if (u.getName().equals(name))
+                return u;
+        }
+        return null;
     }
+
 }
