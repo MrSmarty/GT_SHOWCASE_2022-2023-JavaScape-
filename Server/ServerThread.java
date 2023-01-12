@@ -3,7 +3,6 @@ import java.net.*;
 import java.util.concurrent.CompletableFuture;
 import java.time.*;
 import java.time.format.*;
-import org.json.*;
 
 public class ServerThread extends Thread {
     protected Socket socket;
@@ -129,10 +128,7 @@ public class ServerThread extends Thread {
         asyncPrint.cancel(true);
 
         // close connection
-        // TODO: printStream.close();
-
         try {
-            // TODO: clientReader.close();
             keyboardReader.close();
             socket.close();
         } catch (IOException e) {
