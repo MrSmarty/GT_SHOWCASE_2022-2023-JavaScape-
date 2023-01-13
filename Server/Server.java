@@ -10,7 +10,7 @@ import com.google.gson.*;
 /**
  * This is the classfile for the Server object
  */
-class Server {
+public class Server {
     final Path dataHandlerPath = Paths.get("dataHandler.json");
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();

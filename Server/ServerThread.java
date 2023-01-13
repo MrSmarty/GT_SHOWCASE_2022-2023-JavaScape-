@@ -55,7 +55,7 @@ public class ServerThread extends Thread {
             return;
         }
 
-        message = "getInfo";
+        message = "getType";
 
         // repeat as long as the client
         // does not send a null string
@@ -72,12 +72,13 @@ public class ServerThread extends Thread {
                             return;
 
                         System.out.println(in);
-                        if (in.equals("quit")) {
+                        String[] arguments = in.split(" ");
+                        if (arguments[0].equals("quit")) {
                             quit();
                             return;
-                        } else if (in.substring(0, 4).equals("type")) {
+                        } else if (arguments[0].equals("type")) {
                             System.out.println("Got type");
-                            type = Integer.parseInt(in.substring(5));
+                            type = Integer.parseInt(arguments[1]);
                             System.out.println("Type is now: " + type);
                         }
 
