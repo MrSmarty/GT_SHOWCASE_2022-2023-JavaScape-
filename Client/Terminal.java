@@ -1,3 +1,6 @@
+/**
+ * This class is used so that printing is a bit easier. It decides if the output goes to the cli or custom GUI
+ */
 public class Terminal {
     private boolean useGui;
     private GUI gui = null;

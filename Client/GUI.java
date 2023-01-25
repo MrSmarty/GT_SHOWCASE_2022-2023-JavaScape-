@@ -30,7 +30,8 @@ public class GUI {
         submit = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.append("$ " + textField.getText() + "\n");
+                String text = textField.getText();
+                textArea.append("$ " + text + "\n");
                 textField.setText(null);
             }
         };
@@ -57,6 +58,10 @@ public class GUI {
 
     public void print(String text) {
         textArea.append(text);
+    }
+
+    private void loginScreen() {
+
     }
 
 }

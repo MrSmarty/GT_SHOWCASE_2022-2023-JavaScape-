@@ -7,6 +7,10 @@ public class ClientApp {
     private static Terminal t;
     private static GUI gui;
 
+    private static Properties p;
+
+    static Client client;
+
     public static void main(String[] args) throws IOException {
         if (args.length != 0) {
             for (int i = 0; i < args.length; i++) {
@@ -14,13 +18,6 @@ public class ClientApp {
                     useGUI = false;
                 }
             }
-        }
-
-        if (useGUI == true) {
-            gui = new GUI();
-            t = new Terminal(useGUI, gui);
-        } else {
-            t = new Terminal(useGUI);
         }
 
         File configFile = new File("config.properties");
@@ -31,12 +28,33 @@ public class ClientApp {
         // Reader to read config.properties
         FileReader configReader = new FileReader("config.properties");
 
-        Properties p = new Properties();
+        p = new Properties();
 
         p.load(configReader);
 
         t.println("Conecting to ip: " + p.getProperty("IP") + " and port: " + p.getProperty("port"));
 
+        if (useGUI == true) {
+            gui = new GUI();
+            t = new Terminal(useGUI, gui);
+            setupClient();
+        } else {
+            t = new Terminal(useGUI);
+            setupHeadlessClient();
+        }
+
+    }
+
+    public static void setupClient() {
+        client = new Client(p.getProperty("IP"), Integer.parseInt(p.getProperty("port")), useGUI);
+        try {
+            client.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setupHeadlessClient() {
         HeadlessClient client = new HeadlessClient(p.getProperty("IP"), Integer.parseInt(p.getProperty("port")),
                 useGUI);
         try {
