@@ -33,7 +33,7 @@ public class DataHandler {
         return null;
     }
 
-    public HouseHold getHouseHold(String houseHoldName) {
+    public HouseHold findHouseHold(String houseHoldName) {
         for (HouseHold h : houseHolds) {
             if (h.getName().equals(houseHoldName))
                 return h;

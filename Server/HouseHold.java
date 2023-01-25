@@ -45,9 +45,34 @@ public class HouseHold {
 
     /**
      * Adds a user to the household
+     * 
      * @param user
      */
     public void addUser(User user) {
         users.add(user);
+    }
+
+    /**
+     * Returns the user
+     * 
+     * @param username The String of the user to return
+     * @return Returns the user if the user is found, otherwise return null
+     */
+    public User getUser(String username) {
+        for (User u : users) {
+            if (u.getName().equals(username)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public String[] getAllUserNames() {
+        String[] toReturn = new String[users.size()];
+        for (int i = 0; i < users.size(); i++) {
+            toReturn[i] = users.get(i).getName();
+        }
+        return toReturn;
+
     }
 }

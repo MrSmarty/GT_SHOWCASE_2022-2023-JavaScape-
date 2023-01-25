@@ -18,12 +18,13 @@ public class Server {
     Debug Debug = new Debug();
     CommandParser commandParser = new CommandParser();
 
+    // Autosave (defaults to true)
+    private boolean autosave = true;
     // All the variables for the dataHandler and saving the JSON
     DataHandler dataHandler = null;
     String dataHandlerJSON;
     Path dataHandlerPath = Paths.get("dataHandler.json");
     File dataHandlerFile = new File(dataHandlerPath.toString());
-    
 
     // The port to run the server on
     private int PORT = 19;
@@ -110,35 +111,13 @@ public class Server {
 
         socket = null;
 
-        CompletableFuture<Void> asyncSocket = CompletableFuture.runAsync(() -> {
-            try {
-                socket = serverSocket.accept();
-
-                // new thread for a client
-                threads.add(new ServerThread(socket, this));
-                threads.get(threads.size() - 1).start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        CompletableFuture<Void> asyncInput = CompletableFuture.runAsync(() -> {
-            try {
-                // Get input
-                String input = keyboardReader.readLine();
-
-                if (input != null && input.length() > 0) {
-                    processInput(input);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        CompletableFuture<Void> asyncSocket = null;
+        CompletableFuture<Void> asyncInput = null;
 
         while (true) {
 
             // If async function is done, start again
-            if (asyncSocket.isDone()) {
+            if (asyncSocket == null || asyncSocket.isDone()) {
                 // Check sockets asyncronously
                 asyncSocket = CompletableFuture.runAsync(() -> {
                     try {
@@ -152,11 +131,14 @@ public class Server {
                         e.printStackTrace();
                     }
                 });
+                if (autosave) {
+                    saveDataHandler();
+                }
 
             }
 
             // Start async funtion if not already doing so
-            if (asyncInput.isDone()) {
+            if (asyncInput == null || asyncInput.isDone()) {
 
                 // Check input asyncronously
                 asyncInput = CompletableFuture.runAsync(() -> {
@@ -172,6 +154,9 @@ public class Server {
                     }
                     Debug.log("Async Input Completed");
                 });
+                if (autosave) {
+                    saveDataHandler();
+                }
 
             }
         }
@@ -209,7 +194,7 @@ public class Server {
                     User newUser = new User(args[1], args[2]);
                     dataHandler.addUser(newUser);
                 } else if (args.length == 4) {
-                    HouseHold h = dataHandler.getHouseHold(args[3]);
+                    HouseHold h = dataHandler.findHouseHold(args[3]);
                     User newUser = new User(args[1], args[2], h);
                     dataHandler.addUser(newUser);
                 }
@@ -224,10 +209,15 @@ public class Server {
             } else if (args[0].equals("saveData")) {
                 saveDataHandler();
                 System.out.println("Saved Data");
+            } else if (args[0].equals("getUsers")) {
+                System.out.println(Arrays.toString(dataHandler.findHouseHold(args[1]).getAllUserNames()));
             } else if (args[0].equals("exit")) {
                 System.exit(0);
             } else {
                 error("Invalid Command");
+            }
+            if (autosave) {
+                saveDataHandler();
             }
         }
     }

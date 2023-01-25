@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "name": "Lincoln",
+      "password": "12345"
+    },
+    {
+      "name": "Justin",
+      "password": "123456"
+    }
+  ],
+  "houseHolds": [
+    {
+      "id": -1,
+      "name": "testHouse",
+      "users": [
+        {
+          "name": "Lincoln",
+          "password": "12345"
+        },
+        {
+          "name": "Justin",
+          "password": "123456"
+        }
+      ]
+    }
+  ]
+}
