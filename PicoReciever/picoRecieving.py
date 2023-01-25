@@ -118,7 +118,7 @@ async def processData():
 
     if args[0] == "getType":
         output = "type 2"
-
+    # Set a GPIO Pin to a single 
     elif args[0] == "setPin":
         machine.Pin(int(args[1]), machine.Pin.OUT, value=int(args[2]))
 
@@ -127,13 +127,13 @@ async def processData():
 
     elif args[0] == "setPWM":
         machine.PWM(int(args[1]), args[2], args[3], args[4])
-    
+    # Returns the value of a regular Pin
     elif args[0] == "getPin":
         output = machine.Pin(int(args[1])).value()
-
+    # Set the name of the Pico
     elif args[0] == "setName":
         NAME = args[1]
-
+    # Get the name of the Pico
     elif args[0] == "getName":
         output = NAME
 

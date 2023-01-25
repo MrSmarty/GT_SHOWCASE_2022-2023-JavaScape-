@@ -11,18 +11,26 @@ import com.google.gson.*;
  * This is the classfile for the Server object
  */
 public class Server {
-    final Path dataHandlerPath = Paths.get("dataHandler.json");
 
+    // The gson object to be used for saving and loading JSON
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
     Debug Debug = new Debug();
     CommandParser commandParser = new CommandParser();
 
-    DataHandler dataHandler;
+    // All the variables for the dataHandler and saving the JSON
+    DataHandler dataHandler = null;
     String dataHandlerJSON;
+    Path dataHandlerPath = Paths.get("dataHandler.json");
+    File dataHandlerFile = new File(dataHandlerPath.toString());
+    
 
+    // The port to run the server on
     private int PORT = 19;
+    // List of all the server threads
     private static ArrayList<ServerThread> threads;
 
+    // Read input from the keyboard
     private static BufferedReader keyboardReader;
 
     // Define socket and serverSocket to be used in completablefuture
@@ -33,6 +41,8 @@ public class Server {
      * Initializes the server with port 19
      */
     public Server() {
+        setUpDataHandler();
+        saveDataHandler();
     }
 
     /**
@@ -42,6 +52,45 @@ public class Server {
      */
     public Server(int PORT) {
         this.PORT = PORT;
+        setUpDataHandler();
+        saveDataHandler();
+    }
+
+    /**
+     * Initializes the dataHandler object
+     */
+    private void setUpDataHandler() {
+        try {
+            if (dataHandlerFile.createNewFile()) {
+                System.out.println("dataHandler.json created");
+                dataHandler = new DataHandler();
+
+            } else {
+                System.out.println("dataHandler.json already exists");
+                dataHandlerJSON = Files.lines(dataHandlerPath, StandardCharsets.UTF_8)
+                        .collect(Collectors.joining("\n"));
+                dataHandler = gson.fromJson(dataHandlerJSON, DataHandler.class);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error reading dataHandler.json");
+
+        }
+    }
+
+    /**
+     * Saves the dataHandler object to a JSON file
+     */
+    public void saveDataHandler() {
+        dataHandlerJSON = gson.toJson(dataHandler);
+        try {
+            FileWriter fileWriter = new FileWriter(dataHandlerPath.toString(), false);
+            fileWriter.write(dataHandlerJSON);
+            fileWriter.close();
+            System.out.println("dataHandler.json saved");
+        } catch (IOException e) {
+            System.out.println("Error writing to dataHandler.json");
+        }
     }
 
     /**
@@ -50,18 +99,6 @@ public class Server {
      * @throws Exception
      */
     public void start() throws Exception {
-
-        try {
-            dataHandlerJSON = Files.lines(dataHandlerPath, StandardCharsets.UTF_8)
-                    .collect(Collectors.joining("\n"));
-            if (dataHandlerJSON == null || dataHandlerJSON.equals("")) {
-                dataHandler = new DataHandler();
-                dataHandlerJSON = gson.toJson(dataHandler);
-            } else
-                dataHandler = gson.fromJson(dataHandlerJSON, DataHandler.class);
-        } catch (IOException e) {
-
-        }
 
         threads = new ArrayList<ServerThread>();
 
@@ -172,9 +209,23 @@ public class Server {
                     User newUser = new User(args[1], args[2]);
                     dataHandler.addUser(newUser);
                 } else if (args.length == 4) {
-                    User newUser = new User(args[1], args[2], Integer.parseInt(args[3]));
+                    HouseHold h = dataHandler.getHouseHold(args[3]);
+                    User newUser = new User(args[1], args[2], h);
                     dataHandler.addUser(newUser);
                 }
+            } else if (args[0].equals("createHousehold")) {
+                if (args.length == 2) {
+                    HouseHold h = new HouseHold(args[1]);
+                    dataHandler.addHouseHold(h);
+                    System.out.println("Created Household: " + args[1]);
+                } else {
+                    System.out.println("Invalid Command");
+                }
+            } else if (args[0].equals("saveData")) {
+                saveDataHandler();
+                System.out.println("Saved Data");
+            } else if (args[0].equals("exit")) {
+                System.exit(0);
             } else {
                 error("Invalid Command");
             }
