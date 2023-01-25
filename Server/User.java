@@ -1,7 +1,6 @@
 public class User {
     private String name = "";
     private String password = "";
-    private HouseHold houseHold = null;
 
     /**
      * Initializes a user with the name and password specified. Household ID
@@ -25,7 +24,7 @@ public class User {
     public User(String name, String password, HouseHold houseHold) {
         this.name = name;
         this.password = password;
-        this.houseHold = houseHold;
+        houseHold.addUser(this);
     }
 
     /**
@@ -34,7 +33,6 @@ public class User {
      * @param newID The new ID to set
      */
     public void setHouseHold(HouseHold newHouseHold) {
-        this.houseHold = newHouseHold;
     }
 
     /**
