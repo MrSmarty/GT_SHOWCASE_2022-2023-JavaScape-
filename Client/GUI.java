@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class GUI {
+
     private JFrame jFrame;
     private JPanel p;
     private JTextArea textArea;
@@ -49,6 +50,10 @@ public class GUI {
 
         jFrame.add(p);
         jFrame.pack();
+
+    }
+
+    private void ipConnectScreen() {
 
     }
 
