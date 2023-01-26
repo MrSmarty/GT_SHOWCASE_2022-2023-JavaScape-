@@ -10,7 +10,7 @@ public class HeadlessClient {
     private int port;
 
     private boolean useGui;
-    private GUI gui;
+    private ServerGUI gui;
 
     private LocalDateTime dateTime = LocalDateTime.now();
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("[mm/dd/yy | hh:mm:ss]: ");

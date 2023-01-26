@@ -1,7 +1,7 @@
 public class ServerApp {
     public static void main(String[] args) throws Exception {
         Server server = new Server(19);
-        GUI g = new GUI();
+        ServerGUI g = new ServerGUI(server.getDataHandler());
 
         server.start();
 

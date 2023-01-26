@@ -281,4 +281,13 @@ public class Server {
         return c;
     }
 
+    /**
+     * Returns the data handler
+     * 
+     * @return
+     */
+    public DataHandler getDataHandler() {
+        return dataHandler;
+    }
+
 }
