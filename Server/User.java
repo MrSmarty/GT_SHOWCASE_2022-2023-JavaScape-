@@ -1,4 +1,8 @@
 public class User {
+    /**
+     * Admins have access to the server
+     */
+    private boolean isAdmin = false;
     private String name = "";
     private String password = "";
 
@@ -25,6 +29,21 @@ public class User {
         this.name = name;
         this.password = password;
         houseHold.addUser(this);
+    }
+
+    /**
+     * Initializes a user with the name, password, and Household ID specified
+     * 
+     * @param name        Name of the User
+     * @param password    User's Password
+     * @param houseHoldID The id of the household to assign the user to
+     * @param isAdmin Is the user an admin?
+     */
+    public User(String name, String password, HouseHold houseHold, boolean isAdmin) {
+        this.name = name;
+        this.password = password;
+        houseHold.addUser(this);
+        this.isAdmin = isAdmin;
     }
 
     /**
