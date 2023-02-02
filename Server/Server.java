@@ -294,8 +294,8 @@ public class Server {
         return dataHandler;
     }
 
-    public boolean authenticate(String username, String password) {
-        return dataHandler.authenticate(username, password);
+    public boolean authenticateAdmin(String username, String password) {
+        return dataHandler.authenticateAdmin(username, password);
     }
 
 }

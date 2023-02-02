@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "isAdmin": false,
+      "isAdmin": true,
       "name": "Lincoln",
       "password": "12345"
     },
