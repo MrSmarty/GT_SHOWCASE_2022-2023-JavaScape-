@@ -41,4 +41,11 @@ public class DataHandler {
         return null;
     }
 
+    public boolean authenticate(String name, String password) {
+        User u = findUser(name);
+        if (u == null)
+            return false;
+        return u.getPassword().equals(password);
+    }
+
 }

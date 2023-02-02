@@ -94,6 +94,10 @@ public class Server {
         }
     }
 
+    public Server getThis() {
+        return this;
+    }
+
     /**
      * begin running the server
      * 
@@ -288,6 +292,10 @@ public class Server {
      */
     public DataHandler getDataHandler() {
         return dataHandler;
+    }
+
+    public boolean authenticate(String username, String password) {
+        return dataHandler.authenticate(username, password);
     }
 
 }

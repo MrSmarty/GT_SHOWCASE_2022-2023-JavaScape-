@@ -1,10 +1,12 @@
 {
   "users": [
     {
+      "isAdmin": false,
       "name": "Lincoln",
       "password": "12345"
     },
     {
+      "isAdmin": false,
       "name": "Justin",
       "password": "123456"
     }
@@ -15,10 +17,12 @@
       "name": "testHouse",
       "users": [
         {
+          "isAdmin": false,
           "name": "Lincoln",
           "password": "12345"
         },
         {
+          "isAdmin": false,
           "name": "Justin",
           "password": "123456"
         }
