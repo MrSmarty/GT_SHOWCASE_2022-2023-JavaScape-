@@ -5,8 +5,7 @@ import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
@@ -63,6 +62,7 @@ public class ServerGUI {
     private Scene createApplication() {
         BorderPane root = new BorderPane();
         root.setTop(createRibbonBar());
+        root.setBottom(createHomeBody());
 
         Scene applicationScene = new Scene(root);
         return applicationScene;
@@ -102,7 +102,8 @@ public class ServerGUI {
         // Username
         Label userNameLabel = new Label("Username:");
         TextField userNameField = new TextField();
-        userNameField.setBackground(new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        userNameField.setBackground(
+                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         g.add(userNameLabel, 0, 2);
         g.add(userNameField, 1, 2);
@@ -110,7 +111,8 @@ public class ServerGUI {
         // Password
         Label passwordLabel = new Label("Password:");
         PasswordField passwordField = new PasswordField();
-        passwordField.setBackground(new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        passwordField.setBackground(
+                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         g.add(passwordLabel, 0, 3);
         g.add(passwordField, 1, 3);
@@ -147,14 +149,24 @@ public class ServerGUI {
         ToolBar ribbonBar = new ToolBar();
         ribbonBar.setPrefHeight(50);
         ribbonBar.setPrefWidth(100);
-        ribbonBar.setStyle("-fx-background-color: #FEBD59;");
 
+        Button homeButton = new Button("Home");
         Button userButton = new Button("Users");
         Button houseHoldButton = new Button("Households");
 
-        ribbonBar.getItems().addAll(userButton, houseHoldButton);
+        homeButton.setBackground(new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        
+
+        ribbonBar.getItems().addAll(homeButton, userButton, houseHoldButton);
 
         return ribbonBar;
+    }
+
+    private BorderPane createHomeBody() {
+        BorderPane body = new BorderPane();
+
+
+        return body;
     }
 
     private void login(String username, String password, Text message) {
