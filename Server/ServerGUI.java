@@ -102,6 +102,7 @@ public class ServerGUI {
         // Username
         Label userNameLabel = new Label("Username:");
         TextField userNameField = new TextField();
+        userNameField.setBackground(new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         g.add(userNameLabel, 0, 2);
         g.add(userNameField, 1, 2);
@@ -109,24 +110,35 @@ public class ServerGUI {
         // Password
         Label passwordLabel = new Label("Password:");
         PasswordField passwordField = new PasswordField();
+        passwordField.setBackground(new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         g.add(passwordLabel, 0, 3);
         g.add(passwordField, 1, 3);
 
+        // Messages
+        Text message = new Text();
+        message.setFill(Color.web("#FE654F"));
+        message.setFont(Font.font("Arial", FontWeight.MEDIUM, 15));
+        g.add(message, 0, 4, 2, 1);
+
         // Submit
         Button submit = new Button("Submit");
+        submit.setBackground(new Background(new BackgroundFill(Color.web("#277D50"), CornerRadii.EMPTY, Insets.EMPTY)));
+        submit.textFillProperty().set(Color.WHITE);
+        submit.cursorProperty().set(Cursor.HAND);
+
         submit.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER) {
-                    login(userNameField.getText(), passwordField.getText());
+                    login(userNameField.getText(), passwordField.getText(), message);
                 }
             }
         });
         submit.setOnAction(e -> {
-            login(userNameField.getText(), passwordField.getText());
+            login(userNameField.getText(), passwordField.getText(), message);
         });
-        g.add(submit, 0, 4, 2, 1);
+        g.add(submit, 0, 5, 2, 1);
 
         return g;
     }
@@ -145,13 +157,14 @@ public class ServerGUI {
         return ribbonBar;
     }
 
-    private void login(String username, String password) {
+    private void login(String username, String password, Text message) {
         boolean isAdminAccount = server.authenticateAdmin(username, password);
         if (isAdminAccount) {
             System.out.println("Admin Account found");
             startApplication(pStage);
         } else {
             System.out.println("Admin Account not found");
+            message.textProperty().set("Invalid Username or Password");
         }
     }
 }
