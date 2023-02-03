@@ -1,18 +1,27 @@
 {
-  "java.project.referencedLibraries": {
-    "include": [
-      "lib/**/*.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.base.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.controls.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.fxml.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.graphics.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.media.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.swing.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.web.jar",
-      "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx-swt.jar"
-    ],
-    "exclude": []
-  },
-  "java.project.sourcePaths": ["Client", "Reciever", "Server"],
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.base.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.controls.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.fxml.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.graphics.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.media.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.swing.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx.web.jar",
+    "c:\\Users\\MrSma\\openjfx-20-ea+16_windows-x64_bin-sdk\\javafx-sdk-20\\lib\\javafx-swt.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx-swt.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.base.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.controls.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.fxml.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.graphics.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.media.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.swing.jar",
+    "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.web.jar"
+  ],
+  "java.project.sourcePaths": [
+    "Client",
+    "Reciever",
+    "Server"
+  ],
   "java.debug.settings.onBuildFailureProceed": true
 }
