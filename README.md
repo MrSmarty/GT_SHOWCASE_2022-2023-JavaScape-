@@ -2,6 +2,8 @@
 
 ![JAVASCAPE Logo](Graphics/Javascape%20Logo.png)
 
-Building upon Last years Showcase Project
+Make your garden smart too!
+
+Building upon last year's GT Showcase Project
 
 Copyright Lincoln Smith 2022
