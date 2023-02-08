@@ -19,6 +19,7 @@ import javafx.stage.*;
 public class ServerGUI {
     public Server server = null;
     Stage pStage;
+    BorderPane rootBorderPane;
 
     public ServerGUI() {
     }
@@ -64,11 +65,11 @@ public class ServerGUI {
     }
 
     private Scene createApplication() {
-        BorderPane root = new BorderPane();
-        root.setTop(createRibbonBar());
-        root.setBottom(createHomeBody());
+        rootBorderPane = new BorderPane();
+        rootBorderPane.setTop(createRibbonBar());
+        rootBorderPane.setCenter(createHomeBody());
 
-        Scene applicationScene = new Scene(root);
+        Scene applicationScene = new Scene(rootBorderPane);
         return applicationScene;
     }
 
@@ -155,11 +156,19 @@ public class ServerGUI {
         ribbonBar.setPrefWidth(100);
 
         Button homeButton = new Button("Home");
+        homeButton.setOnAction(e -> {
+            rootBorderPane.setCenter(createHomeBody());
+        });
         Button userButton = new Button("Users");
+        userButton.setOnAction(e -> {
+            rootBorderPane.setCenter(createUsersBody());
+        });
         Button houseHoldButton = new Button("Households");
 
-        homeButton.setBackground(new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
-        
+        homeButton.setBackground(
+                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        userButton.setBackground(
+                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         ribbonBar.getItems().addAll(homeButton, userButton, houseHoldButton);
 
@@ -169,7 +178,17 @@ public class ServerGUI {
     private BorderPane createHomeBody() {
         BorderPane body = new BorderPane();
 
+        return body;
+    }
 
+    private BorderPane createUsersBody() {
+        BorderPane body = new BorderPane();
+        GridPane optionBar = new GridPane();
+
+        Button newUser = new Button("New User");
+        optionBar.add(newUser, 0, 0);
+
+        body.setTop(optionBar);
         return body;
     }
 
