@@ -1,6 +1,6 @@
 import javafx.*;
 import javafx.application.*;
-import javafx.event.EventHandler;
+import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -12,6 +12,10 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.stage.*;
 
+/**
+ * The GUI for the Server
+ * Pass in the <strong>PrimaryStage</strong> from the ServerApp class
+ */
 public class ServerGUI {
     public Server server = null;
     Stage pStage;
@@ -169,14 +173,14 @@ public class ServerGUI {
         return body;
     }
 
-    private void login(String username, String password, Text message) {
+    private void login(String username, String password, Text messageField) {
         boolean isAdminAccount = server.authenticateAdmin(username, password);
         if (isAdminAccount) {
             System.out.println("Admin Account found");
             startApplication(pStage);
         } else {
             System.out.println("Admin Account not found");
-            message.textProperty().set("Invalid Username or Password");
+            messageField.textProperty().set("Invalid Username or Password");
         }
     }
 }

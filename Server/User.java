@@ -72,6 +72,10 @@ public class User {
         return password;
     }
 
+    /**
+     * Returns true if the user is an admin
+     * @return
+     */
     public boolean isAdmin() {
         return isAdmin;
     }
