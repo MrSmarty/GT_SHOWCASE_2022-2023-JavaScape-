@@ -21,6 +21,10 @@ public class ServerGUI {
     Stage pStage;
     BorderPane rootBorderPane;
 
+    Stage popupStage;
+
+    ModalManager modalManager;
+
     public ServerGUI() {
     }
 
@@ -46,9 +50,10 @@ public class ServerGUI {
         primaryStage.show();
     }
 
-    public void setServer(Server s) {
+    public void setUp(Server s) {
         server = s;
         System.out.println("Set the Server");
+        modalManager = new ModalManager(pStage, server);
     }
 
     private Scene createLogin() {
@@ -187,6 +192,9 @@ public class ServerGUI {
 
         Button newUser = new Button("New User");
         optionBar.add(newUser, 0, 0);
+        newUser.setOnAction(e -> {
+            modalManager.createNewUserModal();
+        });
 
         body.setTop(optionBar);
         return body;

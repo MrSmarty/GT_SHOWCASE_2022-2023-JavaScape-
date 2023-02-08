@@ -20,13 +20,14 @@ public class ServerApp extends Application {
             try {
                 server.start();
             } catch (BindException e) {
-                System.out.println("Port already in use.\nIf the server is not currently running, please choose another port in the config file.");
+                System.out.println(
+                        "Port already in use.\nIf the server is not currently running, please choose another port in the config file.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
-        g.setServer(server);
+        g.setUp(server);
         g.start(primaryStage);
 
         serverThread.start();
