@@ -20,11 +20,6 @@
           "isAdmin": false,
           "name": "Lincoln",
           "password": "12345"
-        },
-        {
-          "isAdmin": false,
-          "name": "Justin",
-          "password": "123456"
         }
       ]
     }

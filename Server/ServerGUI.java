@@ -54,6 +54,7 @@ public class ServerGUI {
         server = s;
         System.out.println("Set the Server");
         modalManager = new ModalManager(pStage, server);
+        System.out.println("Set the ModalManager");
     }
 
     private Scene createLogin() {

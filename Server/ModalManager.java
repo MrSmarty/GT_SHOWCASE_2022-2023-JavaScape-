@@ -6,10 +6,16 @@ import javafx.scene.paint.*;
 import javafx.scene.text.*;
 import javafx.stage.*;
 
+/**
+ * 
+ * This class manages the Modals that pop-up and get user input.
+ */
 public class ModalManager {
 
     private Stage parentStage;
     private Server server;
+    // The stage for the 
+    Stage stage;
 
     public ModalManager(Stage parentStage, Server server) {
         this.parentStage = parentStage;
@@ -17,7 +23,7 @@ public class ModalManager {
     }
 
     public void createNewUserModal() {
-        Stage stage = new Stage();
+        stage = new Stage();
         stage.setTitle("Create New User");
         stage.initOwner(parentStage);
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -25,7 +31,6 @@ public class ModalManager {
         stage.initStyle(StageStyle.UNDECORATED);
 
         GridPane grid = new GridPane();
-        grid.setBackgroundFill(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         Text title = new Text("Create New User");
         grid.add(title, 0, 0, 2, 1);
@@ -36,6 +41,11 @@ public class ModalManager {
         grid.add(usernameField, 1, 1);
 
         Button submit = new Button("Submit");
+        submit.setOnAction(e -> {
+            if (!usernameField.getText().equals("")) {
+                System.out.println("Test");
+            }
+        });
         Button cancel = new Button("Cancel");
         cancel.setOnAction(e -> stage.close());
         grid.add(submit, 0, 4);
