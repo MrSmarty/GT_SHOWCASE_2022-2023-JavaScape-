@@ -1,3 +1,5 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -39,6 +41,24 @@ public class ModalManager {
         TextField usernameField = new TextField();
         grid.add(usernameLabel, 0, 1);
         grid.add(usernameField, 1, 1);
+
+        Label passwordLabel = new Label("Password:");
+        TextField passwordField = new TextField();
+        grid.add(passwordLabel, 0, 2);
+        grid.add(passwordField, 1, 2);
+
+        Label houseHoldLabel = new Label("Household:");
+        ComboBox<Object> houseHoldComboBox = new ComboBox<Object>();
+        
+        ObservableList<Object> houseHoldNames = FXCollections.observableArrayList();
+        server.getDataHandler().getHouseHolds().forEach(e -> {
+            houseHoldNames.add(e.getName());
+        });
+
+        houseHoldComboBox.setItems(houseHoldNames);
+
+        grid.add(houseHoldLabel, 0, 3);
+        grid.add(houseHoldComboBox, 1, 3);
 
         Button submit = new Button("Submit");
         submit.setOnAction(e -> {

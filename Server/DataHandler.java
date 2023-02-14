@@ -20,6 +20,10 @@ public class DataHandler {
         houseHolds.add(newHouseHold);
     }
 
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
     /**
      * Find a user by name
      * 
@@ -31,6 +35,10 @@ public class DataHandler {
                 return u;
         }
         return null;
+    }
+
+    public ArrayList<HouseHold> getHouseHolds() {
+        return houseHolds;
     }
 
     public HouseHold findHouseHold(String houseHoldName) {
