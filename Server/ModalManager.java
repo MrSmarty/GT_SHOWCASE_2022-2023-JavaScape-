@@ -1,7 +1,10 @@
+import javax.lang.model.util.ElementScanner14;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.*;
 import javafx.scene.*;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
@@ -16,7 +19,7 @@ public class ModalManager {
 
     private Stage parentStage;
     private Server server;
-    // The stage for the 
+    // The stage for the
     Stage stage;
 
     public ModalManager(Stage parentStage, Server server) {
@@ -24,15 +27,18 @@ public class ModalManager {
         this.server = server;
     }
 
+    /**
+     * Creates the popup for creating a new user
+     */
     public void createNewUserModal() {
         stage = new Stage();
         stage.setTitle("Create New User");
         stage.initOwner(parentStage);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
 
         GridPane grid = new GridPane();
+        grid.setBackground(new Background(new BackgroundFill(Color.web("#345894"), new CornerRadii(0), Insets.EMPTY)));
 
         Text title = new Text("Create New User");
         grid.add(title, 0, 0, 2, 1);
@@ -48,9 +54,9 @@ public class ModalManager {
         grid.add(passwordField, 1, 2);
 
         Label houseHoldLabel = new Label("Household:");
-        ComboBox<Object> houseHoldComboBox = new ComboBox<Object>();
-        
-        ObservableList<Object> houseHoldNames = FXCollections.observableArrayList();
+        ComboBox<String> houseHoldComboBox = new ComboBox<String>();
+
+        ObservableList<String> houseHoldNames = FXCollections.observableArrayList();
         server.getDataHandler().getHouseHolds().forEach(e -> {
             houseHoldNames.add(e.getName());
         });
@@ -60,16 +66,36 @@ public class ModalManager {
         grid.add(houseHoldLabel, 0, 3);
         grid.add(houseHoldComboBox, 1, 3);
 
+        CheckBox adminBox = new CheckBox("Admin");
+        grid.add(adminBox, 0, 4);
+
+        Text errorText = new Text();
+        grid.add(errorText, 0, 5);
+
         Button submit = new Button("Submit");
         submit.setOnAction(e -> {
-            if (!usernameField.getText().equals("")) {
-                System.out.println("Test");
+            if (!usernameField.getText().equals("") && !usernameField.getText().equals("")) {
+                if (usernameField.getText().length() >= 4)
+                    if (!houseHoldComboBox.getValue().equals("")) {
+                        server.getDataHandler().addUser(new User(usernameField.getText(), passwordField.getText(), server.getDataHandler().findHouseHold(houseHoldComboBox.getValue()), adminBox.selectedProperty().get()));
+                        server.saveDataHandler();
+                        stage.close();
+                    } else {
+                        errorText.setText("Please select a household");
+                    }
+                else {
+                    errorText.setText("Minimum password length is 4 characters");
+                }
+            } else {
+                errorText.setText("Please input a Username and Password");
             }
         });
+
+
         Button cancel = new Button("Cancel");
         cancel.setOnAction(e -> stage.close());
-        grid.add(submit, 0, 4);
-        grid.add(cancel, 1, 4);
+        grid.add(submit, 0, 6);
+        grid.add(cancel, 1, 6);
 
         Scene scene = new Scene(grid, 300, 200);
         stage.setScene(scene);

@@ -9,6 +9,16 @@
       "isAdmin": false,
       "name": "Justin",
       "password": "123456"
+    },
+    {
+      "isAdmin": true,
+      "name": "test1",
+      "password": "test1234"
+    },
+    {
+      "isAdmin": false,
+      "name": "testrste",
+      "password": "ahgign"
     }
   ],
   "houseHolds": [
@@ -20,6 +30,16 @@
           "isAdmin": false,
           "name": "Lincoln",
           "password": "12345"
+        },
+        {
+          "isAdmin": true,
+          "name": "test1",
+          "password": "test1234"
+        },
+        {
+          "isAdmin": false,
+          "name": "testrste",
+          "password": "ahgign"
         }
       ]
     }
