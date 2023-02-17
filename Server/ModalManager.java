@@ -75,9 +75,12 @@ public class ModalManager {
         Button submit = new Button("Submit");
         submit.setOnAction(e -> {
             if (!usernameField.getText().equals("") && !usernameField.getText().equals("")) {
-                if (usernameField.getText().length() >= 4)
+                if (passwordField.getText().length() >= 4)
                     if (!houseHoldComboBox.getValue().equals("")) {
-                        server.getDataHandler().addUser(new User(usernameField.getText(), passwordField.getText(), server.getDataHandler().findHouseHold(houseHoldComboBox.getValue()), adminBox.selectedProperty().get()));
+                        server.getDataHandler()
+                                .addUser(new User(usernameField.getText(), passwordField.getText(),
+                                        server.getDataHandler().findHouseHold(houseHoldComboBox.getValue()),
+                                        adminBox.selectedProperty().get()));
                         server.saveDataHandler();
                         stage.close();
                     } else {
@@ -90,7 +93,6 @@ public class ModalManager {
                 errorText.setText("Please input a Username and Password");
             }
         });
-
 
         Button cancel = new Button("Cancel");
         cancel.setOnAction(e -> stage.close());

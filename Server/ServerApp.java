@@ -45,6 +45,7 @@ public class ServerApp extends Application {
         g.start(primaryStage);
 
         serverThread.start();
+        updateThread.start();
 
     }
 }
