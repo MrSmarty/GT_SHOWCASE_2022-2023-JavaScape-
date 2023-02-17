@@ -37,13 +37,36 @@ public class DataHandler {
         return null;
     }
 
+    public void deleteUser(User u) {
+        users.remove(u);
+    }
+
     public ArrayList<HouseHold> getHouseHolds() {
         return houseHolds;
     }
 
+    /**
+     * 
+     * @param houseHoldName
+     * @return the Household with the specified name. Returns
+     *         <em>null</em> if no HouseHold is found.
+     */
     public HouseHold findHouseHold(String houseHoldName) {
         for (HouseHold h : houseHolds) {
             if (h.getName().equals(houseHoldName))
+                return h;
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * @param houseHoldID
+     * @return the Household with the specified ID (-1 is a valid ID). Returns <em>null</em> if no HouseHold is found.
+     */
+    public HouseHold findHouseHold(int houseHoldID) {
+        for (HouseHold h : houseHolds) {
+            if (h.getID() == houseHoldID)
                 return h;
         }
         return null;

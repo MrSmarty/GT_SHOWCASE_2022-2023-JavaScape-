@@ -5,6 +5,8 @@ public class User {
     private boolean isAdmin = false;
     private String name = "";
     private String password = "";
+    private String email = "";
+    private int householdID = -1;
 
     /**
      * Initializes a user with the name and password specified. Household ID
@@ -29,6 +31,7 @@ public class User {
         this.name = name;
         this.password = password;
         houseHold.addUser(this);
+        this.householdID = houseHold.getID();
     }
 
     /**
@@ -37,11 +40,27 @@ public class User {
      * @param name        Name of the User
      * @param password    User's Password
      * @param houseHoldID The id of the household to assign the user to
-     * @param isAdmin Is the user an admin?
+     * @param isAdmin     Is the user an admin?
      */
     public User(String name, String password, HouseHold houseHold, boolean isAdmin) {
         this.name = name;
         this.password = password;
+        houseHold.addUser(this);
+        this.isAdmin = isAdmin;
+    }
+
+    /**
+     * Initializes a user with the name, password, and Household ID specified
+     * 
+     * @param name        Name of the User
+     * @param password    User's Password
+     * @param houseHoldID The id of the household to assign the user to
+     * @param isAdmin     Is the user an admin?
+     */
+    public User(String name, String password, String email, HouseHold houseHold, boolean isAdmin) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
         houseHold.addUser(this);
         this.isAdmin = isAdmin;
     }
@@ -72,8 +91,23 @@ public class User {
         return password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void delete(Server s) {
+        s.getDataHandler().findHouseHold(householdID).deleteUser(this);
+        s.getDataHandler().deleteUser(this);
+        
+    }
+
     /**
      * Returns true if the user is an admin
+     * 
      * @return
      */
     public boolean isAdmin() {

@@ -27,6 +27,20 @@ public class ServerApp extends Application {
             }
         });
 
+        Thread updateThread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                    g.update();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                server.saveDataHandler();
+
+            }
+
+        });
+
         g.setUp(server);
         g.start(primaryStage);
 

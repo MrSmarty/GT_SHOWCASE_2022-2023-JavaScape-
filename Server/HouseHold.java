@@ -43,6 +43,10 @@ public class HouseHold {
         return name;
     }
 
+    public int getID() {
+        return id;
+    }
+
     /**
      * Adds a user to the household
      * 
@@ -50,6 +54,10 @@ public class HouseHold {
      */
     public void addUser(User user) {
         users.add(user);
+    }
+
+    public void deleteUser(User user) {
+        users.remove(user);
     }
 
     /**

@@ -25,6 +25,8 @@ public class ServerGUI {
 
     ModalManager modalManager;
 
+    UserList userList;
+
     public ServerGUI() {
     }
 
@@ -50,11 +52,17 @@ public class ServerGUI {
         primaryStage.show();
     }
 
+    public void update() {
+        
+    }
+
     public void setUp(Server s) {
         server = s;
         System.out.println("Set the Server");
         modalManager = new ModalManager(pStage, server);
         System.out.println("Set the ModalManager");
+
+        userList = new UserList(s);
     }
 
     private Scene createLogin() {
@@ -170,6 +178,9 @@ public class ServerGUI {
             rootBorderPane.setCenter(createUsersBody());
         });
         Button houseHoldButton = new Button("Households");
+        houseHoldButton.setOnAction(e -> {
+            rootBorderPane.setCenter(createHouseholdsBody());
+        });
 
         homeButton.setBackground(
                 new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -197,7 +208,15 @@ public class ServerGUI {
             modalManager.createNewUserModal();
         });
 
+        body.setCenter(userList.getUserList());
+
         body.setTop(optionBar);
+        return body;
+    }
+
+    private BorderPane createHouseholdsBody() {
+        BorderPane body = new BorderPane();
+
         return body;
     }
 
@@ -211,4 +230,5 @@ public class ServerGUI {
             messageField.textProperty().set("Invalid Username or Password");
         }
     }
+
 }

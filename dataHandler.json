@@ -3,22 +3,40 @@
     {
       "isAdmin": true,
       "name": "Lincoln",
-      "password": "12345"
+      "password": "12345",
+      "householdID": -1
     },
     {
       "isAdmin": false,
       "name": "Justin",
-      "password": "123456"
+      "password": "123456",
+      "householdID": -1
     },
     {
       "isAdmin": true,
       "name": "test1",
-      "password": "test1234"
+      "password": "test1234",
+      "householdID": -1
     },
     {
       "isAdmin": false,
       "name": "testrste",
-      "password": "ahgign"
+      "password": "ahgign",
+      "householdID": -1
+    },
+    {
+      "isAdmin": true,
+      "name": "testete",
+      "password": "aghiegh",
+      "email": "",
+      "householdID": -1
+    },
+    {
+      "isAdmin": false,
+      "name": "eoagiheh",
+      "password": "eoigheohg",
+      "email": "",
+      "householdID": -1
     }
   ],
   "houseHolds": [
@@ -29,17 +47,34 @@
         {
           "isAdmin": false,
           "name": "Lincoln",
-          "password": "12345"
+          "password": "12345",
+          "householdID": -1
         },
         {
           "isAdmin": true,
           "name": "test1",
-          "password": "test1234"
+          "password": "test1234",
+          "householdID": -1
         },
         {
           "isAdmin": false,
           "name": "testrste",
-          "password": "ahgign"
+          "password": "ahgign",
+          "householdID": -1
+        },
+        {
+          "isAdmin": true,
+          "name": "testete",
+          "password": "aghiegh",
+          "email": "",
+          "householdID": -1
+        },
+        {
+          "isAdmin": false,
+          "name": "eoagiheh",
+          "password": "eoigheohg",
+          "email": "",
+          "householdID": -1
         }
       ]
     }
