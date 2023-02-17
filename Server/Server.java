@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.concurrent.*;
 import com.google.gson.*;
+import java.lang.*;
 
 /**
  * This is the classfile for the Server object
@@ -129,7 +130,7 @@ public class Server {
 
                         // new thread for a client
                         threads.add(new ServerThread(socket, this));
-                        threads.get(threads.size() - 1).start();
+                        Thread.ofVirtual().start(threads.get(threads.size() - 1));
 
                     } catch (IOException e) {
                         e.printStackTrace();

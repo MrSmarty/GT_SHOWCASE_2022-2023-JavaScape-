@@ -3,6 +3,7 @@ import java.net.BindException;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import java.lang.*;
 
 public class ServerApp extends Application {
 
@@ -44,8 +45,8 @@ public class ServerApp extends Application {
         g.setUp(server);
         g.start(primaryStage);
 
-        serverThread.start();
-        updateThread.start();
+        Thread.ofVirtual().start(serverThread);
+        Thread.ofVirtual().start(updateThread);
 
     }
 }

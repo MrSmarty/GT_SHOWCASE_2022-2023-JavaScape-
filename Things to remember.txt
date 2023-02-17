@@ -3,4 +3,6 @@
     - Measured and Designed in Fusion 360
     - Was too small; Redesigned in Fusion 360
     - Broke in the printer and was still too small; Redesigned again
-    - 
+3. Multiple changes partway through to make everything more efficient
+    - Switched from Swing UI to JavaFX 1/--/23
+    - Switched from Threads to Virtual Threads 2/16/23
