@@ -6,6 +6,12 @@ import javafx.stage.Stage;
 import java.lang.*;
 
 public class ServerApp extends Application {
+    // Number of threads from Clients
+    public static int clientThreadCount = 0;
+    // Number of threads used by the server
+    public static int serverThreadCount = 0;
+    // Number of threads from the recievers (Picos and stuff)
+    public static int recieverThreadCount = 0;
 
     public static void main(String[] args) {
         launch(args);
@@ -29,10 +35,14 @@ public class ServerApp extends Application {
         });
 
         Thread updateThread = new Thread(() -> {
+            serverThreadCount++;
             while (true) {
                 try {
                     Thread.sleep(1000);
                     g.update();
+                    int[] threadCounts = server.getThreadCount();
+                    clientThreadCount = threadCounts[0];
+                    recieverThreadCount = threadCounts[1];
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -48,5 +58,9 @@ public class ServerApp extends Application {
         Thread.ofVirtual().start(serverThread);
         Thread.ofVirtual().start(updateThread);
 
+    }
+
+    public static int totalThreadCount() {
+        return clientThreadCount + serverThreadCount + recieverThreadCount;
     }
 }

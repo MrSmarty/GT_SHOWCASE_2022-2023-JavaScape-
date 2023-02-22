@@ -105,6 +105,7 @@ public class Server {
      * @throws Exception
      */
     public void start() throws Exception {
+        ServerApp.serverThreadCount += 1;
 
         threads = new ArrayList<ServerThread>();
 
@@ -297,6 +298,25 @@ public class Server {
 
     public boolean authenticateAdmin(String username, String password) {
         return dataHandler.authenticateAdmin(username, password);
+    }
+
+    /**
+     * Get a count of the client and recieving threads used by the server
+     * 
+     * @return An array containing the number of client threads and recieving
+     *         threads in that order
+     */
+    public int[] getThreadCount() {
+        cleanUp();
+        int[] count = new int[2];
+        for (ServerThread t : threads) {
+            if (t.getInfo() == 0 || t.getInfo() == 1) {
+                count[0]++;
+            } else if (t.getInfo() == 2) {
+                count[1]++;
+            }
+        }
+        return count;
     }
 
 }

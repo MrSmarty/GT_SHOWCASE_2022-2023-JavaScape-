@@ -25,6 +25,9 @@ public class ServerThread extends Thread {
     // 0 is client
     // 1 is headless client
     // 2 is reciever
+    /**
+     * Determines the type of thread. -1 is null, 0 is client, 1 is headless client, 2 is a reciever
+     */
     private int type = -1;
 
     // Determines if while loop is running
@@ -137,6 +140,10 @@ public class ServerThread extends Thread {
         }
     }
 
+    /**
+     * Returns the type of thread. -1 is null, 0 is client, 1 is headless client, 2 is a reciever
+     * @return the int for the tye of connection.
+     */
     public int getInfo() {
         return type;
     }

@@ -32,7 +32,7 @@ public class ClientApp {
 
         p.load(configReader);
 
-        t.println("Conecting to ip: " + p.getProperty("IP") + " and port: " + p.getProperty("port"));
+        //t.println("Conecting to ip: " + p.getProperty("IP") + " and port: " + p.getProperty("port"));
 
         if (useGUI == true) {
             gui = new GUI();

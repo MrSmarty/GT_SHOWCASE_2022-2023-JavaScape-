@@ -11,6 +11,7 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.stage.*;
+import javafx.util.*;
 
 /**
  * The GUI for the Server
@@ -53,7 +54,7 @@ public class ServerGUI {
     }
 
     public void update() {
-        
+
     }
 
     public void setUp(Server s) {
@@ -194,7 +195,16 @@ public class ServerGUI {
 
     private BorderPane createHomeBody() {
         BorderPane body = new BorderPane();
+        GridPane optionBar = new GridPane();
 
+        Label threadCount = new Label("Thread Count: " + ServerApp.totalThreadCount());
+        Tooltip threadCountTooltip = new Tooltip("Server threads: " + ServerApp.serverThreadCount + "\nClient threads: "
+                + ServerApp.clientThreadCount + "\nRecieving threads: " + ServerApp.recieverThreadCount);
+        threadCountTooltip.setShowDelay(Duration.millis(0));
+        threadCount.setTooltip(threadCountTooltip);
+        optionBar.add(threadCount, 0, 0);
+
+        body.setTop(optionBar);
         return body;
     }
 
