@@ -39,6 +39,19 @@ public class User {
      * 
      * @param name        Name of the User
      * @param password    User's Password
+     * @param isAdmin Is the user an admin?
+     */
+    public User(String name, String password, boolean isAdmin) {
+        this.name = name;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
+
+    /**
+     * Initializes a user with the name, password, and Household ID specified
+     * 
+     * @param name        Name of the User
+     * @param password    User's Password
      * @param houseHoldID The id of the household to assign the user to
      * @param isAdmin     Is the user an admin?
      */
@@ -82,6 +95,10 @@ public class User {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /**
      * Return the password of the user
      * 
@@ -89,6 +106,10 @@ public class User {
      */
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -100,7 +121,12 @@ public class User {
     }
 
     public void delete(Server s) {
-        s.getDataHandler().findHouseHold(householdID).deleteUser(this);
+        try {
+            s.getDataHandler().findHouseHold(householdID).deleteUser(this);
+        } catch (Exception e) {
+            System.out.println("Household not found");
+        }
+        
         s.getDataHandler().deleteUser(this);
         
     }
@@ -112,5 +138,17 @@ public class User {
      */
     public boolean isAdmin() {
         return isAdmin;
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public int getHouseHoldID() {
+        return householdID;
+    }
+
+    public void setHouseHoldID(int householdID) {
+        this.householdID = householdID;
     }
 }

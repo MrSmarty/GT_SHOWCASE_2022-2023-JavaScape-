@@ -66,6 +66,7 @@ public class Server {
             if (dataHandlerFile.createNewFile()) {
                 System.out.println("dataHandler.json created");
                 dataHandler = new DataHandler();
+                dataHandler.addUser(new User("admin", "admin", true));
 
             } else {
                 System.out.println("dataHandler.json already exists");
@@ -298,6 +299,10 @@ public class Server {
 
     public boolean authenticateAdmin(String username, String password) {
         return dataHandler.authenticateAdmin(username, password);
+    }
+
+    public boolean authenticate(String username, String password) {
+        return dataHandler.authenticate(username, password);
     }
 
     /**

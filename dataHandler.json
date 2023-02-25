@@ -2,29 +2,18 @@
   "users": [
     {
       "isAdmin": true,
-      "name": "Lincoln",
-      "password": "12345",
+      "name": "bincoln",
+      "password": "smith",
+      "email": "",
       "householdID": -1
     },
     {
-      "isAdmin": false,
-      "name": "Justin",
-      "password": "123456",
+      "isAdmin": true,
+      "name": "sgihg",
+      "password": "hghieg",
+      "email": "",
       "householdID": -1
     }
   ],
-  "houseHolds": [
-    {
-      "id": -1,
-      "name": "testHouse",
-      "users": [
-        {
-          "isAdmin": false,
-          "name": "Lincoln",
-          "password": "12345",
-          "householdID": -1
-        }
-      ]
-    }
-  ]
+  "houseHolds": []
 }

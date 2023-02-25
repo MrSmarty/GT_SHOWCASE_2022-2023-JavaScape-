@@ -1,4 +1,5 @@
 import javafx.*;
+import javafx.animation.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.geometry.*;
@@ -22,11 +23,27 @@ public class ServerGUI {
     Stage pStage;
     BorderPane rootBorderPane;
 
+    AnimationTimer timer = new AnimationTimer() {
+        @Override
+        public void handle(long now) {
+            userList = new ListView<GridPane>();
+            for (User u : server.getDataHandler().getUsers()) {
+                userList.getItems().add(new UserListItem(server, modalManager, u).getUserListItem(u));
+            }
+        }
+    };
+
     Stage popupStage;
 
     ModalManager modalManager;
 
-    UserList userList;
+    enum Page {
+        HOME, USERS, HOUSEHOLDS
+    }
+
+    Page currentPage;
+
+    ListView<GridPane> userList = new ListView<GridPane>();
 
     public ServerGUI() {
     }
@@ -50,12 +67,21 @@ public class ServerGUI {
         primaryStage.setResizable(true);
         primaryStage.setMaximized(true);
 
+        currentPage = Page.HOME;
+
         primaryStage.show();
     }
 
-    public void update() {
+    // public void update() {
+    // if (currentPage == Page.HOME) {
+    // rootBorderPane.setCenter(createHomeBody());
+    // } else if (currentPage == Page.USERS) {
+    // rootBorderPane.setCenter(createUsersBody());
+    // } else if (currentPage == Page.HOUSEHOLDS) {
+    // rootBorderPane.setCenter(createHouseholdsBody());
 
-    }
+    // }
+    // }
 
     public void setUp(Server s) {
         server = s;
@@ -63,7 +89,6 @@ public class ServerGUI {
         modalManager = new ModalManager(pStage, server);
         System.out.println("Set the ModalManager");
 
-        userList = new UserList(s);
     }
 
     private Scene createLogin() {
@@ -85,6 +110,12 @@ public class ServerGUI {
         rootBorderPane.setCenter(createHomeBody());
 
         Scene applicationScene = new Scene(rootBorderPane);
+
+        for (User u : server.getDataHandler().getUsers()) {
+            userList.getItems().add(new UserListItem(server, modalManager, u).getUserListItem(u));
+        }
+        timer.start();
+
         return applicationScene;
     }
 
@@ -173,14 +204,17 @@ public class ServerGUI {
         Button homeButton = new Button("Home");
         homeButton.setOnAction(e -> {
             rootBorderPane.setCenter(createHomeBody());
+            currentPage = Page.HOME;
         });
         Button userButton = new Button("Users");
         userButton.setOnAction(e -> {
             rootBorderPane.setCenter(createUsersBody());
+            currentPage = Page.USERS;
         });
         Button houseHoldButton = new Button("Households");
         houseHoldButton.setOnAction(e -> {
             rootBorderPane.setCenter(createHouseholdsBody());
+            currentPage = Page.HOUSEHOLDS;
         });
 
         homeButton.setBackground(
@@ -218,7 +252,7 @@ public class ServerGUI {
             modalManager.createNewUserModal();
         });
 
-        body.setCenter(userList.getUserList());
+        body.setCenter(userList);
 
         body.setTop(optionBar);
         return body;
@@ -231,14 +265,21 @@ public class ServerGUI {
     }
 
     private void login(String username, String password, Text messageField) {
+        boolean isAccount = server.authenticate(username, password);
         boolean isAdminAccount = server.authenticateAdmin(username, password);
-        if (isAdminAccount) {
-            System.out.println("Admin Account found");
-            startApplication(pStage);
+        if (isAccount) {
+            if (isAdminAccount) {
+                System.out.println("Admin Account found");
+                startApplication(pStage);
+            } else {
+                System.out.println("Not admin account");
+                messageField.textProperty().set("This account does not have Admin privileges");
+            }
         } else {
-            System.out.println("Admin Account not found");
-            messageField.textProperty().set("Invalid Username or Password");
+            System.out.println("Account not found");
+            messageField.textProperty().set("Account not found");
         }
+
     }
 
 }

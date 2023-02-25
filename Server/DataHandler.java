@@ -79,4 +79,11 @@ public class DataHandler {
         return u.getPassword().equals(password) && u.isAdmin();
     }
 
+    public boolean authenticate(String name, String password) {
+        User u = findUser(name);
+        if (u == null)
+            return false;
+        return u.getPassword().equals(password);
+    }
+
 }
