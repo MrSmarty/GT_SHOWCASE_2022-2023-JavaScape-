@@ -58,6 +58,10 @@ public class Server {
         saveDataHandler();
     }
 
+    public void setGUI(ServerGUI g) {
+        
+    }
+
     /**
      * Initializes the dataHandler object
      */
@@ -239,7 +243,7 @@ public class Server {
         for (ServerThread t : threads) {
             if (t.getInfo() == 0 || t.getInfo() == 1) {
                 t.pushMessage(message);
-                System.out.println("Pushing to Thread with ID: " + t.getId());
+                System.out.println("Pushing to Thread with ID: " + t.threadId());
             }
         }
     }
@@ -254,7 +258,7 @@ public class Server {
         for (ServerThread t : threads) {
             if (t.getInfo() == 2) {
                 t.pushCommand(command);
-                System.out.println("Pushing to Thread with ID: " + t.getId());
+                System.out.println("Pushing to Thread with ID: " + t.threadId());
             }
         }
     }
@@ -276,6 +280,7 @@ public class Server {
      * @return The number of threads removed
      */
     public int cleanUp() {
+        
         int c = 0;
         System.out.println("Cleaning...");
         for (ServerThread st : threads) {

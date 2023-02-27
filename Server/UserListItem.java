@@ -5,12 +5,10 @@ import javafx.scene.text.*;
 public class UserListItem {
     Server server;
     ModalManager modalManager;
-    User u;
 
-    public UserListItem(Server s, ModalManager m, User u) {
+    public UserListItem(Server s, ModalManager m) {
         server = s;
         modalManager = m;
-        this.u = u;
     }
 
     /**
@@ -20,12 +18,12 @@ public class UserListItem {
      */
     public GridPane getUserListItem(User user) {
         GridPane g = new GridPane();
-        Text username = new Text(u.getName());
-        Text email = new Text(u.getEmail());
+        Text username = new Text(user.getName());
+        Text email = new Text(user.getEmail());
         Button edit = new Button();
         edit.setOnAction(e -> {
             System.out.println("Editing user");
-            modalManager.editUserModal(u);
+            modalManager.editUserModal(user);
         });
         Button delete = new Button("Delete");
         delete.setOnAction(e -> {

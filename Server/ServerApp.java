@@ -39,7 +39,6 @@ public class ServerApp extends Application {
             while (true) {
                 try {
                     Thread.sleep(1000);
-                    //g.update();
                     int[] threadCounts = server.getThreadCount();
                     clientThreadCount = threadCounts[0];
                     recieverThreadCount = threadCounts[1];
@@ -52,6 +51,7 @@ public class ServerApp extends Application {
 
         });
 
+        server.setGUI(g);
         g.setUp(server);
         g.start(primaryStage);
 

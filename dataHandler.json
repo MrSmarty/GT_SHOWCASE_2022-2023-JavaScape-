@@ -6,13 +6,6 @@
       "password": "smith",
       "email": "",
       "householdID": -1
-    },
-    {
-      "isAdmin": true,
-      "name": "sgihg",
-      "password": "hghieg",
-      "email": "",
-      "householdID": -1
     }
   ],
   "houseHolds": []

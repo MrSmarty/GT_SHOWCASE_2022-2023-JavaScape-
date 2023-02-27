@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.*;
 import javafx.animation.*;
 import javafx.application.*;
@@ -23,15 +25,7 @@ public class ServerGUI {
     Stage pStage;
     BorderPane rootBorderPane;
 
-    AnimationTimer timer = new AnimationTimer() {
-        @Override
-        public void handle(long now) {
-            userList = new ListView<GridPane>();
-            for (User u : server.getDataHandler().getUsers()) {
-                userList.getItems().add(new UserListItem(server, modalManager, u).getUserListItem(u));
-            }
-        }
-    };
+    BorderPane updateObjectPane;
 
     Stage popupStage;
 
@@ -43,7 +37,6 @@ public class ServerGUI {
 
     Page currentPage;
 
-    ListView<GridPane> userList = new ListView<GridPane>();
 
     public ServerGUI() {
     }
@@ -72,16 +65,22 @@ public class ServerGUI {
         primaryStage.show();
     }
 
-    // public void update() {
-    // if (currentPage == Page.HOME) {
-    // rootBorderPane.setCenter(createHomeBody());
-    // } else if (currentPage == Page.USERS) {
-    // rootBorderPane.setCenter(createUsersBody());
-    // } else if (currentPage == Page.HOUSEHOLDS) {
-    // rootBorderPane.setCenter(createHouseholdsBody());
+    public void update() {
+        if (currentPage == Page.HOME) {
 
-    // }
-    // }
+        } else if (currentPage == Page.USERS) {
+            
+            VBox users = new VBox();
+            for (User u : server.getDataHandler().getUsers()) {
+                GridPane userItem = new UserListItem(server, modalManager).getUserListItem(u);
+                users.getChildren().add(userItem);
+            }
+
+            updateObjectPane.setCenter(users);
+        } else if (currentPage == Page.HOUSEHOLDS) {
+
+        }
+    }
 
     public void setUp(Server s) {
         server = s;
@@ -110,11 +109,6 @@ public class ServerGUI {
         rootBorderPane.setCenter(createHomeBody());
 
         Scene applicationScene = new Scene(rootBorderPane);
-
-        for (User u : server.getDataHandler().getUsers()) {
-            userList.getItems().add(new UserListItem(server, modalManager, u).getUserListItem(u));
-        }
-        timer.start();
 
         return applicationScene;
     }
@@ -252,7 +246,8 @@ public class ServerGUI {
             modalManager.createNewUserModal();
         });
 
-        body.setCenter(userList);
+        updateObjectPane = body;
+        // body.setCenter(null);
 
         body.setTop(optionBar);
         return body;
