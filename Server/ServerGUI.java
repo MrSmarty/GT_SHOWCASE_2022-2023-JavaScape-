@@ -25,8 +25,6 @@ public class ServerGUI {
     Stage pStage;
     BorderPane rootBorderPane;
 
-    BorderPane updateObjectPane;
-
     Stage popupStage;
 
     ModalManager modalManager;
@@ -63,23 +61,6 @@ public class ServerGUI {
         currentPage = Page.HOME;
 
         primaryStage.show();
-    }
-
-    public void update() {
-        if (currentPage == Page.HOME) {
-
-        } else if (currentPage == Page.USERS) {
-            
-            VBox users = new VBox();
-            for (User u : server.getDataHandler().getUsers()) {
-                GridPane userItem = new UserListItem(server, modalManager).getUserListItem(u);
-                users.getChildren().add(userItem);
-            }
-
-            updateObjectPane.setCenter(users);
-        } else if (currentPage == Page.HOUSEHOLDS) {
-
-        }
     }
 
     public void setUp(Server s) {
@@ -245,9 +226,8 @@ public class ServerGUI {
         newUser.setOnAction(e -> {
             modalManager.createNewUserModal();
         });
-
-        updateObjectPane = body;
-        // body.setCenter(null);
+        
+        
 
         body.setTop(optionBar);
         return body;

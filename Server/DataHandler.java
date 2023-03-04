@@ -1,10 +1,13 @@
 import java.util.*;
+import javafx.*;
+import javafx.collections.*;
+import javafx.scene.*;
 
 /**
  * This is the class that will be stored in JSON
  */
 public class DataHandler {
-    ArrayList<User> users = new ArrayList<User>();
+    ObservableList<User> users = FXCollections.observableArrayList();
     ArrayList<HouseHold> houseHolds = new ArrayList<HouseHold>();
 
     /**
@@ -20,7 +23,7 @@ public class DataHandler {
         houseHolds.add(newHouseHold);
     }
 
-    public ArrayList<User> getUsers() {
+    public ObservableList<User> getUsers() {
         return users;
     }
 
