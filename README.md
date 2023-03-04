@@ -6,4 +6,8 @@ Make your garden smart too!
 
 Building upon last year's GT Showcase Project
 
-Copyright Lincoln Smith 2022
+Libraries used:
+JavaFX
+Charts for JavaFX (Credit to HanSolo)
+
+Copyright Lincoln Smith 2022-2023
