@@ -10,6 +10,9 @@ PORT = ""
 SSID = "Da Snifs"
 PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"
+# Use big encoding to get a unique ID for the Pico
+UID = int.from_bytes(machine.unique_id(), "big")
+print(UID)
 
 BUFFSIZE = 4096
 
@@ -136,6 +139,8 @@ async def processData():
     # Get the name of the Pico
     elif args[0] == "getName":
         output = NAME
+    elif args[0] == "getID":
+        output = UID
 
 
 def printData():
