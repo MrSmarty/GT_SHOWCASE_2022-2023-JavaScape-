@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javafx.*;
 import javafx.animation.*;
 import javafx.application.*;
+import javafx.collections.*;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.*;
@@ -34,6 +35,9 @@ public class ServerGUI {
     }
 
     Page currentPage;
+
+
+    ObservableList<GridPane> userGrids = FXCollections.observableArrayList();
 
 
     public ServerGUI() {
@@ -68,6 +72,12 @@ public class ServerGUI {
         System.out.println("Set the Server");
         modalManager = new ModalManager(pStage, server);
         System.out.println("Set the ModalManager");
+        server.getDataHandler().getUsers().addListener((ListChangeListener.Change<? extends User> c) -> {
+            userGrids.removeAll();
+            for (User u : server.getDataHandler().getUsers()) {
+                userGrids.add(u.getListGridPane(server, modalManager));
+            }
+        });
 
     }
 
@@ -227,7 +237,9 @@ public class ServerGUI {
             modalManager.createNewUserModal();
         });
         
-        
+        ListView users = new ListView(userGrids);
+
+        body.setCenter(users);
 
         body.setTop(optionBar);
         return body;

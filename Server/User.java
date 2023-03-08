@@ -1,3 +1,7 @@
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+
 public class User {
     /**
      * Admins have access to the server
@@ -150,5 +154,29 @@ public class User {
 
     public void setHouseHoldID(int householdID) {
         this.householdID = householdID;
+    }
+
+    public GridPane getListGridPane(Server s, ModalManager m) {
+        GridPane g = new GridPane();
+        Text name = new Text(this.name);
+        Text email = new Text(this.email);
+        Text household = new Text(this.householdID + "");
+        Button edit = new Button("Edit");
+        Button delete = new Button("Delete");
+
+        edit.setOnAction(e -> {
+            m.editUserModal(this);
+        });
+
+        delete.setOnAction(e -> {
+            this.delete(s);
+        });
+
+        g.add(name, 0, 0);
+        g.add(email, 1, 0);
+        g.add(edit, 0, 1);
+        g.add(delete, 0, 2);
+        
+        return g;   
     }
 }
