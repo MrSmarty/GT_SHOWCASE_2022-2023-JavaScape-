@@ -6,6 +6,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.concurrent.*;
 import com.google.gson.*;
+
+import javafx.collections.*;
+
 import java.lang.*;
 
 /**
@@ -14,7 +17,8 @@ import java.lang.*;
 public class Server {
 
     // The gson object to be used for saving and loading JSON
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(ObservableList.class, new ObservableListDeserializer()).create();
+    
 
     Debug Debug = new Debug();
     CommandParser commandParser = new CommandParser();
@@ -71,12 +75,14 @@ public class Server {
                 System.out.println("dataHandler.json created");
                 dataHandler = new DataHandler();
                 dataHandler.addUser(new User("admin", "admin", true));
+                saveDataHandler();
 
             } else {
                 System.out.println("dataHandler.json already exists");
                 dataHandlerJSON = Files.lines(dataHandlerPath, StandardCharsets.UTF_8)
                         .collect(Collectors.joining("\n"));
                 dataHandler = gson.fromJson(dataHandlerJSON, DataHandler.class);
+                saveDataHandler();
             }
 
         } catch (IOException e) {

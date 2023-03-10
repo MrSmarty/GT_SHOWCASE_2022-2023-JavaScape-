@@ -36,9 +36,7 @@ public class ServerGUI {
 
     Page currentPage;
 
-
     ObservableList<GridPane> userGrids = FXCollections.observableArrayList();
-
 
     public ServerGUI() {
     }
@@ -72,12 +70,16 @@ public class ServerGUI {
         System.out.println("Set the Server");
         modalManager = new ModalManager(pStage, server);
         System.out.println("Set the ModalManager");
+
         server.getDataHandler().getUsers().addListener((ListChangeListener.Change<? extends User> c) -> {
-            userGrids.removeAll();
+            userGrids.clear();
             for (User u : server.getDataHandler().getUsers()) {
                 userGrids.add(u.getListGridPane(server, modalManager));
             }
         });
+        for (User u : server.getDataHandler().getUsers()) {
+            userGrids.add(u.getListGridPane(server, modalManager));
+        }
 
     }
 
@@ -236,8 +238,8 @@ public class ServerGUI {
         newUser.setOnAction(e -> {
             modalManager.createNewUserModal();
         });
-        
-        ListView users = new ListView(userGrids);
+
+        ListView<GridPane> users = new ListView<GridPane>(userGrids);
 
         body.setCenter(users);
 

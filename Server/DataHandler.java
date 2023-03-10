@@ -7,6 +7,8 @@ import javafx.scene.*;
  * This is the class that will be stored in JSON
  */
 public class DataHandler {
+
+
     ObservableList<User> users = FXCollections.observableArrayList();
     ArrayList<HouseHold> houseHolds = new ArrayList<HouseHold>();
 
@@ -26,6 +28,7 @@ public class DataHandler {
     public ObservableList<User> getUsers() {
         return users;
     }
+
 
     /**
      * Find a user by name
@@ -65,7 +68,8 @@ public class DataHandler {
     /**
      * 
      * @param houseHoldID
-     * @return the Household with the specified ID (-1 is a valid ID). Returns <em>null</em> if no HouseHold is found.
+     * @return the Household with the specified ID (-1 is a valid ID). Returns
+     *         <em>null</em> if no HouseHold is found.
      */
     public HouseHold findHouseHold(int houseHoldID) {
         for (HouseHold h : houseHolds) {
