@@ -38,7 +38,7 @@ public class ModalManager {
         stage.setResizable(false);
 
         GridPane grid = new GridPane();
-        grid.setBackground(new Background(new BackgroundFill(Color.web("#345894"), new CornerRadii(0), Insets.EMPTY)));
+        grid.setBackground(new Background(new BackgroundFill(Color.web("#E1DCC9"), new CornerRadii(0), Insets.EMPTY)));
 
         Text title = new Text("Create New User");
         grid.add(title, 0, 0, 2, 1);
@@ -58,7 +58,7 @@ public class ModalManager {
 
         ObservableList<String> houseHoldNames = FXCollections.observableArrayList();
         server.getDataHandler().getHouseHolds().forEach(e -> {
-            houseHoldNames.add(e.getName());
+            houseHoldNames.add(e.getHouseHoldName());
         });
 
         houseHoldComboBox.setItems(houseHoldNames);
@@ -119,7 +119,7 @@ public class ModalManager {
         stage.setResizable(false);
 
         GridPane grid = new GridPane();
-        grid.setBackground(new Background(new BackgroundFill(Color.web("#345894"), new CornerRadii(0), Insets.EMPTY)));
+        grid.setBackground(new Background(new BackgroundFill(Color.web("#E1DCC9"), new CornerRadii(0), Insets.EMPTY)));
 
         Text title = new Text("Editing: " + u.getName());
         grid.add(title, 0, 0, 2, 1);
@@ -136,27 +136,33 @@ public class ModalManager {
         grid.add(passwordLabel, 0, 2);
         grid.add(passwordField, 1, 2);
 
+        Label emailLabel = new Label("Email:");
+        TextField emailField = new TextField();
+        emailField.setText(u.getEmail());
+        grid.add(emailLabel, 0, 3);
+        grid.add(emailField, 1, 3);
+
         Label houseHoldLabel = new Label("Household:");
         ComboBox<String> houseHoldComboBox = new ComboBox<String>();
 
         ObservableList<String> houseHoldNames = FXCollections.observableArrayList();
         server.getDataHandler().getHouseHolds().forEach(e -> {
-            houseHoldNames.add(e.getName());
+            houseHoldNames.add(e.getHouseHoldName());
         });
 
         houseHoldComboBox.setItems(houseHoldNames);
         if (u.getHouseHoldID() != -1)
-            houseHoldComboBox.setValue(server.getDataHandler().findHouseHold(u.getHouseHoldID()).getName());
+            houseHoldComboBox.setValue(server.getDataHandler().findHouseHold(u.getHouseHoldID()).getHouseHoldName());
 
-        grid.add(houseHoldLabel, 0, 3);
-        grid.add(houseHoldComboBox, 1, 3);
+        grid.add(houseHoldLabel, 0, 4);
+        grid.add(houseHoldComboBox, 1, 4);
 
         CheckBox adminBox = new CheckBox("Admin");
-        grid.add(adminBox, 0, 4);
+        grid.add(adminBox, 0, 5);
         adminBox.selectedProperty().set(u.isAdmin());
 
         Text errorText = new Text();
-        grid.add(errorText, 0, 5);
+        grid.add(errorText, 0, 6);
 
         Button submit = new Button("Save");
         submit.setOnAction(e -> {
@@ -166,7 +172,9 @@ public class ModalManager {
             if (passwordField.getText() != "") {
                 u.setPassword(passwordField.getText());
             }
-            if (houseHoldComboBox.getValue() != null && !houseHoldComboBox.getValue().equals("") && u.getHouseHoldID() != server.getDataHandler().findHouseHold(houseHoldComboBox.getValue()).getID()) {
+            u.setEmail(emailField.getText());
+            if (houseHoldComboBox.getValue() != null && !houseHoldComboBox.getValue().equals("") && u
+                    .getHouseHoldID() != server.getDataHandler().findHouseHold(houseHoldComboBox.getValue()).getID()) {
                 u.setHouseHoldID(server.getDataHandler().findHouseHold(houseHoldComboBox.getValue()).getID());
                 server.getDataHandler().findHouseHold(u.getHouseHoldID()).deleteUser(u);
                 server.getDataHandler().findHouseHold(houseHoldComboBox.getValue()).addUser(u);
@@ -179,8 +187,50 @@ public class ModalManager {
 
         Button cancel = new Button("Cancel");
         cancel.setOnAction(e -> stage.close());
-        grid.add(submit, 0, 6);
-        grid.add(cancel, 1, 6);
+        grid.add(submit, 0, 7);
+        grid.add(cancel, 1, 7);
+
+        Scene scene = new Scene(grid, 300, 200);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void createNewHouseHoldModal() {
+        stage = new Stage();
+        stage.setTitle("Create New Household");
+        stage.initOwner(parentStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+
+        GridPane grid = new GridPane();
+        grid.setBackground(new Background(new BackgroundFill(Color.web("#E1DCC9"), new CornerRadii(0), Insets.EMPTY)));
+
+        Text title = new Text("Create Household");
+        grid.add(title, 0, 0, 2, 1);
+
+        Label nameLabel = new Label("Name:");
+        TextField nameField = new TextField();
+        grid.add(nameLabel, 0, 1);
+        grid.add(nameField, 1, 1);
+
+        Text errorText = new Text();
+        grid.add(errorText, 0, 2);
+
+        Button submit = new Button("Submit");
+        submit.setOnAction(e -> {
+            if (!nameField.getText().equals("")) {
+                server.getDataHandler().addHouseHold(new HouseHold(server.getDataHandler().getHouseHoldIDIndex(), nameField.getText()));
+                server.saveDataHandler();
+                stage.close();
+            } else {
+                errorText.setText("Please input a name for this household");
+            }
+        });
+
+        Button cancel = new Button("Cancel");
+        cancel.setOnAction(e -> stage.close());
+        grid.add(submit, 0, 2);
+        grid.add(cancel, 1, 2);
 
         Scene scene = new Scene(grid, 300, 200);
         stage.setScene(scene);

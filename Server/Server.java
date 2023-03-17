@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.concurrent.*;
+import java.time.*;
 import com.google.gson.*;
 
 import javafx.collections.*;
@@ -13,12 +14,14 @@ import java.lang.*;
 
 /**
  * This is the classfile for the Server object
+ * This class is responsible for running the server and handling all the threads
  */
 public class Server {
 
     // The gson object to be used for saving and loading JSON
-    private Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(ObservableList.class, new ObservableListDeserializer()).create();
-    
+    private Gson gson = new GsonBuilder().setPrettyPrinting()
+            .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer())
+            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
 
     Debug Debug = new Debug();
     CommandParser commandParser = new CommandParser();
@@ -63,7 +66,7 @@ public class Server {
     }
 
     public void setGUI(ServerGUI g) {
-        
+
     }
 
     /**
@@ -72,6 +75,7 @@ public class Server {
     private void setUpDataHandler() {
         try {
             if (dataHandlerFile.createNewFile()) {
+
                 System.out.println("dataHandler.json created");
                 dataHandler = new DataHandler();
                 dataHandler.addUser(new User("admin", "admin", true));
@@ -100,7 +104,7 @@ public class Server {
             FileWriter fileWriter = new FileWriter(dataHandlerPath.toString(), false);
             fileWriter.write(dataHandlerJSON);
             fileWriter.close();
-            System.out.println("dataHandler.json saved");
+            // System.out.println("dataHandler.json saved");
         } catch (IOException e) {
             System.out.println("Error writing to dataHandler.json");
         }
@@ -171,6 +175,7 @@ public class Server {
                     }
                     Debug.log("Async Input Completed");
                 });
+                
                 if (autosave) {
                     saveDataHandler();
                 }
@@ -286,16 +291,16 @@ public class Server {
      * @return The number of threads removed
      */
     public int cleanUp() {
-        
+
         int c = 0;
-        System.out.println("Cleaning...");
+        // System.out.println("Cleaning...");
         for (ServerThread st : threads) {
             if (st.socket.isClosed()) {
                 threads.remove(st);
                 c++;
             }
         }
-        System.out.println("Clean Complete! Removed " + c + " thread(s)!");
+        // System.out.println("Clean Complete! Removed " + c + " thread(s)!");
         return c;
     }
 
@@ -331,6 +336,7 @@ public class Server {
             } else if (t.getInfo() == 2) {
                 count[1]++;
             }
+            System.out.println(count[0] + " | " + count[1]);
         }
         return count;
     }

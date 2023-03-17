@@ -31,12 +31,14 @@ public class ServerGUI {
     ModalManager modalManager;
 
     enum Page {
-        HOME, USERS, HOUSEHOLDS
+        HOME, USERS, HOUSEHOLDS, DEVICES, SETTINGS
     }
 
     Page currentPage;
 
     ObservableList<GridPane> userGrids = FXCollections.observableArrayList();
+    ObservableList<GridPane> houseHoldGrids = FXCollections.observableArrayList();
+    ObservableList<GridPane> deviceGrids = FXCollections.observableArrayList();
 
     public ServerGUI() {
     }
@@ -77,8 +79,28 @@ public class ServerGUI {
                 userGrids.add(u.getListGridPane(server, modalManager));
             }
         });
+        server.getDataHandler().getHouseHolds().addListener((ListChangeListener.Change<? extends HouseHold> c) -> {
+            houseHoldGrids.clear();
+            for (HouseHold h : server.getDataHandler().getHouseHolds()) {
+                houseHoldGrids.add(h.getListGridPane(server, modalManager));
+            }
+        });
+        server.getDataHandler().getRecievers().addListener((ListChangeListener.Change<? extends Reciever> c) -> {
+            deviceGrids.clear();
+            for (Reciever r : server.getDataHandler().getRecievers()) {
+                deviceGrids.add(r.getListGridPane(server, modalManager));
+            }
+        });
         for (User u : server.getDataHandler().getUsers()) {
             userGrids.add(u.getListGridPane(server, modalManager));
+        }
+
+        for (HouseHold h : server.getDataHandler().getHouseHolds()) {
+            houseHoldGrids.add(h.getListGridPane(server, modalManager));
+        }
+
+        for (Reciever r : server.getDataHandler().getRecievers()) {
+            deviceGrids.add(r.getListGridPane(server, modalManager));
         }
 
     }
@@ -203,13 +225,29 @@ public class ServerGUI {
             rootBorderPane.setCenter(createHouseholdsBody());
             currentPage = Page.HOUSEHOLDS;
         });
+        Button devicesButton = new Button("Devices");
+        houseHoldButton.setOnAction(e -> {
+            rootBorderPane.setCenter(createDevicesBody());
+            currentPage = Page.DEVICES;
+        });
+        Button settingsButton = new Button("Settings");
+        houseHoldButton.setOnAction(e -> {
+            rootBorderPane.setCenter(createSettingsBody());
+            currentPage = Page.SETTINGS;
+        });
 
         homeButton.setBackground(
                 new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
         userButton.setBackground(
                 new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        houseHoldButton.setBackground(
+                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        devicesButton.setBackground(
+                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        settingsButton.setBackground(
+                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
 
-        ribbonBar.getItems().addAll(homeButton, userButton, houseHoldButton);
+        ribbonBar.getItems().addAll(homeButton, userButton, houseHoldButton, devicesButton, settingsButton);
 
         return ribbonBar;
     }
@@ -248,6 +286,36 @@ public class ServerGUI {
     }
 
     private BorderPane createHouseholdsBody() {
+        BorderPane body = new BorderPane();
+        GridPane optionBar = new GridPane();
+
+        Button newHouseHold = new Button("New HouseHold");
+        optionBar.add(newHouseHold, 0, 0);
+        newHouseHold.setOnAction(e -> {
+            modalManager.createNewHouseHoldModal();
+        });
+
+        ListView<GridPane> houseHolds = new ListView<GridPane>(houseHoldGrids);
+
+        body.setCenter(houseHolds);
+
+        body.setTop(optionBar);
+        return body;
+    }
+
+    private BorderPane createDevicesBody() {
+        BorderPane body = new BorderPane();
+        GridPane optionBar = new GridPane();
+
+        ListView<GridPane> devices = new ListView<GridPane>(deviceGrids);
+
+        body.setCenter(devices);
+
+        body.setTop(optionBar);
+        return body;
+    }
+
+    private BorderPane createSettingsBody() {
         BorderPane body = new BorderPane();
 
         return body;

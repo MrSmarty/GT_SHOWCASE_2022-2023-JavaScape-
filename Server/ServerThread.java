@@ -26,9 +26,15 @@ public class ServerThread extends Thread {
     // 1 is headless client
     // 2 is reciever
     /**
-     * Determines the type of thread. -1 is null, 0 is client, 1 is headless client, 2 is a reciever
+     * Determines the type of thread. -1 is null, 0 is client, 1 is headless client,
+     * 2 is a reciever
      */
     private int type = -1;
+    /**
+     * Determines the id of the reciever. -1 is null
+     * use *BIG* encoding when getting from reciever
+     */
+    private int id = -1;
 
     // Determines if while loop is running
     private boolean run = true;
@@ -39,6 +45,7 @@ public class ServerThread extends Thread {
     }
 
     public void run() {
+        System.out.println("New thread created");
         printStream = null;
         socketReader = null;
         keyboardReader = null;
@@ -58,7 +65,7 @@ public class ServerThread extends Thread {
             return;
         }
 
-        message = "getType";
+        message = "getInfo";
 
         // repeat as long as the client
         // does not send a null string
@@ -80,16 +87,24 @@ public class ServerThread extends Thread {
                             quit();
                             return;
                         } else if (arguments[0].equals("type")) {
-                            System.out.println("Got type");
+                            System.out.println("Got Info");
                             type = Integer.parseInt(arguments[1]);
                             System.out.println("Type is now: " + type);
+                            if (type == 2) {
+                                id = Integer.parseInt(arguments[2]);
+                                System.out.println("ID is now: " + id);
+                            }
                         }
-
+                        in = null;
                     } catch (IOException e) {
+                        System.out.println("IOException | Closing thread");
+                        quit();
+                        return;
+                    } catch (Exception e) {
                         e.printStackTrace();
                         return;
                     }
-                    in = null;
+
                 });
             }
 
@@ -108,9 +123,6 @@ public class ServerThread extends Thread {
                 out = null;
                 message = null;
             }
-
-            // });
-            // }
 
         }
 
@@ -141,7 +153,9 @@ public class ServerThread extends Thread {
     }
 
     /**
-     * Returns the type of thread. -1 is null, 0 is client, 1 is headless client, 2 is a reciever
+     * Returns the type of thread. -1 is null, 0 is client, 1 is headless client, 2
+     * is a reciever
+     * 
      * @return the int for the tye of connection.
      */
     public int getInfo() {

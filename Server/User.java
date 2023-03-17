@@ -160,7 +160,7 @@ public class User {
         GridPane g = new GridPane();
         Text name = new Text(this.name);
         Text email = new Text(this.email);
-        Text household = new Text(this.householdID + "");
+        Text household = new Text(householdID == -1 ? "No household assigned" : s.getDataHandler().findHouseHold(householdID).getHouseHoldName());
         Button edit = new Button("Edit");
         Button delete = new Button("Delete");
 
@@ -174,6 +174,7 @@ public class User {
 
         g.add(name, 0, 0);
         g.add(email, 1, 0);
+        g.add(household, 1, 1);
         g.add(edit, 0, 1);
         g.add(delete, 0, 2);
         

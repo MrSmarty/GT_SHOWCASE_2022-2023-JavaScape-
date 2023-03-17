@@ -1,8 +1,12 @@
 import java.util.*;
 
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+
 public class HouseHold {
     private int id = -1;
-    private String name = "Household";
+    private String houseHoldName = "Household";
     private ArrayList<User> users = new ArrayList<User>();
 
     /**
@@ -20,7 +24,7 @@ public class HouseHold {
      * @param name
      */
     public HouseHold(String name) {
-        this.name = name;
+        this.houseHoldName = name;
     }
 
     /**
@@ -31,7 +35,7 @@ public class HouseHold {
      */
     public HouseHold(int id, String name) {
         this.id = id;
-        this.name = name;
+        this.houseHoldName = name;
     }
 
     /**
@@ -39,8 +43,8 @@ public class HouseHold {
      * 
      * @return the name of the household
      */
-    public String getName() {
-        return name;
+    public String getHouseHoldName() {
+        return houseHoldName;
     }
 
     public int getID() {
@@ -82,5 +86,20 @@ public class HouseHold {
         }
         return toReturn;
 
+    }
+
+    public GridPane getListGridPane(Server s, ModalManager manager) {
+        GridPane g = new GridPane();
+
+        Text name = new Text(this.houseHoldName);
+
+        Button edit = new Button("Edit");
+        Button delete = new Button("Delete");
+
+        g.add(name, 0, 0);
+        g.add(edit, 1, 0);
+        g.add(delete, 2, 0);
+
+        return g;
     }
 }

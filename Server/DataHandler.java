@@ -8,9 +8,11 @@ import javafx.scene.*;
  */
 public class DataHandler {
 
+    private int houseHoldIDIndex = 0;
 
     ObservableList<User> users = FXCollections.observableArrayList();
-    ArrayList<HouseHold> houseHolds = new ArrayList<HouseHold>();
+    ObservableList<HouseHold> houseHolds = FXCollections.observableArrayList();
+    ObservableList<Reciever> recievers = FXCollections.observableArrayList();
 
     /**
      * Add a user to the database
@@ -25,10 +27,13 @@ public class DataHandler {
         houseHolds.add(newHouseHold);
     }
 
+    public void addReciever(Reciever newReciever) {
+        recievers.add(newReciever);
+    }
+
     public ObservableList<User> getUsers() {
         return users;
     }
-
 
     /**
      * Find a user by name
@@ -47,8 +52,12 @@ public class DataHandler {
         users.remove(u);
     }
 
-    public ArrayList<HouseHold> getHouseHolds() {
+    public ObservableList<HouseHold> getHouseHolds() {
         return houseHolds;
+    }
+
+    public int getHouseHoldIDIndex() {
+        return houseHoldIDIndex++;
     }
 
     /**
@@ -59,7 +68,7 @@ public class DataHandler {
      */
     public HouseHold findHouseHold(String houseHoldName) {
         for (HouseHold h : houseHolds) {
-            if (h.getName().equals(houseHoldName))
+            if (h.getHouseHoldName().equals(houseHoldName))
                 return h;
         }
         return null;
@@ -77,6 +86,26 @@ public class DataHandler {
                 return h;
         }
         return null;
+    }
+
+    public void deleteHouseHold(HouseHold h) {
+        houseHolds.remove(h);
+    }
+
+    public ObservableList<Reciever> getRecievers() {
+        return recievers;
+    }
+
+    public Reciever findReciever(int id) {
+        for (Reciever r : recievers) {
+            if (r.getID() == id)
+                return r;
+        }
+        return null;
+    }
+
+    public void deleteReciever(Reciever r) {
+        recievers.remove(r);
     }
 
     public boolean authenticateAdmin(String name, String password) {

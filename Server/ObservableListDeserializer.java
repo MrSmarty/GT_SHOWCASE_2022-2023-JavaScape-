@@ -6,16 +6,22 @@ import javafx.collections.*;
 public class ObservableListDeserializer implements JsonDeserializer<ObservableList<?>> {
 
     @Override
-    public ObservableList<User> deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
+    public ObservableList<?> deserialize(JsonElement json, java.lang.reflect.Type typeOfT,
             JsonDeserializationContext context) throws JsonParseException {
 
-        ObservableList<User> list = FXCollections.observableArrayList();
+        ObservableList<?> list = FXCollections.observableArrayList();
 
         // The array containing the elements to deserialize
         JsonArray jsonArray = json.getAsJsonArray();
 
         for (JsonElement element : jsonArray) {
-            list.add(context.deserialize(element, User.class));
+            if (element.getAsJsonObject().has("name")) {
+                list.add(context.deserialize(element, User.class));
+            } else if (element.getAsJsonObject().has("houseHoldName")) {
+                list.add(context.deserialize(element, HouseHold.class));
+            } else if (element.getAsJsonObject().has("lastAccessed")) {
+                list.add(context.deserialize(element, Reciever.class));
+            }
         }
 
         return list;

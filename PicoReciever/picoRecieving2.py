@@ -1,4 +1,4 @@
-import usocket
+import usocket as socket
 import machine
 import uasyncio as aio
 import network
@@ -108,56 +108,59 @@ wirelessNet.connect(SSID, PASSWORD)
 if not wirelessNet.isconnected():
     print("No connection")
 
-sock = usocket.socket(usocket.AF_INET, usocket.SOCK_STREAM)
-sock.connect((IP, int(PORT)))
-
-
-async def processData():
-    data = sock.recv(BUFFSIZE).decode('utf-8')
-    data = data[:-2]
+def process(data):
     print(data)
-
     args = data.split(" ")
-
+    
     if args[0] == "getInfo":
-        print("type 2 " + str(UID))
-        output = "type 2 " + str(UID)
-    # Set a GPIO Pin to a single 
-    elif args[0] == "setPin":
-        machine.Pin(int(args[1]), machine.Pin.OUT, value=int(args[2]))
+        return "type 2 " + str(UID)
 
-    elif args[0] == "setupPin":
-        machine.Pin(int(args[1]), machine.Pin.IN if int(args[2]) == 0 else machine.Pin.OUT)
+    return "Unrecognized command"
 
-    elif args[0] == "setPWM":
-        machine.PWM(int(args[1]), args[2], args[3], args[4])
-    # Returns the value of a regular Pin
-    elif args[0] == "getPin":
-        output = machine.Pin(int(args[1])).value()
-    # Set the name of the Pico
-    elif args[0] == "setName":
-        NAME = args[1]
-    # Get the name of the Pico
-    elif args[0] == "getName":
-        output = NAME
-    else:
-        print("unknown command: " + data)
+#The main thread
+async def run():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+    def close():
+        sock.close()
+        print("Socket closed")
+    
+    # Attempt a connection to the server
+    try:
+        server = socket.getaddrinfo(IP, int(PORT))[0][-1]
+        sock.connect(server)
+    except OSError as e:
+        print("Socket error: " + str(e))
+        sock.close()
+        return
+    
+    while True:
+        sreader = aio.StreamReader(sock)
+        swriter = aio.StreamWriter(sock, {})
 
+        while True:
+            try:
+                input = (await sreader.readline())[:-2]
+                input = input.decode("utf-8")
+                output = process(input) + "\n"
+                print("Sending: " + output[:-2])
+                #sock.sendall(bytes(output, "utf-8"))
+                swriter.write(output.encode("utf-8"))
+                await swriter.drain()
+                print("Sent")
 
-def printData():
-    print("sending data")
-    sock.sendall(bytes(output + "\n", 'utf-8'))
-    print("sent: " + output)
-    output = None
+            except OSError as e:
+                close()
+                return
+            await aio.sleep(1)
 
-while RUN:
-    print("test")
-    if processFunc == None or processFunc.done():
-        print("test1")
-        processFunc = aio.create_task(processData())
-        print("test3")
-    if output != None:
-        print("test2")
-        printData()
+try:
+    aio.run(run())
+except KeyboardInterrupt:
+    print("Keyboard interrupt")
+finally:
+    _ = aio.new_event_loop()
+    print("Done")
+
 
 #n = machine.Pin("LED", machine.Pin.OUT, value=1)
