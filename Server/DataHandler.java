@@ -8,6 +8,8 @@ import javafx.scene.*;
  */
 public class DataHandler {
 
+    private Settings settings = new Settings();
+
     private int houseHoldIDIndex = 0;
 
     ObservableList<User> users = FXCollections.observableArrayList();
@@ -120,6 +122,10 @@ public class DataHandler {
         if (u == null)
             return false;
         return u.getPassword().equals(password);
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 
 }

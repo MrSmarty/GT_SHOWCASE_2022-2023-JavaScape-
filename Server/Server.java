@@ -175,7 +175,7 @@ public class Server {
                     }
                     Debug.log("Async Input Completed");
                 });
-                
+
                 if (autosave) {
                     saveDataHandler();
                 }
@@ -294,9 +294,10 @@ public class Server {
 
         int c = 0;
         // System.out.println("Cleaning...");
-        for (ServerThread st : threads) {
-            if (st.socket.isClosed()) {
-                threads.remove(st);
+        for (int i = 0; i < threads.size(); i++) {
+            if (threads.get(i).socket.isClosed()) {
+                threads.remove(i);
+                i--;
                 c++;
             }
         }

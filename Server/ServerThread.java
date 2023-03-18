@@ -14,6 +14,7 @@ public class ServerThread extends Thread {
     private PrintStream printStream;
     private BufferedReader socketReader;
     private BufferedReader keyboardReader;
+    int nullCounter = 0;
 
     CompletableFuture<Void> asyncPrint;
 
@@ -34,7 +35,7 @@ public class ServerThread extends Thread {
      * Determines the id of the reciever. -1 is null
      * use *BIG* encoding when getting from reciever
      */
-    private int id = -1;
+    private String id = "-1";
 
     // Determines if while loop is running
     private boolean run = true;
@@ -78,10 +79,16 @@ public class ServerThread extends Thread {
                     try {
                         // give us the data coming in and print if not null
                         in = socketReader.readLine();
-                        if (in == null)
+                        if (in == null) {
+                            nullCounter++;
+                            if (nullCounter > Settings.nullCounterLimit) {
+                                System.out.println("Null limit reached | Closing thread");
+                                quit();
+                                return;
+                            }
                             return;
+                        }
 
-                        System.out.println(in);
                         String[] arguments = in.split(" ");
                         if (arguments[0].equals("quit")) {
                             quit();
@@ -91,7 +98,7 @@ public class ServerThread extends Thread {
                             type = Integer.parseInt(arguments[1]);
                             System.out.println("Type is now: " + type);
                             if (type == 2) {
-                                id = Integer.parseInt(arguments[2]);
+                                id = arguments[2];
                                 System.out.println("ID is now: " + id);
                             }
                         }
@@ -145,7 +152,7 @@ public class ServerThread extends Thread {
 
         // close connection
         try {
-            keyboardReader.close();
+            //keyboardReader.close();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
