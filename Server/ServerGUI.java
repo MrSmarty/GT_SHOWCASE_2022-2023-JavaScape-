@@ -45,6 +45,14 @@ public class ServerGUI {
 
     public void start(Stage primaryStage) {
         pStage = primaryStage;
+        Platform.setImplicitExit(false);
+
+        primaryStage.setOnCloseRequest(e -> {
+            primaryStage.setIconified(true);
+            e.consume();
+        });
+        
+
         primaryStage.setTitle("JavaScape Server");
 
         primaryStage.setScene(createLogin());
@@ -103,6 +111,10 @@ public class ServerGUI {
             deviceGrids.add(r.getListGridPane(server, modalManager));
         }
 
+    }
+
+    public void close() {
+        pStage.close();
     }
 
     private Scene createLogin() {
