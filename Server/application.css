@@ -1,0 +1,14 @@
+.ribbon-button:focused {
+  -fx-border-color: #277d50;
+}
+
+.ribbon-button {
+  -fx-background-color: #ffffff;
+  -fx-font-size: 18;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-border-width: 2;
+  -fx-border-color: #ffffff;
+  -fx-cursor: hand;
+  -fx-padding: 5 20;
+}

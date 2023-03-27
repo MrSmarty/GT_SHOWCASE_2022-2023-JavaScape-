@@ -1,4 +1,4 @@
-import java.net.BindException;
+import java.net.*;
 
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -15,7 +15,7 @@ public class ServerApp extends Application {
 
     SystemTrayIcon trayIcon = new SystemTrayIcon();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {        
         launch(args);
     }
 

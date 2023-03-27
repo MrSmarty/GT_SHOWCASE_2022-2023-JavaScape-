@@ -9,9 +9,10 @@ public class Reciever implements Comparable<Reciever> {
     private int id = -1;
     private String name = "";
     private LocalDateTime lastAccessed;
+    private boolean isOnline = false;
 
     public Reciever() {
-
+        lastAccessed = LocalDateTime.now();
     }
 
     public Reciever(int id, String name) {
@@ -44,13 +45,20 @@ public class Reciever implements Comparable<Reciever> {
         return this.lastAccessed.compareTo(o.lastAccessed);
     }
 
+    public void setOnline(boolean b) {
+        isOnline = b;
+    }
+
     public GridPane getListGridPane(Server s, ModalManager m) {
         GridPane g = new GridPane();
 
         Text name = new Text(this.name);
         Text id = new Text(Integer.toString(this.id));
         Circle status = new Circle(5);
-        status.setFill(Color.RED);
+        if (isOnline)
+            status.setFill(Color.GREEN);
+        else
+            status.setFill(Color.RED);
 
         g.add(name, 0, 0);
         g.add(id, 1, 0);
