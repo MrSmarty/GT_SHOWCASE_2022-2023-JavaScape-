@@ -21,7 +21,7 @@ public class Server {
     // The gson object to be used for saving and loading JSON
     private Gson gson = new GsonBuilder().setPrettyPrinting()
             .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer())
-            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
+            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
 
     Debug Debug = new Debug();
     CommandParser commandParser = new CommandParser();

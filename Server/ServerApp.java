@@ -1,4 +1,4 @@
-import java.net.BindException;
+import java.net.*;
 
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -13,7 +13,9 @@ public class ServerApp extends Application {
     // Number of threads from the recievers (Picos and stuff)
     public static int recieverThreadCount = 0;
 
-    public static void main(String[] args) {
+    SystemTrayIcon trayIcon = new SystemTrayIcon();
+
+    public static void main(String[] args) {        
         launch(args);
     }
 
@@ -53,6 +55,9 @@ public class ServerApp extends Application {
 
         server.setGUI(g);
         g.setUp(server);
+        trayIcon.popup.getItem(0).addActionListener(e -> {
+            System.exit(0);
+        });
         g.start(primaryStage);
 
         Thread.ofVirtual().start(serverThread);

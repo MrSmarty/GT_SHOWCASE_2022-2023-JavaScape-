@@ -51,7 +51,6 @@ public class ServerGUI {
             primaryStage.setIconified(true);
             e.consume();
         });
-        
 
         primaryStage.setTitle("JavaScape Server");
 
@@ -136,6 +135,7 @@ public class ServerGUI {
         rootBorderPane.setCenter(createHomeBody());
 
         Scene applicationScene = new Scene(rootBorderPane);
+        applicationScene.getStylesheets().add(ServerApp.class.getResource("application.css").toExternalForm());
 
         return applicationScene;
     }
@@ -189,11 +189,16 @@ public class ServerGUI {
         g.add(passwordLabel, 0, 3);
         g.add(passwordField, 1, 3);
 
+        Label rememberMeLabel = new Label("Remember Me");
+        CheckBox rememberMeBox = new CheckBox();
+        g.add(rememberMeBox, 1, 4);
+        g.add(rememberMeLabel, 0, 4);
+
         // Messages
         Text message = new Text();
         message.setFill(Color.web("#FE654F"));
         message.setFont(Font.font("Arial", FontWeight.MEDIUM, 15));
-        g.add(message, 0, 4, 2, 1);
+        g.add(message, 0, 5, 2, 1);
 
         // Submit
         Button submit = new Button("Submit");
@@ -210,9 +215,29 @@ public class ServerGUI {
             }
         });
         submit.setOnAction(e -> {
+            if (rememberMeBox.isSelected()) {
+                Settings.rememberMe = true;
+                Settings.rememberedName = userNameField.getText();
+                Settings.rememberedPassword = passwordField.getText();
+            } else {
+                Settings.rememberMe = false;
+                Settings.rememberedName = "";
+                Settings.rememberedPassword = "";
+            }
             login(userNameField.getText(), passwordField.getText(), message);
         });
-        g.add(submit, 0, 5, 2, 1);
+        g.add(submit, 0, 6, 2, 1);
+
+        if (Settings.rememberMe) {
+            if (Settings.autoLogin) {
+                login(Settings.rememberedName, Settings.rememberedPassword, message);
+            }
+            userNameField.setText(Settings.rememberedName);
+            passwordField.setText(Settings.rememberedPassword);
+            rememberMeBox.setSelected(true);
+        } else {
+            rememberMeBox.setSelected(false);
+        }
 
         return g;
     }
@@ -238,26 +263,21 @@ public class ServerGUI {
             currentPage = Page.HOUSEHOLDS;
         });
         Button devicesButton = new Button("Devices");
-        houseHoldButton.setOnAction(e -> {
+        devicesButton.setOnAction(e -> {
             rootBorderPane.setCenter(createDevicesBody());
             currentPage = Page.DEVICES;
         });
         Button settingsButton = new Button("Settings");
-        houseHoldButton.setOnAction(e -> {
+        settingsButton.setOnAction(e -> {
             rootBorderPane.setCenter(createSettingsBody());
             currentPage = Page.SETTINGS;
         });
 
-        homeButton.setBackground(
-                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
-        userButton.setBackground(
-                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
-        houseHoldButton.setBackground(
-                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
-        devicesButton.setBackground(
-                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
-        settingsButton.setBackground(
-                new Background(new BackgroundFill(Color.web("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY)));
+        homeButton.getStyleClass().add("ribbon-button");
+        userButton.getStyleClass().add("ribbon-button");
+        houseHoldButton.getStyleClass().add("ribbon-button");
+        devicesButton.getStyleClass().add("ribbon-button");
+        settingsButton.getStyleClass().add("ribbon-button");
 
         ribbonBar.getItems().addAll(homeButton, userButton, houseHoldButton, devicesButton, settingsButton);
 
