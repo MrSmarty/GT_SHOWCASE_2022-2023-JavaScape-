@@ -7,61 +7,67 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A8E1ACE2922C30C007DD120 /* JavaScape_IOS_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E1ACD2922C30C007DD120 /* JavaScape_IOS_AppApp.swift */; };
-		8A8E1AD02922C30C007DD120 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E1ACF2922C30C007DD120 /* ContentView.swift */; };
-		8A8E1AD22922C314007DD120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E1AD12922C314007DD120 /* Assets.xcassets */; };
-		8A8E1AD52922C314007DD120 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A8E1AD42922C314007DD120 /* Preview Assets.xcassets */; };
-		8A8E1ADF2922C315007DD120 /* JavaScape_IOS_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E1ADE2922C315007DD120 /* JavaScape_IOS_AppTests.swift */; };
-		8A8E1AE92922C315007DD120 /* JavaScape_IOS_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E1AE82922C315007DD120 /* JavaScape_IOS_AppUITests.swift */; };
-		8A8E1AEB2922C315007DD120 /* JavaScape_IOS_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E1AEA2922C315007DD120 /* JavaScape_IOS_AppUITestsLaunchTests.swift */; };
+		8A18A00629B7D74500ACF92B /* Javascape_IOS_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A00529B7D74500ACF92B /* Javascape_IOS_AppApp.swift */; };
+		8A18A00829B7D74500ACF92B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A00729B7D74500ACF92B /* HomeView.swift */; };
+		8A18A00A29B7D74A00ACF92B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A18A00929B7D74A00ACF92B /* Assets.xcassets */; };
+		8A18A00D29B7D74A00ACF92B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A18A00C29B7D74A00ACF92B /* Preview Assets.xcassets */; };
+		8A18A01729B7D74B00ACF92B /* Javascape_IOS_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A01629B7D74B00ACF92B /* Javascape_IOS_AppTests.swift */; };
+		8A18A02129B7D74B00ACF92B /* Javascape_IOS_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A02029B7D74B00ACF92B /* Javascape_IOS_AppUITests.swift */; };
+		8A18A02329B7D74B00ACF92B /* Javascape_IOS_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A02229B7D74B00ACF92B /* Javascape_IOS_AppUITestsLaunchTests.swift */; };
+		8A18A03329B7DD4A00ACF92B /* ModuleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A03229B7DD4A00ACF92B /* ModuleCard.swift */; };
+		8A18A03529B7E1B800ACF92B /* ModuleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A03429B7E1B800ACF92B /* ModuleCardView.swift */; };
+		8A18A03829B7ECAC00ACF92B /* ModuleCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A18A03729B7ECAC00ACF92B /* ModuleCardListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8A8E1ADB2922C315007DD120 /* PBXContainerItemProxy */ = {
+		8A18A01329B7D74B00ACF92B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 8A8E1AC22922C30B007DD120 /* Project object */;
+			containerPortal = 8A189FFA29B7D74500ACF92B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8A8E1AC92922C30C007DD120;
-			remoteInfo = "JavaScape IOS App";
+			remoteGlobalIDString = 8A18A00129B7D74500ACF92B;
+			remoteInfo = "Javascape IOS App";
 		};
-		8A8E1AE52922C315007DD120 /* PBXContainerItemProxy */ = {
+		8A18A01D29B7D74B00ACF92B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 8A8E1AC22922C30B007DD120 /* Project object */;
+			containerPortal = 8A189FFA29B7D74500ACF92B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8A8E1AC92922C30C007DD120;
-			remoteInfo = "JavaScape IOS App";
+			remoteGlobalIDString = 8A18A00129B7D74500ACF92B;
+			remoteInfo = "Javascape IOS App";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8A8E1ACA2922C30C007DD120 /* JavaScape IOS App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JavaScape IOS App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A8E1ACD2922C30C007DD120 /* JavaScape_IOS_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScape_IOS_AppApp.swift; sourceTree = "<group>"; };
-		8A8E1ACF2922C30C007DD120 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8A8E1AD12922C314007DD120 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8A8E1AD42922C314007DD120 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8A8E1ADA2922C315007DD120 /* JavaScape IOS AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "JavaScape IOS AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A8E1ADE2922C315007DD120 /* JavaScape_IOS_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScape_IOS_AppTests.swift; sourceTree = "<group>"; };
-		8A8E1AE42922C315007DD120 /* JavaScape IOS AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "JavaScape IOS AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A8E1AE82922C315007DD120 /* JavaScape_IOS_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScape_IOS_AppUITests.swift; sourceTree = "<group>"; };
-		8A8E1AEA2922C315007DD120 /* JavaScape_IOS_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScape_IOS_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8A18A00229B7D74500ACF92B /* Javascape IOS App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Javascape IOS App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A18A00529B7D74500ACF92B /* Javascape_IOS_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Javascape_IOS_AppApp.swift; sourceTree = "<group>"; };
+		8A18A00729B7D74500ACF92B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		8A18A00929B7D74A00ACF92B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8A18A00C29B7D74A00ACF92B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8A18A01229B7D74B00ACF92B /* Javascape IOS AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Javascape IOS AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A18A01629B7D74B00ACF92B /* Javascape_IOS_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Javascape_IOS_AppTests.swift; sourceTree = "<group>"; };
+		8A18A01C29B7D74B00ACF92B /* Javascape IOS AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Javascape IOS AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A18A02029B7D74B00ACF92B /* Javascape_IOS_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Javascape_IOS_AppUITests.swift; sourceTree = "<group>"; };
+		8A18A02229B7D74B00ACF92B /* Javascape_IOS_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Javascape_IOS_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8A18A03229B7DD4A00ACF92B /* ModuleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCard.swift; sourceTree = "<group>"; };
+		8A18A03429B7E1B800ACF92B /* ModuleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCardView.swift; sourceTree = "<group>"; };
+		8A18A03729B7ECAC00ACF92B /* ModuleCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCardListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8A8E1AC72922C30C007DD120 /* Frameworks */ = {
+		8A189FFF29B7D74500ACF92B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A8E1AD72922C315007DD120 /* Frameworks */ = {
+		8A18A00F29B7D74B00ACF92B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A8E1AE12922C315007DD120 /* Frameworks */ = {
+		8A18A01929B7D74B00ACF92B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -71,142 +77,153 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8A8E1AC12922C30B007DD120 = {
+		8A189FF929B7D74500ACF92B = {
 			isa = PBXGroup;
 			children = (
-				8A8E1ACC2922C30C007DD120 /* JavaScape IOS App */,
-				8A8E1ADD2922C315007DD120 /* JavaScape IOS AppTests */,
-				8A8E1AE72922C315007DD120 /* JavaScape IOS AppUITests */,
-				8A8E1ACB2922C30C007DD120 /* Products */,
+				8A18A00429B7D74500ACF92B /* Javascape IOS App */,
+				8A18A01529B7D74B00ACF92B /* Javascape IOS AppTests */,
+				8A18A01F29B7D74B00ACF92B /* Javascape IOS AppUITests */,
+				8A18A00329B7D74500ACF92B /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8A8E1ACB2922C30C007DD120 /* Products */ = {
+		8A18A00329B7D74500ACF92B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8A8E1ACA2922C30C007DD120 /* JavaScape IOS App.app */,
-				8A8E1ADA2922C315007DD120 /* JavaScape IOS AppTests.xctest */,
-				8A8E1AE42922C315007DD120 /* JavaScape IOS AppUITests.xctest */,
+				8A18A00229B7D74500ACF92B /* Javascape IOS App.app */,
+				8A18A01229B7D74B00ACF92B /* Javascape IOS AppTests.xctest */,
+				8A18A01C29B7D74B00ACF92B /* Javascape IOS AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8A8E1ACC2922C30C007DD120 /* JavaScape IOS App */ = {
+		8A18A00429B7D74500ACF92B /* Javascape IOS App */ = {
 			isa = PBXGroup;
 			children = (
-				8A8E1ACD2922C30C007DD120 /* JavaScape_IOS_AppApp.swift */,
-				8A8E1ACF2922C30C007DD120 /* ContentView.swift */,
-				8A8E1AD12922C314007DD120 /* Assets.xcassets */,
-				8A8E1AD32922C314007DD120 /* Preview Content */,
+				8A18A02F29B7DAC500ACF92B /* Models */,
+				8A18A00529B7D74500ACF92B /* Javascape_IOS_AppApp.swift */,
+				8A18A00729B7D74500ACF92B /* HomeView.swift */,
+				8A18A03729B7ECAC00ACF92B /* ModuleCardListView.swift */,
+				8A18A03229B7DD4A00ACF92B /* ModuleCard.swift */,
+				8A18A03429B7E1B800ACF92B /* ModuleCardView.swift */,
+				8A18A00929B7D74A00ACF92B /* Assets.xcassets */,
+				8A18A00B29B7D74A00ACF92B /* Preview Content */,
 			);
-			path = "JavaScape IOS App";
+			path = "Javascape IOS App";
 			sourceTree = "<group>";
 		};
-		8A8E1AD32922C314007DD120 /* Preview Content */ = {
+		8A18A00B29B7D74A00ACF92B /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				8A8E1AD42922C314007DD120 /* Preview Assets.xcassets */,
+				8A18A00C29B7D74A00ACF92B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8A8E1ADD2922C315007DD120 /* JavaScape IOS AppTests */ = {
+		8A18A01529B7D74B00ACF92B /* Javascape IOS AppTests */ = {
 			isa = PBXGroup;
 			children = (
-				8A8E1ADE2922C315007DD120 /* JavaScape_IOS_AppTests.swift */,
+				8A18A01629B7D74B00ACF92B /* Javascape_IOS_AppTests.swift */,
 			);
-			path = "JavaScape IOS AppTests";
+			path = "Javascape IOS AppTests";
 			sourceTree = "<group>";
 		};
-		8A8E1AE72922C315007DD120 /* JavaScape IOS AppUITests */ = {
+		8A18A01F29B7D74B00ACF92B /* Javascape IOS AppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				8A8E1AE82922C315007DD120 /* JavaScape_IOS_AppUITests.swift */,
-				8A8E1AEA2922C315007DD120 /* JavaScape_IOS_AppUITestsLaunchTests.swift */,
+				8A18A02029B7D74B00ACF92B /* Javascape_IOS_AppUITests.swift */,
+				8A18A02229B7D74B00ACF92B /* Javascape_IOS_AppUITestsLaunchTests.swift */,
 			);
-			path = "JavaScape IOS AppUITests";
+			path = "Javascape IOS AppUITests";
+			sourceTree = "<group>";
+		};
+		8A18A02F29B7DAC500ACF92B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8A8E1AC92922C30C007DD120 /* JavaScape IOS App */ = {
+		8A18A00129B7D74500ACF92B /* Javascape IOS App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8A8E1AEE2922C315007DD120 /* Build configuration list for PBXNativeTarget "JavaScape IOS App" */;
+			buildConfigurationList = 8A18A02629B7D74B00ACF92B /* Build configuration list for PBXNativeTarget "Javascape IOS App" */;
 			buildPhases = (
-				8A8E1AC62922C30C007DD120 /* Sources */,
-				8A8E1AC72922C30C007DD120 /* Frameworks */,
-				8A8E1AC82922C30C007DD120 /* Resources */,
+				8A189FFE29B7D74500ACF92B /* Sources */,
+				8A189FFF29B7D74500ACF92B /* Frameworks */,
+				8A18A00029B7D74500ACF92B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "JavaScape IOS App";
-			productName = "JavaScape IOS App";
-			productReference = 8A8E1ACA2922C30C007DD120 /* JavaScape IOS App.app */;
+			name = "Javascape IOS App";
+			productName = "Javascape IOS App";
+			productReference = 8A18A00229B7D74500ACF92B /* Javascape IOS App.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8A8E1AD92922C315007DD120 /* JavaScape IOS AppTests */ = {
+		8A18A01129B7D74B00ACF92B /* Javascape IOS AppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8A8E1AF12922C315007DD120 /* Build configuration list for PBXNativeTarget "JavaScape IOS AppTests" */;
+			buildConfigurationList = 8A18A02929B7D74B00ACF92B /* Build configuration list for PBXNativeTarget "Javascape IOS AppTests" */;
 			buildPhases = (
-				8A8E1AD62922C315007DD120 /* Sources */,
-				8A8E1AD72922C315007DD120 /* Frameworks */,
-				8A8E1AD82922C315007DD120 /* Resources */,
+				8A18A00E29B7D74B00ACF92B /* Sources */,
+				8A18A00F29B7D74B00ACF92B /* Frameworks */,
+				8A18A01029B7D74B00ACF92B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8A8E1ADC2922C315007DD120 /* PBXTargetDependency */,
+				8A18A01429B7D74B00ACF92B /* PBXTargetDependency */,
 			);
-			name = "JavaScape IOS AppTests";
-			productName = "JavaScape IOS AppTests";
-			productReference = 8A8E1ADA2922C315007DD120 /* JavaScape IOS AppTests.xctest */;
+			name = "Javascape IOS AppTests";
+			productName = "Javascape IOS AppTests";
+			productReference = 8A18A01229B7D74B00ACF92B /* Javascape IOS AppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8A8E1AE32922C315007DD120 /* JavaScape IOS AppUITests */ = {
+		8A18A01B29B7D74B00ACF92B /* Javascape IOS AppUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8A8E1AF42922C315007DD120 /* Build configuration list for PBXNativeTarget "JavaScape IOS AppUITests" */;
+			buildConfigurationList = 8A18A02C29B7D74B00ACF92B /* Build configuration list for PBXNativeTarget "Javascape IOS AppUITests" */;
 			buildPhases = (
-				8A8E1AE02922C315007DD120 /* Sources */,
-				8A8E1AE12922C315007DD120 /* Frameworks */,
-				8A8E1AE22922C315007DD120 /* Resources */,
+				8A18A01829B7D74B00ACF92B /* Sources */,
+				8A18A01929B7D74B00ACF92B /* Frameworks */,
+				8A18A01A29B7D74B00ACF92B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8A8E1AE62922C315007DD120 /* PBXTargetDependency */,
+				8A18A01E29B7D74B00ACF92B /* PBXTargetDependency */,
 			);
-			name = "JavaScape IOS AppUITests";
-			productName = "JavaScape IOS AppUITests";
-			productReference = 8A8E1AE42922C315007DD120 /* JavaScape IOS AppUITests.xctest */;
+			name = "Javascape IOS AppUITests";
+			productName = "Javascape IOS AppUITests";
+			productReference = 8A18A01C29B7D74B00ACF92B /* Javascape IOS AppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8A8E1AC22922C30B007DD120 /* Project object */ = {
+		8A189FFA29B7D74500ACF92B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
-					8A8E1AC92922C30C007DD120 = {
+					8A18A00129B7D74500ACF92B = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
-					8A8E1AD92922C315007DD120 = {
+					8A18A01129B7D74B00ACF92B = {
 						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 8A8E1AC92922C30C007DD120;
+						TestTargetID = 8A18A00129B7D74500ACF92B;
 					};
-					8A8E1AE32922C315007DD120 = {
+					8A18A01B29B7D74B00ACF92B = {
 						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 8A8E1AC92922C30C007DD120;
+						TestTargetID = 8A18A00129B7D74500ACF92B;
 					};
 				};
 			};
-			buildConfigurationList = 8A8E1AC52922C30B007DD120 /* Build configuration list for PBXProject "JavaScape IOS App" */;
+			buildConfigurationList = 8A189FFD29B7D74500ACF92B /* Build configuration list for PBXProject "Javascape IOS App" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -214,36 +231,36 @@
 				en,
 				Base,
 			);
-			mainGroup = 8A8E1AC12922C30B007DD120;
-			productRefGroup = 8A8E1ACB2922C30C007DD120 /* Products */;
+			mainGroup = 8A189FF929B7D74500ACF92B;
+			productRefGroup = 8A18A00329B7D74500ACF92B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8A8E1AC92922C30C007DD120 /* JavaScape IOS App */,
-				8A8E1AD92922C315007DD120 /* JavaScape IOS AppTests */,
-				8A8E1AE32922C315007DD120 /* JavaScape IOS AppUITests */,
+				8A18A00129B7D74500ACF92B /* Javascape IOS App */,
+				8A18A01129B7D74B00ACF92B /* Javascape IOS AppTests */,
+				8A18A01B29B7D74B00ACF92B /* Javascape IOS AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8A8E1AC82922C30C007DD120 /* Resources */ = {
+		8A18A00029B7D74500ACF92B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A8E1AD52922C314007DD120 /* Preview Assets.xcassets in Resources */,
-				8A8E1AD22922C314007DD120 /* Assets.xcassets in Resources */,
+				8A18A00D29B7D74A00ACF92B /* Preview Assets.xcassets in Resources */,
+				8A18A00A29B7D74A00ACF92B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A8E1AD82922C315007DD120 /* Resources */ = {
+		8A18A01029B7D74B00ACF92B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A8E1AE22922C315007DD120 /* Resources */ = {
+		8A18A01A29B7D74B00ACF92B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,49 +270,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8A8E1AC62922C30C007DD120 /* Sources */ = {
+		8A189FFE29B7D74500ACF92B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A8E1AD02922C30C007DD120 /* ContentView.swift in Sources */,
-				8A8E1ACE2922C30C007DD120 /* JavaScape_IOS_AppApp.swift in Sources */,
+				8A18A03329B7DD4A00ACF92B /* ModuleCard.swift in Sources */,
+				8A18A00829B7D74500ACF92B /* HomeView.swift in Sources */,
+				8A18A03529B7E1B800ACF92B /* ModuleCardView.swift in Sources */,
+				8A18A00629B7D74500ACF92B /* Javascape_IOS_AppApp.swift in Sources */,
+				8A18A03829B7ECAC00ACF92B /* ModuleCardListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A8E1AD62922C315007DD120 /* Sources */ = {
+		8A18A00E29B7D74B00ACF92B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A8E1ADF2922C315007DD120 /* JavaScape_IOS_AppTests.swift in Sources */,
+				8A18A01729B7D74B00ACF92B /* Javascape_IOS_AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A8E1AE02922C315007DD120 /* Sources */ = {
+		8A18A01829B7D74B00ACF92B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A8E1AE92922C315007DD120 /* JavaScape_IOS_AppUITests.swift in Sources */,
-				8A8E1AEB2922C315007DD120 /* JavaScape_IOS_AppUITestsLaunchTests.swift in Sources */,
+				8A18A02129B7D74B00ACF92B /* Javascape_IOS_AppUITests.swift in Sources */,
+				8A18A02329B7D74B00ACF92B /* Javascape_IOS_AppUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8A8E1ADC2922C315007DD120 /* PBXTargetDependency */ = {
+		8A18A01429B7D74B00ACF92B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8A8E1AC92922C30C007DD120 /* JavaScape IOS App */;
-			targetProxy = 8A8E1ADB2922C315007DD120 /* PBXContainerItemProxy */;
+			target = 8A18A00129B7D74500ACF92B /* Javascape IOS App */;
+			targetProxy = 8A18A01329B7D74B00ACF92B /* PBXContainerItemProxy */;
 		};
-		8A8E1AE62922C315007DD120 /* PBXTargetDependency */ = {
+		8A18A01E29B7D74B00ACF92B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8A8E1AC92922C30C007DD120 /* JavaScape IOS App */;
-			targetProxy = 8A8E1AE52922C315007DD120 /* PBXContainerItemProxy */;
+			target = 8A18A00129B7D74500ACF92B /* Javascape IOS App */;
+			targetProxy = 8A18A01D29B7D74B00ACF92B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		8A8E1AEC2922C315007DD120 /* Debug */ = {
+		8A18A02429B7D74B00ACF92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -355,7 +375,7 @@
 			};
 			name = Debug;
 		};
-		8A8E1AED2922C315007DD120 /* Release */ = {
+		8A18A02529B7D74B00ACF92B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -409,14 +429,14 @@
 			};
 			name = Release;
 		};
-		8A8E1AEF2922C315007DD120 /* Debug */ = {
+		8A18A02729B7D74B00ACF92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"JavaScape IOS App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Javascape IOS App/Preview Content\"";
 				DEVELOPMENT_TEAM = SM4R644G6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -430,7 +450,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "XPGrinderStudios.JavaScape-IOS-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "Javascape.Javascape-IOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -438,14 +458,14 @@
 			};
 			name = Debug;
 		};
-		8A8E1AF02922C315007DD120 /* Release */ = {
+		8A18A02829B7D74B00ACF92B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"JavaScape IOS App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Javascape IOS App/Preview Content\"";
 				DEVELOPMENT_TEAM = SM4R644G6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -459,7 +479,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "XPGrinderStudios.JavaScape-IOS-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "Javascape.Javascape-IOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -467,7 +487,7 @@
 			};
 			name = Release;
 		};
-		8A8E1AF22922C315007DD120 /* Debug */ = {
+		8A18A02A29B7D74B00ACF92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -478,16 +498,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "XPGrinderStudios.JavaScape-IOS-AppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Javascape.Javascape-IOS-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JavaScape IOS App.app/JavaScape IOS App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Javascape IOS App.app/Javascape IOS App";
 			};
 			name = Debug;
 		};
-		8A8E1AF32922C315007DD120 /* Release */ = {
+		8A18A02B29B7D74B00ACF92B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -498,16 +518,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "XPGrinderStudios.JavaScape-IOS-AppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Javascape.Javascape-IOS-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JavaScape IOS App.app/JavaScape IOS App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Javascape IOS App.app/Javascape IOS App";
 			};
 			name = Release;
 		};
-		8A8E1AF52922C315007DD120 /* Debug */ = {
+		8A18A02D29B7D74B00ACF92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -516,16 +536,16 @@
 				DEVELOPMENT_TEAM = SM4R644G6F;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "XPGrinderStudios.JavaScape-IOS-AppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Javascape.Javascape-IOS-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "JavaScape IOS App";
+				TEST_TARGET_NAME = "Javascape IOS App";
 			};
 			name = Debug;
 		};
-		8A8E1AF62922C315007DD120 /* Release */ = {
+		8A18A02E29B7D74B00ACF92B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -534,55 +554,55 @@
 				DEVELOPMENT_TEAM = SM4R644G6F;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "XPGrinderStudios.JavaScape-IOS-AppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Javascape.Javascape-IOS-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "JavaScape IOS App";
+				TEST_TARGET_NAME = "Javascape IOS App";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8A8E1AC52922C30B007DD120 /* Build configuration list for PBXProject "JavaScape IOS App" */ = {
+		8A189FFD29B7D74500ACF92B /* Build configuration list for PBXProject "Javascape IOS App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8A8E1AEC2922C315007DD120 /* Debug */,
-				8A8E1AED2922C315007DD120 /* Release */,
+				8A18A02429B7D74B00ACF92B /* Debug */,
+				8A18A02529B7D74B00ACF92B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A8E1AEE2922C315007DD120 /* Build configuration list for PBXNativeTarget "JavaScape IOS App" */ = {
+		8A18A02629B7D74B00ACF92B /* Build configuration list for PBXNativeTarget "Javascape IOS App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8A8E1AEF2922C315007DD120 /* Debug */,
-				8A8E1AF02922C315007DD120 /* Release */,
+				8A18A02729B7D74B00ACF92B /* Debug */,
+				8A18A02829B7D74B00ACF92B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A8E1AF12922C315007DD120 /* Build configuration list for PBXNativeTarget "JavaScape IOS AppTests" */ = {
+		8A18A02929B7D74B00ACF92B /* Build configuration list for PBXNativeTarget "Javascape IOS AppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8A8E1AF22922C315007DD120 /* Debug */,
-				8A8E1AF32922C315007DD120 /* Release */,
+				8A18A02A29B7D74B00ACF92B /* Debug */,
+				8A18A02B29B7D74B00ACF92B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A8E1AF42922C315007DD120 /* Build configuration list for PBXNativeTarget "JavaScape IOS AppUITests" */ = {
+		8A18A02C29B7D74B00ACF92B /* Build configuration list for PBXNativeTarget "Javascape IOS AppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8A8E1AF52922C315007DD120 /* Debug */,
-				8A8E1AF62922C315007DD120 /* Release */,
+				8A18A02D29B7D74B00ACF92B /* Debug */,
+				8A18A02E29B7D74B00ACF92B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8A8E1AC22922C30B007DD120 /* Project object */;
+	rootObject = 8A189FFA29B7D74500ACF92B /* Project object */;
 }

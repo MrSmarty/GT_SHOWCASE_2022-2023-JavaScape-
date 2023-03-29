@@ -1,13 +1,13 @@
 //
-//  JavaScape_IOS_AppUITests.swift
-//  JavaScape IOS AppUITests
+//  Javascape_IOS_AppUITests.swift
+//  Javascape IOS AppUITests
 //
-//  Created by Lincoln Smith on 11/14/22.
+//  Created by Lincoln Smith on 3/7/23.
 //
 
 import XCTest
 
-class JavaScape_IOS_AppUITests: XCTestCase {
+class Javascape_IOS_AppUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

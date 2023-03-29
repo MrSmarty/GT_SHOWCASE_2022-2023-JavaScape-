@@ -1,13 +1,13 @@
 //
-//  JavaScape_IOS_AppUITestsLaunchTests.swift
-//  JavaScape IOS AppUITests
+//  Javascape_IOS_AppUITestsLaunchTests.swift
+//  Javascape IOS AppUITests
 //
-//  Created by Lincoln Smith on 11/14/22.
+//  Created by Lincoln Smith on 3/7/23.
 //
 
 import XCTest
 
-class JavaScape_IOS_AppUITestsLaunchTests: XCTestCase {
+class Javascape_IOS_AppUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
