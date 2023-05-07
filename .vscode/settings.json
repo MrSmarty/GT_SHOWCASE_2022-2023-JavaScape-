@@ -18,10 +18,10 @@
     "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.swing.jar",
     "/Users/lincoln/javafx-sdk-19.0.2.1/lib/javafx.web.jar"
   ],
-  "java.project.sourcePaths": [
-    "Client",
-    "Reciever",
-    "Server"
-  ],
-  "java.debug.settings.onBuildFailureProceed": true
+  "java.project.sourcePaths": ["Client", "Server"],
+  "java.debug.settings.onBuildFailureProceed": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "python.formatting.provider": "none"
 }

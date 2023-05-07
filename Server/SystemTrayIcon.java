@@ -19,8 +19,11 @@ public class SystemTrayIcon {
         final SystemTray tray = SystemTray.getSystemTray();
 
         // Create the menu components
+        MenuItem open = new MenuItem("Open Window");
         MenuItem close = new MenuItem("Close");
+        
 
+        popup.add(open);
         popup.add(close);
 
         trayIcon.setPopupMenu(popup);

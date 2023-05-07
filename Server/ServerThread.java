@@ -100,7 +100,10 @@ public class ServerThread extends Thread {
                             if (type == 2) {
                                 id = arguments[2];
                                 System.out.println("ID is now: " + id);
+                                message = "set LED 1";
                             }
+                        } else {
+                            System.out.println("Message Recieved: " + in);
                         }
                         in = null;
                     } catch (IOException e) {
@@ -152,7 +155,7 @@ public class ServerThread extends Thread {
 
         // close connection
         try {
-            //keyboardReader.close();
+            // keyboardReader.close();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();

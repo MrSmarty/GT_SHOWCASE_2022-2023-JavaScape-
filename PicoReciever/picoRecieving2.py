@@ -80,14 +80,14 @@ if IP == "" or PORT == "":
 """
     while True:
         conn, addr = site.accept()
-        
+
         conn.sendall(html)
-        
-        #print('Got a connection from %s' % str(addr))
+
+        # print('Got a connection from %s' % str(addr))
         request = conn.recv(1024)
         request = str(request)
-        #print('Content = %s' % request)
-        
+        # print('Content = %s' % request)
+
         argsIndex = request.find("/?") + 2
         argsEndIndex = request.find("HTTP") - 1
         request = request[argsIndex:argsEndIndex]
@@ -108,23 +108,35 @@ wirelessNet.connect(SSID, PASSWORD)
 if not wirelessNet.isconnected():
     print("No connection")
 
+pins = [machine.Pin] * 28
+
+
 def process(data):
     print(data)
     args = data.split(" ")
-    
+
     if args[0] == "getInfo":
         return "type 2 " + str(UID)
+    if args[0] == "set":
+        if (args[1] == "LED"):
+            machine.Pin("LED", machine.Pin.OUT, value=int(args[2]))
+            return "Set LED to " + args[2]
+        else:
+            machine.Pin(int(args[1]), machine.Pin.OUT, value=int(args[2]))
+            return "Set pin " + args[1] + " to " + args[2]
 
     return "Unrecognized command"
 
-#The main thread
+# The main thread
+
+
 async def run():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
+
     def close():
         sock.close()
         print("Socket closed")
-    
+
     # Attempt a connection to the server
     try:
         server = socket.getaddrinfo(IP, int(PORT))[0][-1]
@@ -133,7 +145,7 @@ async def run():
         print("Socket error: " + str(e))
         sock.close()
         return
-    
+
     while True:
         sreader = aio.StreamReader(sock)
         swriter = aio.StreamWriter(sock, {})
@@ -144,7 +156,7 @@ async def run():
                 input = input.decode("utf-8")
                 output = process(input) + "\n"
                 print("Sending: " + output[:-2])
-                #sock.sendall(bytes(output, "utf-8"))
+                # sock.sendall(bytes(output, "utf-8"))
                 swriter.write(output.encode("utf-8"))
                 await swriter.drain()
                 print("Sent")
@@ -163,4 +175,4 @@ finally:
     print("Done")
 
 
-#n = machine.Pin("LED", machine.Pin.OUT, value=1)
+# n = machine.Pin("LED", machine.Pin.OUT, value=1)
