@@ -18,9 +18,12 @@ public class ServerThread extends Thread {
 
     CompletableFuture<Void> asyncPrint;
 
-    private String message = null;
+    String message = null;
     private String in = null;
     private String out = null;
+
+    // The device type (iPhone, windows, Pi Pico, etc.)
+    String device = null;
 
     // -1 is null
     // 0 is client
@@ -31,8 +34,9 @@ public class ServerThread extends Thread {
      * 2 is a reciever
      */
     private int type = -1;
+
     /**
-     * Determines the id of the reciever. -1 is null
+     * Determines the id of the reciever. -1 is null (or not a reciever)
      * use *BIG* encoding when getting from reciever
      */
     private String id = "-1";
@@ -99,8 +103,13 @@ public class ServerThread extends Thread {
                             System.out.println("Type is now: " + type);
                             if (type == 2) {
                                 id = arguments[2];
+                                device = arguments[3];
                                 System.out.println("ID is now: " + id);
                                 message = "set LED 1";
+                                if (server.getDataHandler().findReciever(id) == null) {
+                                    System.out.println("Adding reciever");
+                                    Reciever r = new Reciever(id, device);
+                                }
                             }
                         } else {
                             System.out.println("Message Recieved: " + in);

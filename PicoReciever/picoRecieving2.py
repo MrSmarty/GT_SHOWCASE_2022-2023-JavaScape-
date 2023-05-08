@@ -116,7 +116,7 @@ def process(data):
     args = data.split(" ")
 
     if args[0] == "getInfo":
-        return "type 2 " + str(UID)
+        return "type 2 " + str(UID) + " Pico_W"
     if args[0] == "set":
         if (args[1] == "LED"):
             machine.Pin("LED", machine.Pin.OUT, value=int(args[2]))

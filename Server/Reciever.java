@@ -6,7 +6,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class Reciever implements Comparable<Reciever> {
-    private int id = -1;
+    private String id = "-1";
     private String name = "";
     private LocalDateTime lastAccessed;
     private boolean isOnline = false;
@@ -15,17 +15,17 @@ public class Reciever implements Comparable<Reciever> {
         lastAccessed = LocalDateTime.now();
     }
 
-    public Reciever(int id, String name) {
+    public Reciever(String id, String name) {
         this.id = id;
         this.name = name;
         lastAccessed = LocalDateTime.now();
     }
 
-    public int getID() {
+    public String getID() {
         return id;
     }
 
-    public void setID(int id) {
+    public void setID(String id) {
         this.id = id;
     }
 
@@ -53,7 +53,7 @@ public class Reciever implements Comparable<Reciever> {
         GridPane g = new GridPane();
 
         Text name = new Text(this.name);
-        Text id = new Text(Integer.toString(this.id));
+        Text id = new Text(this.id);
         Circle status = new Circle(5);
         if (isOnline)
             status.setFill(Color.GREEN);
@@ -65,5 +65,9 @@ public class Reciever implements Comparable<Reciever> {
         g.add(status, 0, 1);
 
         return g;
+    }
+
+    public void set(int pin, int value, ServerThread thread) {
+        thread.message = "set " + pin + " " + value;
     }
 }

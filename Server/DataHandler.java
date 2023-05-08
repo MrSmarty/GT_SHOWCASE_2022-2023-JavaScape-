@@ -98,9 +98,9 @@ public class DataHandler {
         return recievers;
     }
 
-    public Reciever findReciever(int id) {
+    public Reciever findReciever(String id) {
         for (Reciever r : recievers) {
-            if (r.getID() == id)
+            if (r.getID().equals(id))
                 return r;
         }
         return null;
