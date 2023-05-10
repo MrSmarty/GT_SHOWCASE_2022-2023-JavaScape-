@@ -20,7 +20,7 @@ public class Server {
 
     // The gson object to be used for saving and loading JSON
     private Gson gson = new GsonBuilder().setPrettyPrinting()
-            .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer())
+            .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer()).registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
 
     Debug Debug = new Debug();
@@ -311,7 +311,11 @@ public class Server {
      * @return
      */
     public DataHandler getDataHandler() {
-        return dataHandler;
+        if (dataHandler != null)
+            return dataHandler;
+        else
+            System.out.println("No dataHandler found");
+            return null;
     }
 
     public boolean authenticateAdmin(String username, String password) {

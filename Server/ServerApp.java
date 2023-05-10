@@ -15,7 +15,8 @@ public class ServerApp extends Application {
 
     SystemTrayIcon trayIcon = new SystemTrayIcon();
 
-    public static void main(String[] args) {        
+
+    public static void main(String[] args) {
         launch(args);
     }
 
@@ -55,8 +56,11 @@ public class ServerApp extends Application {
 
         server.setGUI(g);
         g.setUp(server);
-        trayIcon.popup.getItem(0).addActionListener(e -> {
+        trayIcon.popup.getItem(1).addActionListener(e -> {
             System.exit(0);
+        });
+        trayIcon.popup.getItem(0).addActionListener(e -> {
+            primaryStage.show();
         });
         g.start(primaryStage);
 
