@@ -5,11 +5,16 @@ import network
 import os
 import sys
 
-IP = "107.217.165.178"
-PORT = "19"
-SSID = "Da Snifs"
-PASSWORD = "11111111"
+# IP = "107.217.165.178"
+# PORT = "19"
+# SSID = "Da Snifs"
+# PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"
+
+IP = "64.183.186.22"
+PORT = "19"
+SSID = "LVISD Student"
+PASSWORD = "!V1k1ng$R0w1ng!"
 # Use big encoding to get a unique ID for the Pico
 UID = int.from_bytes(machine.unique_id(), "big")
 print(NAME)
@@ -117,13 +122,17 @@ def process(data):
 
     if args[0] == "getInfo":
         return "type 2 " + str(UID) + " Pico_W"
-    if args[0] == "set":
+    elif args[0] == "set":
         if (args[1] == "LED"):
             machine.Pin("LED", machine.Pin.OUT, value=int(args[2]))
             return "Set LED to " + args[2]
         else:
             machine.Pin(int(args[1]), machine.Pin.OUT, value=int(args[2]))
             return "Set pin " + args[1] + " to " + args[2]
+    elif args[0] == "get":
+        if (args[1] == "LED"):
+            return machine.Pin("LED").value
+
 
     return "Unrecognized command"
 
@@ -135,6 +144,7 @@ async def run():
 
     def close():
         sock.close()
+        machine.Pin("LED", machine.Pin.OUT, value=0)
         print("Socket closed")
 
     # Attempt a connection to the server

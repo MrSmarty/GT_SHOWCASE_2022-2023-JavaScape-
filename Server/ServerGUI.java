@@ -349,6 +349,43 @@ public class ServerGUI {
 
     private BorderPane createSettingsBody() {
         BorderPane body = new BorderPane();
+        GridPane optionsPane = new GridPane();
+
+        Label rememberMeText = new Label("Remember me: ");
+        CheckBox rememberMeBox = new CheckBox();
+        rememberMeBox.setSelected(Settings.rememberMe);
+        rememberMeBox.setOnAction(e -> {
+            Settings.rememberMe = rememberMeBox.selectedProperty().getValue();
+        });
+
+        Label autologinText = new Label("Autologin: ");
+        CheckBox autologinBox = new CheckBox();
+        autologinBox.setSelected(Settings.autoLogin);
+        autologinBox.setOnAction(e -> {
+            Settings.autoLogin = autologinBox.selectedProperty().getValue();
+        });
+
+        Label nullCounterLabel = new Label("Null Counter Limit: ");
+        Spinner<Integer> nullCounterSpinner = new Spinner<Integer>(1, 1000, Settings.nullCounterLimit, 1);
+        nullCounterSpinner.setEditable(true);
+        nullCounterSpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            if (oldValue != newValue) {
+                Settings.nullCounterLimit = Integer.parseInt(newValue);
+            }
+        });
+        
+
+        optionsPane.add(rememberMeText, 0, 0);
+        optionsPane.add(rememberMeBox, 1, 0);
+
+        optionsPane.add(autologinText, 0, 1);
+        optionsPane.add(autologinBox, 1, 1);
+
+        optionsPane.add(nullCounterLabel, 0, 2);
+        optionsPane.add(nullCounterSpinner, 1, 2);
+
+
+        body.setCenter(optionsPane);
 
         return body;
     }
