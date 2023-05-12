@@ -19,7 +19,7 @@ public class ObservableListDeserializer implements JsonDeserializer<ObservableLi
                 list.add(context.deserialize(element, User.class));
             } else if (element.getAsJsonObject().has("houseHoldName")) {
                 list.add(context.deserialize(element, HouseHold.class));
-            } else if (element.getAsJsonObject().has("lastAccessed")) {
+            } else if (element.getAsJsonObject().has("recieverName")) {
                 list.add(context.deserialize(element, Reciever.class));
             }
         }

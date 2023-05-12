@@ -108,7 +108,11 @@ public class ServerThread extends Thread {
                                 message = "set LED 1";
                                 if (server.getDataHandler().findReciever(id) == null) {
                                     System.out.println("Adding reciever");
-                                    Reciever r = new Reciever(id, device);
+                                    Reciever r = new RaspberryPiPicoW(id, device);
+                                    r.setCurrentThread(this);
+                                    server.getDataHandler().addReciever(r);
+                                } else {
+                                    server.getDataHandler().findReciever(id).setCurrentThread(this);
                                 }
                             }
                         } else {
@@ -132,7 +136,7 @@ public class ServerThread extends Thread {
             // Send keyboard out
             // out = keyboardReader.readLine();
             if (message != null && run != false) {
-                out = message;
+                out = message + " ";
 
                 // send to client
                 printStream.println(out);

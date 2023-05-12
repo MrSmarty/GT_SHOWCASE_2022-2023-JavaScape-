@@ -11,7 +11,7 @@ import sys
 # PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"
 
-IP = "64.183.186.22"
+IP = "10.3.9.205"
 PORT = "19"
 SSID = "LVISD Student"
 PASSWORD = "!V1k1ng$R0w1ng!"
@@ -164,7 +164,7 @@ async def run():
             try:
                 input = (await sreader.readline())[:-2]
                 input = input.decode("utf-8")
-                output = process(input) + "\n"
+                output = process(input) + " \n"
                 print("Sending: " + output[:-2])
                 # sock.sendall(bytes(output, "utf-8"))
                 swriter.write(output.encode("utf-8"))

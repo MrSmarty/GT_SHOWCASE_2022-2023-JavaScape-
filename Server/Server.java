@@ -20,7 +20,7 @@ public class Server {
 
     // The gson object to be used for saving and loading JSON
     private Gson gson = new GsonBuilder().setPrettyPrinting()
-            .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer()).registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
+            .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer()).registerTypeAdapter(Reciever.class, new RecieverDeserializer()).registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
 
     Debug Debug = new Debug();
@@ -344,6 +344,15 @@ public class Server {
             System.out.println(count[0] + " | " + count[1]);
         }
         return count;
+    }
+
+    public void updateRecieverConnectionStatus() {
+        for (Reciever r : dataHandler.getRecievers()) {
+            r.setOnline(false);
+        }
+        for (ServerThread t : threads) {
+            //if ()
+        }
     }
 
 }

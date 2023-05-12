@@ -1,24 +1,33 @@
 import java.time.*;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
-public class Reciever implements Comparable<Reciever> {
+abstract public class Reciever implements Comparable<Reciever> {
     private String id = "-1";
-    private String name = "";
-    private LocalDateTime lastAccessed;
+    private String recieverName = "";
+    private transient LocalDateTime lastAccessed;
     private boolean isOnline = false;
+    private String subType;
+
+    private transient ServerThread currentThread;
 
     public Reciever() {
         lastAccessed = LocalDateTime.now();
     }
 
-    public Reciever(String id, String name) {
+    public Reciever(String id, String name, String subType) {
         this.id = id;
-        this.name = name;
+        this.recieverName = name;
+        this.subType = subType;
         lastAccessed = LocalDateTime.now();
+    }
+
+    public String getSubType() {
+        return subType;
     }
 
     public String getID() {
@@ -29,8 +38,8 @@ public class Reciever implements Comparable<Reciever> {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRecieverName() {
+        return recieverName;
     }
 
     public LocalDateTime getLastAccessed() {
@@ -49,10 +58,16 @@ public class Reciever implements Comparable<Reciever> {
         isOnline = b;
     }
 
+    public boolean getOnline() {
+        return isOnline;
+    }
+
     public GridPane getListGridPane(Server s, ModalManager m) {
         GridPane g = new GridPane();
 
-        Text name = new Text(this.name);
+        Label nameLabel = new Label("Name: ");
+        Text name = new Text(this.recieverName);
+        Label idLabel = new Label("ID: ");
         Text id = new Text(this.id);
         Circle status = new Circle(5);
         if (isOnline)
@@ -60,14 +75,24 @@ public class Reciever implements Comparable<Reciever> {
         else
             status.setFill(Color.RED);
 
-        g.add(name, 0, 0);
-        g.add(id, 1, 0);
-        g.add(status, 0, 1);
+        g.add(status, 0, 0);
+        g.add(nameLabel, 1, 0);
+        g.add(name, 2, 0);
+        g.add(idLabel, 1, 1);
+        g.add(id, 2, 1);
 
         return g;
     }
 
-    public void set(int pin, int value, ServerThread thread) {
-        thread.message = "set " + pin + " " + value;
+    public void set(int pin, int value) {
+        currentThread.message = "set " + pin + " " + value;
+    }
+
+    public void setCurrentThread(ServerThread t) {
+        currentThread = t;
+    }
+
+    public void clearCurrentThread() {
+        currentThread = null;
     }
 }
