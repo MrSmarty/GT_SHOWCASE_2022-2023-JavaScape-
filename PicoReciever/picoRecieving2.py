@@ -5,8 +5,8 @@ import network
 import os
 import sys
 
-IP = "107.217.165.178"
-PORT = "19"
+IP = "192.168.1.241"
+PORT = "80"
 SSID = "Da Snifs"
 PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"
