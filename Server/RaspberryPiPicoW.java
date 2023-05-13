@@ -35,13 +35,14 @@ public class RaspberryPiPicoW extends Reciever {
         TitledPane pinEditor = new TitledPane();
         pinEditor.setContent(getPinLayout());
         pinEditor.setText("Pin Editor");
+        pinEditor.expandedProperty().set(false);
 
         g.add(status, 0, 0);
         g.add(nameLabel, 1, 0);
         g.add(name, 2, 0);
         g.add(idLabel, 1, 1);
         g.add(id, 2, 1);
-        g.add(pinEditor, 1, 2);
+        g.add(pinEditor, 1, 2, 2, 1);
 
         return g;
     }
@@ -49,18 +50,32 @@ public class RaspberryPiPicoW extends Reciever {
     private GridPane getPinLayout() {
         GridPane g = new GridPane();
 
-        CheckBox c = new CheckBox();
-        CheckBox c2 = new CheckBox();
+        // CheckBox c = new CheckBox();
 
-        c.setOnAction(e -> {
-            super.set(0, c.selectedProperty().getValue() ? 1 : 0);
-        });
-        c2.setOnAction(e -> {
-            super.set(1, c.selectedProperty().getValue() ? 1 : 0);
+        // c.setOnAction(e -> {
+        //     super.set(0, c.selectedProperty().getValue() ? 1 : 0);
+        // });
+        // g.add(c, 0, 0);
+
+        for (int i = 0; i < 28; i++) {
+            g.add(togglePane(i), i % 2, i / 2);
+        }
+
+        return g;
+    }
+
+    private GridPane togglePane(int pinNum) {
+        GridPane g = new GridPane();
+
+        Label pinLabel = new Label(String.format("GPIO % 2d: ", pinNum));
+        CheckBox pinBox = new CheckBox();
+
+        pinBox.setOnAction(e -> {
+            super.set(pinNum, pinBox.selectedProperty().getValue() ? 1 : 0);
         });
 
-        g.add(c, 0, 0);
-        g.add(c2, 0, 1);
+        g.add(pinLabel, 0, 0);
+        g.add(pinBox, 1, 0);
 
         return g;
     }

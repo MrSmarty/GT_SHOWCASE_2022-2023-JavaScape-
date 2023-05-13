@@ -140,13 +140,19 @@ public class Server {
             // If async function is done, start again
             if (asyncSocket == null || asyncSocket.isDone()) {
                 // Check sockets asyncronously
+                System.out.println("Running Async Socket");
                 asyncSocket = CompletableFuture.runAsync(() -> {
                     try {
-                        socket = serverSocket.accept();
+                        System.out.println("Waiting for client to connect");
+                        Socket clientSocket = null;
+                        clientSocket = serverSocket.accept();
+                        System.out.println("Client connected");
 
                         // new thread for a client
-                        threads.add(new ServerThread(socket, this));
-                        Thread.ofVirtual().start(threads.get(threads.size() - 1));
+                        ServerThread t = new ServerThread(clientSocket, this);
+                        threads.add(t);
+                        Thread.ofVirtual().start(t);
+                        //threads.get(threads.size() - 1).start();
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -159,28 +165,28 @@ public class Server {
             }
 
             // Start async funtion if not already doing so
-            if (asyncInput == null || asyncInput.isDone()) {
+            // if (asyncInput == null || asyncInput.isDone()) {
 
-                // Check input asyncronously
-                asyncInput = CompletableFuture.runAsync(() -> {
-                    try {
-                        // Get input
-                        String input = keyboardReader.readLine();
+            //     // Check input asyncronously
+            //     asyncInput = CompletableFuture.runAsync(() -> {
+            //         try {
+            //             // Get input
+            //             String input = keyboardReader.readLine();
 
-                        if (input != null && input.length() > 0) {
-                            processInput(input);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Debug.log("Async Input Completed");
-                });
+            //             if (input != null && input.length() > 0) {
+            //                 processInput(input);
+            //             }
+            //         } catch (IOException e) {
+            //             e.printStackTrace();
+            //         }
+            //         Debug.log("Async Input Completed");
+            //     });
 
-                if (autosave) {
-                    saveDataHandler();
-                }
+            //     if (autosave) {
+            //         saveDataHandler();
+            //     }
 
-            }
+            // }
         }
 
     }
