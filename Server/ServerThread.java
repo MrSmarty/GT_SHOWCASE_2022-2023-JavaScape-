@@ -19,6 +19,7 @@ public class ServerThread extends Thread {
     CompletableFuture<Void> asyncPrint;
 
     String message = null;
+    boolean awaitingResponse = false;
     private String in = null;
     private String out = null;
 
@@ -183,5 +184,13 @@ public class ServerThread extends Thread {
      */
     public int getInfo() {
         return type;
+    }
+
+    // TODO: Finish this
+    public String awaitResponse(String message) {
+        awaitingResponse = true;
+        this.message = message;
+
+        return "";
     }
 }

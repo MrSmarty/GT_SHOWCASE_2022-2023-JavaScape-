@@ -73,6 +73,7 @@ public class RaspberryPiPicoW extends Reciever {
         pinBox.setOnAction(e -> {
             super.set(pinNum, pinBox.selectedProperty().getValue() ? 1 : 0);
         });
+        pinBox.selectedProperty().set(super.get(pinNum) == 1);
 
         g.add(pinLabel, 0, 0);
         g.add(pinBox, 1, 0);
