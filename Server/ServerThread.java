@@ -19,17 +19,17 @@ public class ServerThread extends Thread {
     CompletableFuture<Void> asyncPrint;
 
     String message = null;
-    boolean awaitingResponse = false;
     private String in = null;
     private String out = null;
 
     // The device type (iPhone, windows, Pi Pico, etc.)
     String device = null;
 
-    // -1 is null
-    // 0 is client
-    // 1 is headless client
-    // 2 is reciever
+    // For polling data from reciever
+    // int pollRate = -1;
+    String polledString = null;
+    boolean polled = false;
+
     /**
      * Determines the type of thread. -1 is null, 0 is client, 1 is headless client,
      * 2 is a reciever
@@ -94,6 +94,12 @@ public class ServerThread extends Thread {
                             return;
                         }
 
+                        if (polled) {
+                            polledString = in;
+                            polled = false;
+                            return;
+                        }
+
                         String[] arguments = in.split(" ");
                         if (arguments[0].equals("quit")) {
                             quit();
@@ -107,6 +113,7 @@ public class ServerThread extends Thread {
                                 device = arguments[3];
                                 System.out.println("ID is now: " + id);
                                 message = "set LED 1";
+                                startPolling(5000);
                                 if (server.getDataHandler().findReciever(id) == null) {
                                     System.out.println("Adding reciever");
                                     Reciever r = new RaspberryPiPicoW(id, device);
@@ -132,11 +139,10 @@ public class ServerThread extends Thread {
                 });
             }
 
-            // if (asyncMessage.isDone()) {
-            // asyncMessage = CompletableFuture.runAsync(() -> {
-            // Send keyboard out
-            // out = keyboardReader.readLine();
             if (message != null && run != false) {
+                if (message.equals("poll")) {
+                    polled = true;
+                }
                 out = message + " ";
 
                 // send to client
@@ -186,11 +192,18 @@ public class ServerThread extends Thread {
         return type;
     }
 
-    // TODO: Finish this
-    public String awaitResponse(String message) {
-        awaitingResponse = true;
-        this.message = message;
+    public void startPolling(int pollRate) {
+        System.out.println("Starting polling");
+        Thread t = new Thread(() -> {
+            message = "poll";
+            try {
+                Thread.sleep(pollRate);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread.ofVirtual().start(t);
 
-        return "";
     }
+
 }

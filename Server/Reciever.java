@@ -13,6 +13,11 @@ abstract public class Reciever implements Comparable<Reciever> {
     private boolean isOnline = false;
     private String subType;
 
+    /**
+     * The amount of time between poll requests in milleseconds
+     */
+    private int pollRate = 1000;
+
     private transient ServerThread currentThread;
 
     public Reciever() {
@@ -87,15 +92,10 @@ abstract public class Reciever implements Comparable<Reciever> {
     public void set(int pin, int value) {
         currentThread.message = "set " + pin + " " + value;
     }
-    
-    public int get(int pin) {
-        int value = Integer.parseInt(currentThread.awaitResponse("get " + pin));
-
-        return value;
-    }
 
     public void setCurrentThread(ServerThread t) {
         currentThread = t;
+        //t.pollRate = pollRate;
     }
 
     public void clearCurrentThread() {

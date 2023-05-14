@@ -6,7 +6,7 @@ import os
 import sys
 
 IP = "192.168.1.241"
-PORT = "80"
+PORT = "19"
 SSID = "Da Snifs"
 PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"
@@ -132,6 +132,13 @@ def process(data):
     elif args[0] == "get":
         if (args[1] == "LED"):
             return machine.Pin("LED").value
+        elif (args[1] == "ALL"):
+            return "".join([str(pin.value()) for pin in pins])
+        else:
+            return machine.Pin(int(args[1])).value()
+    elif args[0] == "poll":
+        return "".join([str(pin.value()) + " " for pin in pins])
+
 
     return "Unrecognized command"
 

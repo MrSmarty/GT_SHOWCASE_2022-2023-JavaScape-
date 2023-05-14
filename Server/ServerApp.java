@@ -23,7 +23,7 @@ public class ServerApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.getIcons().add(new Image(ServerApp.class.getResourceAsStream("logo.png")));
-        Server server = new Server(80);
+        Server server = new Server(19);
         ServerGUI g = new ServerGUI();
 
         Thread serverThread = new Thread(() -> {
