@@ -95,4 +95,8 @@ abstract public class Reciever implements Comparable<Reciever> {
     public void clearCurrentThread() {
         currentThread = null;
     }
+
+    public abstract String getPinTypes();
+
+    public abstract String getPinValues();
 }

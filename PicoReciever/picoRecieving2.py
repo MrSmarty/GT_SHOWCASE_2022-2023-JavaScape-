@@ -6,7 +6,7 @@ import os
 import sys
 
 IP = "192.168.1.241"
-PORT = "80"
+PORT = "19"
 SSID = "Da Snifs"
 PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"

@@ -10,12 +10,22 @@ import javafx.scene.text.Text;
 
 public class RaspberryPiPicoW extends Reciever {
 
+    Pin[] pins = new Pin[28];
+
     public RaspberryPiPicoW(String id) {
         super(id, "Raspberry Pi Pico W", RaspberryPiPicoW.class.toString());
+        for (int i = 0; i < 28; i++) {
+            pins[i] = new Pin();
+            pins[i].pinNumber = i;
+        }
     }
 
     public RaspberryPiPicoW(String id, String name) {
         super(id, name, RaspberryPiPicoW.class.getName());
+        for (int i = 0; i < 28; i++) {
+            pins[i] = new Pin();
+            pins[i].pinNumber = i;
+        }
     }
 
     @Override
@@ -72,11 +82,29 @@ public class RaspberryPiPicoW extends Reciever {
 
         pinBox.setOnAction(e -> {
             super.set(pinNum, pinBox.selectedProperty().getValue() ? 1 : 0);
+            pins[pinNum].value = pinBox.selectedProperty().getValue() ? 1 : 0;
         });
+        pinBox.selectedProperty().set(pins[pinNum].value == 1);
 
         g.add(pinLabel, 0, 0);
         g.add(pinBox, 1, 0);
 
         return g;
+    }
+
+    public String getPinTypes() {
+        String s = "";
+        for (int i = 0; i < 28; i++) {
+            s += pins[i].type + " ";
+        }
+        return s.substring(0, s.length() - 1);
+    }
+
+    public String getPinValues() {
+        String s = "";
+        for (int i = 0; i < 28; i++) {
+            s += pins[i].value + " ";
+        }
+        return s.substring(0, s.length() - 1);
     }
 }
