@@ -1,20 +1,23 @@
 import usocket as socket
 import machine
+from machine import Pin, ADC, PWM
 import uasyncio as aio
 import network
 import os
 import sys
+import time
 
-IP = "192.168.1.241"
-PORT = "19"
-SSID = "Da Snifs"
-PASSWORD = "11111111"
+# IP = "192.168.1.241"
+# PORT = "19"
+# SSID = "Da Snifs"
+# PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"
 
-# IP = "10.3.9.205"
-# PORT = "19"
-# SSID = "LVISD Student"
-# PASSWORD = "!V1k1ng$R0w1ng!"
+IP = "10.3.5.60"
+PORT = "19"
+SSID = "LVISD Student"
+PASSWORD = "!V1k1ng$R0w1ng!"
+
 # Use big encoding to get a unique ID for the Pico
 UID = int.from_bytes(machine.unique_id(), "big")
 print(NAME)
@@ -110,6 +113,8 @@ wirelessNet = network.WLAN(network.STA_IF)
 wirelessNet.active(True)
 wirelessNet.connect(SSID, PASSWORD)
 
+time.sleep(1)
+
 if not wirelessNet.isconnected():
     print("No connection")
 
@@ -125,28 +130,34 @@ def process(data):
     
     elif args[0] == "set":
         if (args[1] == "LED"):
-            machine.Pin("LED", machine.Pin.OUT, value=int(args[2]))
+            Pin("LED", Pin.OUT, value=int(args[2]))
             return "Set LED to " + args[2]
         else:
-            machine.Pin(int(args[1]), machine.Pin.OUT, value=int(args[2]))
+            Pin(int(args[1]), Pin.OUT, value=int(args[2]))
             return "Set pin " + args[1] + " to " + args[2]
+    elif args[0] == "setDigital":
+        pins[int(args[1])] = ADC(Pin(int(args[1])))
         
     elif args[0] == "get":
         if (args[1] == "LED"):
-            return machine.Pin("LED").value
+            return Pin("LED").value
         else:
-            return machine.Pin(int(args[1])).value
+            return Pin(int(args[1])).value
         
     elif args[0] == "setAll":
         for i in range(int(args[1])):
             n = args[2+i].split(":")
             if n[0] == "0":
-                pins.append(machine.Pin(
-                    int(i), machine.Pin.OUT, value=int(n[1])))
+                pins.append(Pin(
+                    int(i), Pin.OUT, value=int(n[1])))
             else:
-                pins.append(machine.Pin(int(i), machine.Pin.IN))
+                pins.append(Pin(int(i), Pin.IN))
         return "finished setAll"
-
+    elif args[0] == "getAll":
+        n = ""
+        for i in range(len(pins)):
+            n = n + str(pins[i].value())
+        print(n)
     return "Unrecognized command"
 
 # The main thread
@@ -157,7 +168,6 @@ async def run():
     # sock = socket.socket()
 
     def close():
-        sock.close()
         machine.Pin("LED", machine.Pin.OUT, value=0)
         print("Socket closed")
 
@@ -202,5 +212,3 @@ finally:
 
 
 # n = machine.Pin("LED", machine.Pin.OUT, value=1)
-
-

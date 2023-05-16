@@ -115,6 +115,8 @@ public class ServerThread extends Thread {
                                     server.getDataHandler().findReciever(id).setCurrentThread(this);
                                 }
                             }
+                        } else if (arguments[0].equals("values")) {
+                            
                         } else {
                             System.out.println("Message Recieved: " + in);
                         }

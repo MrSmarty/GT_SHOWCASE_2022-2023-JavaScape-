@@ -76,7 +76,10 @@ public class RaspberryPiPicoW extends Reciever {
         GridPane g = new GridPane();
 
         for (int i = 0; i < 28; i++) {
-            g.add(valueTogglePane(i), i % 2, i / 2);
+            if (i < 14)
+                g.add(valueTogglePane(i), 0, i);
+            else
+                g.add(valueTogglePane(i), 1, i-14);
         }
 
         return g;
@@ -87,6 +90,7 @@ public class RaspberryPiPicoW extends Reciever {
 
         Label pinLabel = new Label(String.format("GPIO % 2d: ", pinNum));
         CheckBox pinBox = new CheckBox();
+        Label value = new Label(""+pins[pinNum].value);
 
         pinBox.setOnAction(e -> {
             super.set(pinNum, pinBox.selectedProperty().getValue() ? 1 : 0);
@@ -96,6 +100,7 @@ public class RaspberryPiPicoW extends Reciever {
 
         g.add(pinLabel, 0, 0);
         g.add(pinBox, 1, 0);
+        g.add(value, 2, 0);
 
         return g;
     }
