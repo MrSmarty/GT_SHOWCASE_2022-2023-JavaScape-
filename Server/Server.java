@@ -347,8 +347,8 @@ public class Server {
             } else if (t.getInfo() == 2) {
                 count[1]++;
             }
-            System.out.println(count[0] + " | " + count[1]);
         }
+        System.out.println(count[0] + " | " + count[1]);
         return count;
     }
 

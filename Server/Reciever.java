@@ -84,9 +84,15 @@ abstract public class Reciever implements Comparable<Reciever> {
         return g;
     }
 
+    public void send(String message) {
+        currentThread.message = message;
+    }
+
     public void set(int pin, int value) {
         currentThread.message = "set " + pin + " " + value;
     }
+
+    public abstract void setAll();
 
     public void setCurrentThread(ServerThread t) {
         currentThread = t;

@@ -1,5 +1,6 @@
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -28,6 +29,14 @@ public class RaspberryPiPicoW extends Reciever {
         }
     }
 
+    public void setAll() {
+        String m = "setAll " + pins.length + " ";
+        for (int i = 0; i < 28; i++) {
+            m += pins[i].type + ":" + (int)pins[i].value + " ";
+        }
+        super.send(m);
+    }
+
     @Override
     public GridPane getListGridPane(Server s, ModalManager m) {
         GridPane g = new GridPane();
@@ -47,12 +56,18 @@ public class RaspberryPiPicoW extends Reciever {
         pinEditor.setText("Pin Editor");
         pinEditor.expandedProperty().set(false);
 
+        Button setAll = new Button("Set All");
+        setAll.setOnAction(e -> {
+            setAll();
+        });
+
         g.add(status, 0, 0);
         g.add(nameLabel, 1, 0);
         g.add(name, 2, 0);
         g.add(idLabel, 1, 1);
         g.add(id, 2, 1);
         g.add(pinEditor, 1, 2, 2, 1);
+        g.add(setAll, 1, 3, 2, 1);
 
         return g;
     }
@@ -60,21 +75,14 @@ public class RaspberryPiPicoW extends Reciever {
     private GridPane getPinLayout() {
         GridPane g = new GridPane();
 
-        // CheckBox c = new CheckBox();
-
-        // c.setOnAction(e -> {
-        //     super.set(0, c.selectedProperty().getValue() ? 1 : 0);
-        // });
-        // g.add(c, 0, 0);
-
         for (int i = 0; i < 28; i++) {
-            g.add(togglePane(i), i % 2, i / 2);
+            g.add(valueTogglePane(i), i % 2, i / 2);
         }
 
         return g;
     }
 
-    private GridPane togglePane(int pinNum) {
+    private GridPane valueTogglePane(int pinNum) {
         GridPane g = new GridPane();
 
         Label pinLabel = new Label(String.format("GPIO % 2d: ", pinNum));

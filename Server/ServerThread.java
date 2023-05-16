@@ -121,6 +121,7 @@ public class ServerThread extends Thread {
                         in = null;
                     } catch (IOException e) {
                         System.out.println("IOException | Closing thread");
+                        e.printStackTrace();
                         quit();
                         return;
                     } catch (Exception e) {

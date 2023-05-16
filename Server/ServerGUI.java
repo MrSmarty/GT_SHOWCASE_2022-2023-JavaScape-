@@ -373,16 +373,39 @@ public class ServerGUI {
                 Settings.nullCounterLimit = Integer.parseInt(newValue);
             }
         });
+
+        Label threadPrinterSecondsLabel = new Label("Thread Printer Seconds: ");
+        Spinner<Integer> threadPrinterSecondsSpinner = new Spinner<Integer>(1, 3600, Settings.threadPrinterSeconds, 1);
+        threadPrinterSecondsSpinner.setEditable(true);
+        threadPrinterSecondsSpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            if (oldValue != newValue) {
+                Settings.threadPrinterSeconds = Integer.parseInt(newValue);
+            }
+        });
+
+        Label portLabel = new Label("Port: ");
+        Spinner<Integer> portSpinner = new Spinner<Integer>(1, 1000, Settings.port, 1);
+        portSpinner.setEditable(true);
+        portSpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            if (oldValue != newValue) {
+                Settings.port = Integer.parseInt(newValue);
+            }
+        });
         
+        optionsPane.add(portLabel, 0, 0);
+        optionsPane.add(portSpinner, 1, 0);
 
-        optionsPane.add(rememberMeText, 0, 0);
-        optionsPane.add(rememberMeBox, 1, 0);
+        optionsPane.add(rememberMeText, 0, 1);
+        optionsPane.add(rememberMeBox, 1, 1);
 
-        optionsPane.add(autologinText, 0, 1);
-        optionsPane.add(autologinBox, 1, 1);
+        optionsPane.add(autologinText, 0, 2);
+        optionsPane.add(autologinBox, 1, 2);
 
-        optionsPane.add(nullCounterLabel, 0, 2);
-        optionsPane.add(nullCounterSpinner, 1, 2);
+        optionsPane.add(nullCounterLabel, 0, 3);
+        optionsPane.add(nullCounterSpinner, 1, 3);
+
+        optionsPane.add(threadPrinterSecondsLabel, 0, 4);
+        optionsPane.add(threadPrinterSecondsSpinner, 1, 4);
 
 
         body.setCenter(optionsPane);

@@ -113,15 +113,16 @@ wirelessNet.connect(SSID, PASSWORD)
 if not wirelessNet.isconnected():
     print("No connection")
 
-pins = [machine.Pin] * 28
+pins = []
 
-
+# TODO: Check if socket is still active, if not, then close the socket and restart the connection
 def process(data):
     print(data)
     args = data.split(" ")
 
     if args[0] == "getInfo":
         return "type 2 " + str(UID) + " Pico_W"
+    
     elif args[0] == "set":
         if (args[1] == "LED"):
             machine.Pin("LED", machine.Pin.OUT, value=int(args[2]))
@@ -129,9 +130,22 @@ def process(data):
         else:
             machine.Pin(int(args[1]), machine.Pin.OUT, value=int(args[2]))
             return "Set pin " + args[1] + " to " + args[2]
+        
     elif args[0] == "get":
         if (args[1] == "LED"):
             return machine.Pin("LED").value
+        else:
+            return machine.Pin(int(args[1])).value
+        
+    elif args[0] == "setAll":
+        for i in range(int(args[1])):
+            n = args[2+i].split(":")
+            if n[0] == "0":
+                pins.append(machine.Pin(
+                    int(i), machine.Pin.OUT, value=int(n[1])))
+            else:
+                pins.append(machine.Pin(int(i), machine.Pin.IN))
+        return "finished setAll"
 
     return "Unrecognized command"
 
@@ -188,3 +202,5 @@ finally:
 
 
 # n = machine.Pin("LED", machine.Pin.OUT, value=1)
+
+

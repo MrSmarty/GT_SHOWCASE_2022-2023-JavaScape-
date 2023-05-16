@@ -23,7 +23,7 @@ public class ServerApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.getIcons().add(new Image(ServerApp.class.getResourceAsStream("logo.png")));
-        Server server = new Server(19);
+        Server server = new Server(Settings.port);
         ServerGUI g = new ServerGUI();
 
         Thread serverThread = new Thread(() -> {
@@ -41,7 +41,7 @@ public class ServerApp extends Application {
             serverThreadCount++;
             while (true) {
                 try {
-                    Thread.sleep(1000 * 60 * 60);
+                    Thread.sleep(1000 * Settings.threadPrinterSeconds);
                     int[] threadCounts = server.getThreadCount();
                     clientThreadCount = threadCounts[0];
                     recieverThreadCount = threadCounts[1];
