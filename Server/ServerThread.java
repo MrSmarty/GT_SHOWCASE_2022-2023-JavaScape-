@@ -22,6 +22,8 @@ public class ServerThread extends Thread {
     private String in = null;
     private String out = null;
 
+    public String vals = "";
+
     // The device type (iPhone, windows, Pi Pico, etc.)
     String device = null;
 

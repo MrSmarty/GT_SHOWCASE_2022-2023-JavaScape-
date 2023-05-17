@@ -11,11 +11,11 @@ import javafx.scene.text.Text;
 
 public class RaspberryPiPicoW extends Reciever {
 
-    Pin[] pins = new Pin[28];
+    Pin[] pins = new Pin[29];
 
     public RaspberryPiPicoW(String id) {
         super(id, "Raspberry Pi Pico W", RaspberryPiPicoW.class.toString());
-        for (int i = 0; i < 28; i++) {
+        for (int i = 0; i < pins.length; i++) {
             pins[i] = new Pin();
             pins[i].pinNumber = i;
         }
@@ -23,15 +23,16 @@ public class RaspberryPiPicoW extends Reciever {
 
     public RaspberryPiPicoW(String id, String name) {
         super(id, name, RaspberryPiPicoW.class.getName());
-        for (int i = 0; i < 28; i++) {
+        for (int i = 0; i < pins.length; i++) {
             pins[i] = new Pin();
             pins[i].pinNumber = i;
         }
+        setAllAnalog();
     }
 
     public void setAll() {
         String m = "setAll " + pins.length + " ";
-        for (int i = 0; i < 28; i++) {
+        for (int i = 0; i < pins.length; i++) {
             m += pins[i].type + ":" + (int)pins[i].value + " ";
         }
         super.send(m);
@@ -90,6 +91,7 @@ public class RaspberryPiPicoW extends Reciever {
 
         Label pinLabel = new Label(String.format("GPIO % 2d: ", pinNum));
         CheckBox pinBox = new CheckBox();
+
         Label value = new Label(""+pins[pinNum].value);
 
         pinBox.setOnAction(e -> {
@@ -99,8 +101,10 @@ public class RaspberryPiPicoW extends Reciever {
         pinBox.selectedProperty().set(pins[pinNum].value == 1);
 
         g.add(pinLabel, 0, 0);
-        g.add(pinBox, 1, 0);
-        g.add(value, 2, 0);
+        if (pins[pinNum].type == 0)
+            g.add(pinBox, 1, 0);
+        else
+            g.add(value, 1, 0);
 
         return g;
     }
@@ -119,5 +123,11 @@ public class RaspberryPiPicoW extends Reciever {
             s += pins[i].value + " ";
         }
         return s.substring(0, s.length() - 1);
+    }
+
+    public void setAllAnalog() {
+        pins[26].type = 2;
+        pins[27].type = 2;
+        pins[28].type = 2;
     }
 }

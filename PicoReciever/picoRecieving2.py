@@ -7,16 +7,16 @@ import os
 import sys
 import time
 
-# IP = "192.168.1.241"
-# PORT = "19"
-# SSID = "Da Snifs"
-# PASSWORD = "11111111"
+IP = "192.168.1.241"
+PORT = "19"
+SSID = "Da Snifs"
+PASSWORD = "11111111"
 NAME = "Raspberry Pi Pico"
 
-IP = "10.3.5.60"
-PORT = "19"
-SSID = "LVISD Student"
-PASSWORD = "!V1k1ng$R0w1ng!"
+# IP = "10.3.5.60"
+# PORT = "19"
+# SSID = "LVISD Student"
+# PASSWORD = "!V1k1ng$R0w1ng!"
 
 # Use big encoding to get a unique ID for the Pico
 UID = int.from_bytes(machine.unique_id(), "big")
@@ -113,7 +113,7 @@ wirelessNet = network.WLAN(network.STA_IF)
 wirelessNet.active(True)
 wirelessNet.connect(SSID, PASSWORD)
 
-time.sleep(1)
+# time.sleep(1)
 
 if not wirelessNet.isconnected():
     print("No connection")
@@ -121,13 +121,18 @@ if not wirelessNet.isconnected():
 pins = []
 
 # TODO: Check if socket is still active, if not, then close the socket and restart the connection
+
+
 def process(data):
+    if len(data) == 0:
+        print("No data")
+        return
     print(data)
     args = data.split(" ")
 
     if args[0] == "getInfo":
         return "type 2 " + str(UID) + " Pico_W"
-    
+
     elif args[0] == "set":
         if (args[1] == "LED"):
             Pin("LED", Pin.OUT, value=int(args[2]))
@@ -135,23 +140,34 @@ def process(data):
         else:
             Pin(int(args[1]), Pin.OUT, value=int(args[2]))
             return "Set pin " + args[1] + " to " + args[2]
-    elif args[0] == "setDigital":
+    elif args[0] == "setAnalog":
         pins[int(args[1])] = ADC(Pin(int(args[1])))
-        
+    elif args[0] == "getAllAnalog":
+        n = ""
+        for i in range(len(pins)):
+            if isinstance(pins[i], ADC):
+                n = n + str(i) + ":" + str(pins[i].read())
+        print(n)
+
     elif args[0] == "get":
         if (args[1] == "LED"):
             return Pin("LED").value
         else:
             return Pin(int(args[1])).value
-        
+
     elif args[0] == "setAll":
         for i in range(int(args[1])):
             n = args[2+i].split(":")
-            if n[0] == "0":
-                pins.append(Pin(
-                    int(i), Pin.OUT, value=int(n[1])))
+            if i is not 23 or i is not 24 or i is not 25:
+                if n[0] == "0":
+                    pins.append(Pin(
+                        int(i), Pin.OUT, value=int(n[1])))
+                elif n[0] == "1":
+                    pins.append(Pin(int(i), Pin.IN))
+                elif n[0] == "2":
+                    pins.append(ADC(Pin(int(args[1]))))
             else:
-                pins.append(Pin(int(i), Pin.IN))
+                pins.append(Pin())
         return "finished setAll"
     elif args[0] == "getAll":
         n = ""
@@ -196,6 +212,8 @@ async def run():
                 swriter.write(output.encode("utf-8"))
                 await swriter.drain()
                 print("Sent")
+                if len(pins) >= 26:
+                    print(pins[26].read_u16())
 
             except OSError as e:
                 close()
