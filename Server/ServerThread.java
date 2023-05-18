@@ -118,7 +118,7 @@ public class ServerThread extends Thread {
                                 }
                             }
                         } else if (arguments[0].equals("values")) {
-                            
+
                         } else {
                             System.out.println("Message Recieved: " + in);
                         }

@@ -7,10 +7,16 @@ import os
 import sys
 import time
 
-IP = "192.168.1.241"
+# IP = "192.168.1.241"
+# PORT = "19"
+# SSID = "Da Snifs"
+# PASSWORD = "11111111"
+
+IP = "172.20.10.13"
 PORT = "19"
-SSID = "Da Snifs"
-PASSWORD = "11111111"
+SSID = "Lincoln_iPhone"
+PASSWORD = "idontknow"
+
 NAME = "Raspberry Pi Pico"
 
 # IP = "10.3.5.60"
@@ -111,7 +117,8 @@ if IP == "" or PORT == "":
 
 wirelessNet = network.WLAN(network.STA_IF)
 wirelessNet.active(True)
-wirelessNet.connect(SSID, PASSWORD)
+wirelessNet.connect(SSID)
+#wirelessNet.connect(SSID, PASSWORD)
 
 # time.sleep(1)
 
@@ -230,3 +237,4 @@ finally:
 
 
 # n = machine.Pin("LED", machine.Pin.OUT, value=1)
+

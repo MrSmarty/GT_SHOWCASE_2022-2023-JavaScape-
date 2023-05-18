@@ -1,5 +1,3 @@
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -33,7 +31,7 @@ public class RaspberryPiPicoW extends Reciever {
     public void setAll() {
         String m = "setAll " + pins.length + " ";
         for (int i = 0; i < pins.length; i++) {
-            m += pins[i].type + ":" + (int)pins[i].value + " ";
+            m += pins[i].type + ":" + (int) pins[i].value + " ";
         }
         super.send(m);
     }
@@ -80,7 +78,7 @@ public class RaspberryPiPicoW extends Reciever {
             if (i < 14)
                 g.add(valueTogglePane(i), 0, i);
             else
-                g.add(valueTogglePane(i), 1, i-14);
+                g.add(valueTogglePane(i), 1, i - 14);
         }
 
         return g;
@@ -92,7 +90,7 @@ public class RaspberryPiPicoW extends Reciever {
         Label pinLabel = new Label(String.format("GPIO % 2d: ", pinNum));
         CheckBox pinBox = new CheckBox();
 
-        Label value = new Label(""+pins[pinNum].value);
+        Label value = new Label("" + pins[pinNum].value);
 
         pinBox.setOnAction(e -> {
             super.set(pinNum, pinBox.selectedProperty().getValue() ? 1 : 0);
