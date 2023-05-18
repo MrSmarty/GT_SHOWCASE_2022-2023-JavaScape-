@@ -163,6 +163,7 @@ public class Server {
                 }
 
             }
+            
 
             // Start async funtion if not already doing so
             // if (asyncInput == null || asyncInput.isDone()) {

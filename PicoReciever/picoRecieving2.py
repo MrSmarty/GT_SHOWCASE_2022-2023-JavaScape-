@@ -7,15 +7,10 @@ import os
 import sys
 import time
 
-# IP = "192.168.1.241"
-# PORT = "19"
-# SSID = "Da Snifs"
-# PASSWORD = "11111111"
-
-IP = "172.20.10.13"
+IP = "192.168.1.241"
 PORT = "19"
-SSID = "Lincoln_iPhone"
-PASSWORD = "idontknow"
+SSID = "Da Snifs"
+PASSWORD = "11111111"
 
 NAME = "Raspberry Pi Pico"
 
@@ -114,18 +109,24 @@ if IP == "" or PORT == "":
             site.close()
             break
 
-
 wirelessNet = network.WLAN(network.STA_IF)
 wirelessNet.active(True)
-wirelessNet.connect(SSID)
-#wirelessNet.connect(SSID, PASSWORD)
+wirelessNet.connect(SSID, PASSWORD)
 
-# time.sleep(1)
+#time.sleep(1)
 
 if not wirelessNet.isconnected():
     print("No connection")
 
 pins = []
+for i in range(29):
+    if i is not 23 or i is not 24 or i is not 25:
+        if i is 26 or i is 27 or i is 28:
+            pins.append(ADC(Pin(i)))
+        else:
+            pins.append(Pin(int(i), Pin.OUT, value=0))
+    else:
+        pins.append(Pin())
 
 # TODO: Check if socket is still active, if not, then close the socket and restart the connection
 
@@ -150,10 +151,11 @@ def process(data):
     elif args[0] == "setAnalog":
         pins[int(args[1])] = ADC(Pin(int(args[1])))
     elif args[0] == "getAllAnalog":
-        n = ""
-        for i in range(len(pins)):
-            if isinstance(pins[i], ADC):
-                n = n + str(i) + ":" + str(pins[i].read())
+        n = "analogValues"
+
+        n = n + " 26:" + str(pins[26].read_u16())
+        n = n + " 27:" + str(pins[27].read_u16())
+        n = n + " 28:" + str(pins[28].read_u16())
         print(n)
 
     elif args[0] == "get":
@@ -237,4 +239,3 @@ finally:
 
 
 # n = machine.Pin("LED", machine.Pin.OUT, value=1)
-
